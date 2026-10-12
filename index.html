@@ -1,0 +1,4096 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crochet Corner｜鉤織小教室</title>
+  <!-- favicon: inline SVG data URI with yarn emoji; fully offline, no external request -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A7%B6%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <style>
+    /* ===== 全站樣式（內嵌，無外部樣式表）=====
+       CSS 設計系統：色彩變數、字體堆疊、共用卡片/按鈕/Modal 樣式、
+       間距尺度、圖示規則、reduced-motion 與響應式斷點。 */
+
+    /* ---- 設計系統變數（:root）----
+       五色配色須與規格值完全一致（Req 17.1）；
+       另定義字體堆疊、圓角、陰影、間距與圖示尺寸等共用設計權杖。 */
+    :root {
+      /* 配色（規格固定值，不得更動） */
+      --color-cream: #FFF9F0;      /* 奶油白：主背景 */
+      --color-beige: #F3E7D8;      /* 淺米色：區塊背景 */
+      --color-pink: #F4CCD3;       /* 淡粉色：重點裝飾色 */
+      --color-caramel: #C18B66;    /* 焦糖棕：按鈕／圖示／強調 */
+      --color-brown: #59443A;      /* 深棕色：標題／內文 */
+
+      /* 由焦糖棕推導的互動狀態色（維持同色系，不新增外部色票） */
+      /* 按鈕 hover/active 的加深焦糖棕：較基底 #C18B66 稍深（維持「hover 加深」直覺），
+         同時與下方深棕按鈕文字維持 ≥ 4.5:1 對比（#241A12 於此底色約 4.85:1，Req 19.4）。
+         此為衍生互動色權杖，非 :root 五色固定值，可調整（Req 17.1 不受影響）。 */
+      --color-caramel-dark: #B07E57;
+
+      /* 按鈕文字色（無障礙對比）：
+         焦糖棕按鈕背景為規格固定值 #C18B66（Req 17.4），而奶油白文字於其上僅 2.80:1，
+         低於一般文字 4.5:1 門檻（按鈕標籤 16px/600 不屬 WCAG 大型文字，Req 19.4）。
+         改用同色系深棕作為按鈕文字：於基底 #C18B66 約 5.81:1、於 hover 底 #B07E57 約 4.85:1，
+         兩狀態皆達 ≥ 4.5:1。僅調整「套用於文字的色彩」，不更動 :root 五色固定值（Req 17.1）。 */
+      --color-button-text: #241A12;
+
+      /* 可讀文字專用的深焦糖棕（無障礙對比）：
+         焦糖棕 #C18B66 作為「文字」時對比不足（奶油白/淺米/白底僅約 2.4–2.9:1，
+         低於一般文字 4.5:1 門檻，Req 19.4）。此權杖為同色系加深版，供「作為可讀文字」
+         的強調/輔助字樣使用（英文名、欄位小標、說明小字、副標等），
+         於奶油白/淺米/白底皆達 ≥ 4.5:1、於淡粉底之大型文字達 ≥ 3:1。
+         僅改「套用於文字的色彩權杖」，不更動 :root 五色固定值（Req 17.1）。 */
+      --color-caramel-text: #8A5A3C;
+
+      /* 字體堆疊：僅使用系統內建字體，不請求任何外部字體（Req 17.2） */
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", "PingFang TC", "Microsoft JhengHei",
+        "Noto Sans TC", Arial, system-ui, sans-serif;
+
+      /* 共用圓角：卡片／按鈕／Modal 一致（8–16px，Req 17.3, 17.4, 17.5） */
+      --radius-card: 12px;         /* 卡片／Modal 圓角（介於 8–16px） */
+      --radius-button: 10px;       /* 按鈕圓角（介於 8–16px） */
+
+      /* 柔和陰影：模糊 4–12px、不透明度 ≤ 20%（Req 17.3） */
+      --shadow-soft: 0 4px 10px rgba(89, 68, 58, 0.15);
+      --shadow-soft-hover: 0 8px 12px rgba(89, 68, 58, 0.18);
+
+      /* 間距尺度：以 4px 為基數的一致節奏 */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+
+      /* 共用內距：卡片／按鈕／Modal 一致（Req 17.4, 17.5） */
+      --pad-card: 20px;            /* 卡片／Modal 內距 */
+      --pad-button: 12px 20px;     /* 按鈕內距（上下 12 / 左右 20） */
+
+      /* 圖示共用尺寸與色彩規則（Req 17.4） */
+      --icon-size: 24px;
+      --icon-color: var(--color-caramel);
+
+      /* 導覽列高度：供吸頂與捲動間距計算 */
+      --navbar-height: 56px;
+
+      /* 最小可點擊範圍：按鈕／控制項 ≥ 44x44 CSS 像素（Req 18.6） */
+      --touch-target: 44px;
+
+      /* 共用動態時間（reduced-motion 時統一停用） */
+      --motion-fast: 300ms;
+      --motion-base: 500ms;
+    }
+
+    /* ---- 基礎重置與全域排版 ----
+       使用 border-box 盒模型並消除水平溢出（Req 18.4）。 */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      /* 平滑捲動；reduced-motion 時於下方媒體查詢關閉 */
+      scroll-behavior: smooth;
+      /* 錨點捲動時保留 Navbar 高度的頂端間距（Req 4.4） */
+      scroll-padding-top: var(--navbar-height);
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-brown);
+      background-color: var(--color-cream);
+      /* 防止任何子元素造成視窗水平溢出（Req 18.4） */
+      overflow-x: hidden;
+    }
+
+    /* 標題與內文統一採深棕色（Req 17.1） */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-brown);
+      line-height: 1.3;
+      margin: 0 0 var(--space-3);
+    }
+
+    p {
+      margin: 0 0 var(--space-3);
+    }
+
+    /* 圖片維持原始長寬比，不拉伸變形（Req 18.5） */
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* ---- 圖片 fallback 佔位（Req 2.3, 2.4）----
+       當 assets/ 圖片 3 秒內未載入或回報失敗時，由 imageFallbackModule
+       在原圖容器內插入 .img-fallback 佔位（內嵌 SVG + emoji），
+       並隱藏原生破圖圖示。佔位沿用原圖預留的版面尺寸，避免版面位移。 */
+
+    /* 原圖容器：以 inline-block 包住 <img>，供佔位繼承其版面尺寸 */
+    .img-slot {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    /* 載入失敗時隱藏原生 <img>（連同破圖圖示），但保留其占位高度由容器維持 */
+    .img-slot img.img-failed {
+      visibility: hidden;
+    }
+
+    /* 佔位視覺：填滿原圖預留的版面尺寸，置中呈現 emoji / SVG，不改變外框尺寸 */
+    .img-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      min-width: 48px;
+      min-height: 48px;
+      border-radius: var(--radius-card);
+      background-color: var(--color-beige);
+      color: var(--color-caramel);
+      overflow: hidden;
+    }
+
+    /* 佔位絕對定位於容器內，疊在隱藏的原圖之上以精確沿用其尺寸、不產生位移 */
+    .img-slot .img-fallback {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* 佔位內嵌 SVG 底框，emoji 以文字字符呈現於中央 */
+    .img-fallback svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .img-fallback__emoji {
+      font-size: clamp(1.75rem, 8vw, 3rem);
+      line-height: 1;
+    }
+
+    /* ---- 共用卡片樣式（.card）----
+       卡片／Modal 共用圓角、柔和陰影與內距（Req 17.3, 17.5）。 */
+    .card {
+      background-color: #fff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      padding: var(--pad-card);
+    }
+
+    /* ---- 共用按鈕樣式（.btn）----
+       所有按鈕共用圓角、內距與焦糖棕背景（Req 17.4），
+       並確保最小 44x44 CSS 像素可點擊範圍（Req 18.6）。 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--touch-target);
+      min-height: var(--touch-target);
+      padding: var(--pad-button);
+      border: none;
+      border-radius: var(--radius-button);
+      background-color: var(--color-caramel);
+      /* 深棕按鈕文字：於焦糖棕底達 ≥ 4.5:1（Req 19.4）；背景仍為固定焦糖棕（Req 17.4） */
+      color: var(--color-button-text);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: background-color var(--motion-fast) ease,
+        transform var(--motion-fast) ease;
+    }
+
+    .btn:hover {
+      background-color: var(--color-caramel-dark);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    /* 次要按鈕：淡粉底、深棕字，供篩選/輔助動作使用（共用圓角/內距） */
+    .btn--secondary {
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+    }
+
+    .btn--secondary:hover {
+      background-color: #efb9c3;
+    }
+
+    /* 可見焦點指示：鍵盤操作可辨識（Req 19.5） */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 3px solid var(--color-caramel);
+      outline-offset: 2px;
+    }
+
+    /* 其他可點擊控制項（連結、radio 等）亦確保最小點擊範圍（Req 18.6） */
+    .control,
+    input[type="radio"] + label,
+    .nav-link {
+      min-height: var(--touch-target);
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* ---- 共用圖示樣式（.icon）----
+       圖示共用尺寸與色彩規則（Req 17.4）。 */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--icon-size);
+      height: var(--icon-size);
+      color: var(--icon-color);
+      fill: currentColor;
+      flex: 0 0 auto;
+    }
+
+    /* ---- 共用 Modal 樣式 ----
+       Modal 與卡片共用圓角／陰影／內距（Req 17.5）；
+       <600px 時完整顯示於視窗內並提供垂直捲動（Req 18.7）。 */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+      background-color: rgba(89, 68, 58, 0.5);
+      z-index: 1000;
+    }
+
+    .modal {
+      position: relative;
+      background-color: #fff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft-hover);
+      padding: var(--pad-card);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      /* 捲動時提供慣性滑動體驗（iOS） */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Modal 標頭：預留關閉按鈕空間並與內容對齊 */
+    .modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: var(--space-3);
+    }
+
+    /* 關閉按鈕：帶可辨識關閉標示（視覺 ✕ 圖示 + 螢幕閱讀器文字），
+       確保最小 44x44 CSS 像素可點擊範圍（Req 9.3, 11.4, 18.6, 19.2）。 */
+    .modal__close {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--touch-target);
+      min-height: var(--touch-target);
+      padding: 0;
+      border: none;
+      border-radius: var(--radius-button);
+      background-color: var(--color-beige);
+      color: var(--color-brown);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background-color var(--motion-fast) ease;
+    }
+
+    .modal__close:hover {
+      background-color: var(--color-pink);
+    }
+
+    /* Modal 主要內容容器：集中注入的教學／作品內容 */
+    .modal__content {
+      margin-top: var(--space-2);
+    }
+
+    /* Stitch_Modal 教學內容排版（Req 9.2）：標題、分段區塊、材料清單、
+       編號步驟與常見錯誤清單；沿用設計系統色彩與間距，維持與卡片一致的閱讀節奏。 */
+    .stitch-modal__title {
+      margin: 0 0 var(--space-1) 0;
+      color: var(--color-brown);
+    }
+
+    .stitch-modal__title-en {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.85em;
+      font-weight: 400;
+      /* 作為可讀小字，使用加深焦糖棕以達 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    .stitch-modal__section {
+      margin-top: var(--space-3);
+    }
+
+    .stitch-modal__section-title {
+      margin: 0 0 var(--space-1) 0;
+      font-size: 1rem;
+      color: var(--color-brown);
+    }
+
+    .stitch-modal__text {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .stitch-modal__list {
+      margin: 0;
+      padding-left: 1.4em;
+      line-height: 1.6;
+    }
+
+    .stitch-modal__list li {
+      margin-bottom: var(--space-1);
+    }
+
+    /* 教學內容缺漏時的錯誤訊息（Req 9.9）：於 Modal 內醒目呈現「內容無法載入」，
+       關閉按鈕仍由共用 Modal 保留，使用者可正常關閉。 */
+    .stitch-modal__error {
+      margin: var(--space-2) 0 0 0;
+      padding: var(--space-2);
+      border-radius: var(--radius-card);
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+      line-height: 1.6;
+    }
+
+    /* Project_Modal 作品詳細內容排版（Req 11.2）：作品名稱、難度（含 Easy/Medium 分類）、
+       預估時間（含「時間因人而異」說明，Req 11.3）、所需材料、製作方向與注意事項；
+       沿用設計系統色彩與間距，與 Stitch_Modal 維持一致的閱讀節奏。 */
+    .project-modal__title {
+      margin: 0 0 var(--space-2) 0;
+      color: var(--color-brown);
+    }
+
+    /* 難度與分類列：難度數值搭配 Easy/Medium 淡粉底標籤，置於標題下方 */
+    .project-modal__difficulty {
+      margin: 0 0 var(--space-3) 0;
+      font-size: 1rem;
+      color: var(--color-brown);
+    }
+
+    .project-modal__category {
+      display: inline-block;
+      margin-left: var(--space-2);
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-button);
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .project-modal__section {
+      margin-top: var(--space-3);
+    }
+
+    .project-modal__section-title {
+      margin: 0 0 var(--space-1) 0;
+      font-size: 1rem;
+      color: var(--color-brown);
+    }
+
+    .project-modal__text {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* 預估時間因人而異的補充說明：以加深焦糖棕小字呈現，與時間值區隔並達對比（Req 11.3, 19.4） */
+    .project-modal__time-note {
+      margin: var(--space-1) 0 0 0;
+      font-size: 0.9rem;
+      color: var(--color-caramel-text);
+      line-height: 1.6;
+    }
+
+    .project-modal__list {
+      margin: 0;
+      padding-left: 1.4em;
+      line-height: 1.6;
+    }
+
+    .project-modal__list li {
+      margin-bottom: var(--space-1);
+    }
+
+    /* 開啟 Modal 時鎖住背景捲動，避免背景與 Modal 同時捲動 */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* <600px：Modal 完整顯示於視窗內，內容超高時於內容區域提供垂直捲動（Req 18.7）。
+       縮小外距並以可視高度為上限，確保 Modal 不被裁切且可完整存取。 */
+    @media (max-width: 599px) {
+      .modal-overlay {
+        padding: var(--space-3);
+        align-items: flex-start;
+      }
+
+      .modal {
+        max-width: 100%;
+        max-height: calc(100vh - (var(--space-3) * 2));
+      }
+    }
+
+    /* ---- 吸頂導覽列（固定可見，Req 4.1）---- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: var(--navbar-height);
+      background-color: var(--color-cream);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* 導覽列內層：置中限制寬度，與各區塊內容對齊 */
+    .navbar {
+      display: flex;
+      align-items: center;
+      min-height: var(--navbar-height);
+      padding: 0 var(--space-4);
+    }
+
+    /* 五個錨點連結橫向排列；窄螢幕自動換行不溢出（Req 18.4） */
+    .navbar__list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* 導覽連結：焦糖棕文字、足夠點擊範圍（Req 18.6），hover/焦點提供可辨識回饋 */
+    .nav-link {
+      padding: var(--space-2) var(--space-3);
+      color: var(--color-brown);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: var(--radius-button);
+      transition: background-color var(--motion-fast) ease,
+        color var(--motion-fast) ease;
+    }
+
+    .nav-link:hover {
+      background-color: var(--color-beige);
+      /* hover 時的連結文字改用加深焦糖棕，於淺米底維持 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    /* ---- 輕量提示（toast）元件（Req 4.6, 5.6, 20.6）----
+       置於固定底部中央、具 role="status"（於 JS 設定）供輔助技術讀取，不阻斷操作。
+       完整樣式與統一提示元件於任務 17 整合；此處提供 5.2 所需的最小可用呈現。 */
+    #toast-root {
+      position: fixed;
+      left: 50%;
+      bottom: var(--space-5);
+      transform: translateX(-50%);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      width: max-content;
+      max-width: calc(100vw - var(--space-5) * 2);
+      pointer-events: none;
+    }
+
+    .toast {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-card);
+      background-color: var(--color-brown);
+      color: var(--color-cream);
+      box-shadow: var(--shadow-soft-hover);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* ---- 區塊通用背景與間距 ----
+       交錯使用奶油白與淺米色區塊背景（Req 17.1）。 */
+    main > section {
+      padding: var(--space-7) var(--space-4);
+    }
+
+    main > section:nth-of-type(even) {
+      background-color: var(--color-beige);
+    }
+
+    /* 螢幕閱讀器專用文字（視覺隱藏但可被輔助技術讀取） */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---- 響應式格線：卡片/作品容器的欄數隨斷點變化 ----
+       預設（<600px）單欄（Req 18.1）。 */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    /* 共用內容寬度限制，避免大螢幕過寬並維持置中 */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ---- 響應式斷點 ----
+       <600 單欄 / 600–900 兩欄 / >900 三欄以上（Req 18.1, 18.2, 18.3）。 */
+
+    /* 600–900px：兩欄（Req 18.2） */
+    @media (min-width: 600px) and (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* >900px：三欄以上（Req 18.3） */
+    @media (min-width: 901px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* >900px 的作品格線可擴充至更多欄（三欄以上，Req 18.3） */
+    @media (min-width: 1200px) {
+      .grid--wide {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* ---- Hero 首頁區塊（Req 5）----
+       置中呈現品牌名、副標、中文介紹與 CTA；淡粉底凸顯主視覺。
+       初始 opacity:0，由 JS 依 prefers-reduced-motion 決定淡入或直接顯示。 */
+    .hero {
+      background-color: var(--color-pink);
+      text-align: center;
+    }
+
+    .hero__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+    }
+
+    /* 品牌名：頁面唯一 h1，字級最大以強調主題 */
+    .hero__brand {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.25rem);
+      letter-spacing: 0.02em;
+    }
+
+    .hero__subtitle {
+      margin: 0;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-style: italic;
+      /* 淡粉底上的副標，使用加深焦糖棕以確保對比（大型文字 ≥ 3:1，Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    .hero__intro {
+      margin: 0;
+      max-width: 32ch;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+    }
+
+    .hero__cta {
+      margin-top: var(--space-2);
+    }
+
+    /* 淡入效果：JS 以 .hero--visible 觸發 opacity 0→1（Req 5.7）。
+       轉場時長取 500ms（落在規格 300–800ms 區間內）。
+       reduced-motion 時 JS 不加轉場，並以 inline style 直接設為可見（Req 5.8），
+       另於下方媒體查詢統一停用轉場作為雙重保險。 */
+    .hero--animatable {
+      opacity: 0;
+      transition: opacity 500ms ease;
+    }
+
+    .hero--visible {
+      opacity: 1;
+    }
+
+    /* ---- Intro 認識鉤織區塊（Req 6）----
+       置中限制閱讀寬度的靜態段落；內容固定、無互動，載入即完整呈現。 */
+    .intro__inner {
+      max-width: 760px;
+    }
+
+    .intro__title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: var(--space-4);
+    }
+
+    /* 段落間距與行高維持舒適可讀，長度適中不致過寬 */
+    .intro__text {
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      margin-bottom: var(--space-4);
+    }
+
+    .intro__text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ---- Tools 新手必備工具區塊（Req 7）----
+       四張 Tool_Card 以共用格線同時可見（Req 7.1）；每張卡片含圖片/圖示、
+       中英文名、簡短介紹，以及可點擊展開/收合的詳細說明（提示）。
+       採「點擊切換 aria-expanded + CSS class」而非僅 hover，確保觸控可用（Req 7.7）。 */
+
+    /* 區塊共用標頭：主標題與副標題置中呈現 */
+    .section__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .section__title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: var(--space-2);
+    }
+
+    .section__subtitle {
+      margin: 0 auto;
+      max-width: 48ch;
+      color: var(--color-brown);
+    }
+
+    /* Tool_Card：共用卡片外觀；以 flex 直向排列各欄位。
+       僅「查看更多」按鈕可觸發展開（整卡不可點）；transition 供 hover 上浮與展開轉場。 */
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      text-align: center;
+      /* hover 上浮與陰影轉場（300ms，Req 7.4）；reduced-motion 時於媒體查詢停用 */
+      transition: transform var(--motion-fast) ease,
+        box-shadow var(--motion-fast) ease;
+    }
+
+    /* 指標停留時向上位移 6px（落在規格 4–8px 區間，Req 7.4），並加深陰影強化浮起感。
+       reduced-motion 時由下方媒體查詢停用，不產生動態（Req 7.4, 17.6）。 */
+    .tool-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    /* 圖片槽：固定高度供圖片/佔位沿用，維持四張卡片視覺一致、不因缺圖位移 */
+    .tool-card__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-card__media .img-slot {
+      width: 96px;
+      height: 96px;
+    }
+
+    .tool-card__media img {
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
+    }
+
+    /* 名稱列：中文名為主、英文名為輔（Req 7.2, 3.2） */
+    .tool-card__name {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .tool-card__name-en {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 400;
+      /* 英文名為可讀小字，使用加深焦糖棕以達 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    .tool-card__intro {
+      margin: 0;
+      text-align: left;
+      flex: 0 0 auto;
+      /* 固定介紹區高度：不論介紹幾行，四張卡的介紹都佔同樣的垂直空間，
+         「查看更多」按鈕因此從同一位置開始、四張對齊（不依賴格線等高）。
+         若未來介紹更長超過此高度，內容仍會完整顯示，不裁切。 */
+      min-height: 8.5em;
+    }
+
+    /* 展開切換列：整卡可點，另提供一個可聚焦按鈕供鍵盤操作與輔助技術（Req 7.5, 19.2） */
+    .tool-card__toggle {
+      align-self: center;
+      flex: 0 0 auto;
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+    }
+
+    /* 展開/收合容器：以 max-height + opacity 轉場於 500ms 內完成（Req 7.5, 7.6）。
+       收合狀態 max-height:0 且隱藏；展開狀態放寬 max-height 並顯示。 */
+    .tool-card__detail {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      text-align: left;
+      transition: max-height var(--motion-base) ease,
+        opacity var(--motion-base) ease;
+    }
+
+    .tool-card.is-expanded .tool-card__detail {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: var(--space-2);
+    }
+
+
+    /* 展開的詳細說明整體靠左：小標與清單對齊基準一致，不因卡片置中而歪掖。 */
+    .tool-card__detail {
+      align-self: stretch;
+      width: 100%;
+    }
+
+    .tool-card__detail-title {
+      margin: 0 0 var(--space-2);
+      font-size: 1rem;
+      text-align: left;
+      /* 「新手提示」小標為可讀文字，使用加深焦糖棕以達 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    /* 新手提示清單：至少一則提示（Req 7.2），以項目符號條列；文字靠左、長行自動換行不破版 */
+    .tool-card__tips {
+      margin: 0;
+      padding-left: var(--space-5);
+      text-align: left;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .tool-card__tips li {
+      margin-bottom: var(--space-1);
+    }
+
+    .tool-card__tips li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ---- Stitches 基本針法區塊（Req 8）----
+       三張 Stitch_Card 以共用格線同時可見（Req 8.1）；每張卡片含中文名、英文名、
+       難度標示（簡單/中等/困難）、用途、新手提示與「查看教學」按鈕（Req 8.2–8.7）。
+       缺任一欄位時以「資料暫缺」佔位並保留其餘欄位（Req 8.8）。
+       沿用共用 .card / .btn 樣式與區塊標頭樣式，維持設計系統一致（Req 17.3–17.5）。 */
+
+    /* Stitch_Card：共用卡片外觀；以 flex 直向排列各欄位，按鈕固定於卡片底部對齊。 */
+    .stitch-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      text-align: left;
+    }
+
+    /* 名稱列：中文名為主、英文名為輔（Req 8.2, 8.3, 3.2） */
+    .stitch-card__name {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .stitch-card__name-en {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 400;
+      /* 英文名為可讀小字，使用加深焦糖棕以達 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    /* 難度標示：以淡粉底圓角徽章呈現（簡單/中等/困難，Req 8.4），自適應內容寬度 */
+    .stitch-card__difficulty {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-button);
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* 用途與新手提示欄位標題：以加深焦糖棕小標區隔內容並達對比（Req 8.5, 8.6, 19.4） */
+    .stitch-card__field-label {
+      margin: 0 0 var(--space-1);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-caramel-text);
+    }
+
+    .stitch-card__text {
+      margin: 0;
+    }
+
+    /* 用途與提示之間保留一致間距，提示欄位置於卡片內容末段 */
+    .stitch-card__field {
+      margin: 0;
+    }
+
+    /* 「查看教學」按鈕：推至卡片底部對齊，維持三張卡片按鈕視覺一致（Req 8.7） */
+    .stitch-card__action {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    /* ---- Projects 新手作品推薦區塊（Req 10）----
+       四張 Project_Card 以共用格線同時可見（Req 10.1）；每張卡片含作品圖片、
+       名稱、「難度 N/5」+ Easy/Medium 分類、預估時間，以及「查看作品」按鈕。
+       卡片沿用共用 .card 外觀（圓角/陰影/內距一致，Req 17.3, 17.5）。 */
+
+    /* Project_Card：共用卡片外觀；以 flex 直向排列各欄位，按鈕置於底部對齊。
+       hover 上浮（4–8px，Req 7.4 風格一致）；reduced-motion 時於下方媒體查詢停用。 */
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      text-align: center;
+      transition: transform var(--motion-fast) ease,
+        box-shadow var(--motion-fast) ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    /* 圖片槽：固定高度供圖片/佔位沿用，維持四張卡片視覺一致、不因缺圖位移 */
+    .project-card__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-card__media .img-slot {
+      width: 120px;
+      height: 120px;
+      overflow: hidden;
+      border-radius: var(--radius-card);
+    }
+
+    .project-card__media img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: var(--radius-card);
+    }
+
+    /* 名稱：作品中文名為主標 */
+    .project-card__name {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    /* 詮釋資料列：難度（含 Easy/Medium 分類）與預估時間，置中條列 */
+    .project-card__meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      margin: 0;
+    }
+
+    .project-card__difficulty,
+    .project-card__time {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* 難度分類標籤（Easy/Medium）：以淡粉底的小標籤呈現，與難度數值並列 */
+    .project-card__category {
+      display: inline-block;
+      margin-left: var(--space-2);
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-button);
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* 查看作品按鈕：置於卡片底部並與其餘卡片對齊（margin-top:auto 推至底） */
+    .project-card__view {
+      margin-top: auto;
+      align-self: center;
+    }
+
+    /* ---- Filter_Control 難度篩選按鈕群（Req 12）----
+       All/Easy/Medium 三鈕置於格線上方；以顯示/隱藏切換作品卡片，不重載頁面（Req 12.2–12.4）。
+       按鈕以 flex 置中並允許換行（flex-wrap），確保 320–1920px 無水平溢出（Req 12.7）。
+       沿用 .btn 共用圓角/內距，未選取採 .btn--secondary 淡粉外觀；選取狀態以焦糖棕背景與邊框
+       呈現與未選取可辨識的差異（Req 12.6）。 */
+    .filter-control {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      max-width: 100%;
+    }
+
+    /* 篩選按鈕基礎：未選取時沿用次要外觀，並預留透明邊框避免選取時位移 */
+    .filter-control__button {
+      border: 2px solid transparent;
+    }
+
+    /* 選取狀態（aria-pressed="true"）：焦糖棕背景 + 深棕邊框，與未選取有可辨識差異（Req 12.6）；
+       深棕文字於焦糖棕底達 ≥ 4.5:1（Req 19.4）。 */
+    .filter-control__button.is-selected {
+      background-color: var(--color-caramel);
+      border-color: var(--color-brown);
+      color: var(--color-button-text);
+    }
+
+    .filter-control__button.is-selected:hover {
+      background-color: var(--color-caramel-dark);
+    }
+
+    /* 篩選面板：難度與類型兩列篩選，垂直堆疊、置中；窄螢幕自動換行不溢出。 */
+    .filter-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+
+    /* 單列篩選：左側標題 + 右側按鈕群；窄螢幕標題會自動換行到按鈕上方。 */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2) var(--space-3);
+    }
+
+    .filter-row__label {
+      font-weight: 600;
+      color: var(--color-brown);
+      flex: 0 0 auto;
+    }
+
+    /* 單列內的按鈕群不再單獨留底部間距（由 .filter-panel 控制）。 */
+    .filter-row .filter-control {
+      margin-bottom: 0;
+    }
+
+    /* 無符合篩選結果的提示文字。 */
+    .filter-empty {
+      margin: var(--space-4) 0 0;
+      text-align: center;
+      color: var(--color-brown);
+    }
+
+    /* 作品計數：標題區下的小計數文字（置中、輔色）。 */
+    .project-count {
+      margin: var(--space-2) 0 0;
+      font-size: 0.95rem;
+      color: var(--color-caramel-text);
+    }
+
+    /* ---- Footer 區塊（Req 16）----
+       置於主要內容下方，顯示三段收尾文字；置中、淺米色區塊背景與設計系統一致，
+       使用 word-break/overflow-wrap 確保 320–1920px 完整顯示、不裁切、不水平溢出（Req 16.4）。 */
+    .footer {
+      padding: var(--space-6) var(--space-4);
+      background-color: var(--color-beige);
+      text-align: center;
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      max-width: 48ch;
+      margin: 0 auto;
+    }
+
+    .footer__line {
+      margin: 0;
+      color: var(--color-brown);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      /* 允許長字串在窄視窗換行，避免文字裁切或水平捲動（Req 16.4） */
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* 著作權字樣以加深焦糖棕點綴，維持手作溫暖風格並於淺米底達 ≥ 4.5:1（Req 16.1, 19.4） */
+    .footer__line--brand {
+      color: var(--color-caramel-text);
+      font-weight: 600;
+    }
+
+    /* ---- Quiz 互動式新手測驗區塊（作答流程，Req 13）----
+       依序三題，每題一組同 name 的 radio（確保單選，Req 13.2），每個選項對應一對一
+       <label>（Req 19.3）；顯示「Show My Result」送出按鈕（Req 13.3）。
+       作答僅暫存於記憶體（JS 變數），不寫入 localStorage/sessionStorage，重整即清除（Req 13.6, 13.7）。
+       選項文字過長時自動換行，不超出容器、不破版（Req 18.8）。
+       沿用共用 .card / .btn 樣式與區塊標頭樣式，維持設計系統一致。 */
+
+    /* 測驗表單：限制閱讀寬度並置中，各題之間維持一致垂直節奏 */
+    .quiz__form {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* 單題：以 fieldset 群組題目與其選項，維持語意與無障礙關聯 */
+    .quiz__question {
+      margin: 0 0 var(--space-5);
+      border: none;
+      padding: 0;
+    }
+
+    .quiz__question:last-of-type {
+      margin-bottom: var(--space-5);
+    }
+
+    /* 題目標題：以 legend 呈現，語意上為該題選項群組的標籤 */
+    .quiz__question-title {
+      padding: 0;
+      margin: 0 0 var(--space-3);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-brown);
+      /* 題目較長時換行，不破版（Req 18.8） */
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* 選項清單：直向排列，選項間保留一致間距 */
+    .quiz__options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    /* 單一選項的 <label>：整列可點、含最小 44px 點擊高度（Req 18.6），
+       以 flex 讓 radio 與文字並排，文字過長時自動換行不溢出（Req 18.8）。 */
+    .quiz__option {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      min-height: var(--touch-target);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-beige);
+      border-radius: var(--radius-button);
+      background-color: #fff;
+      cursor: pointer;
+      transition: background-color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease;
+    }
+
+    .quiz__option:hover {
+      background-color: var(--color-cream);
+      border-color: var(--color-caramel);
+    }
+
+    /* radio 控制項：固定尺寸、不被壓縮，垂直對齊文字首行 */
+    .quiz__radio {
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      margin: 2px 0 0;
+      accent-color: var(--color-caramel);
+      cursor: pointer;
+    }
+
+    /* 選項文字：佔滿剩餘寬度並允許換行，長文字不超出容器、不破版（Req 18.8） */
+    .quiz__option-text {
+      flex: 1 1 auto;
+      min-width: 0;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* 被選取選項：以淡粉底 + 焦糖棕邊框提供可辨識回饋 */
+    .quiz__option:focus-within,
+    .quiz__radio:checked ~ .quiz__option-text {
+      /* 焦點與選取回饋由下方規則補強 */
+    }
+
+    .quiz__option.is-selected {
+      background-color: var(--color-pink);
+      border-color: var(--color-caramel);
+    }
+
+    /* 送出按鈕列：置中呈現「Show My Result」，與題組保留間距 */
+    .quiz__actions {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-6);
+    }
+
+    /* ---- 測驗結果畫面（Quiz_Result，Req 15）---- */
+    /* 結果卡片：沿用全站卡片的圓角/陰影/內距規則，限制閱讀寬度並置中 */
+    .quiz__result {
+      max-width: 760px;
+      margin: var(--space-6) auto 0;
+      text-align: left;
+    }
+
+    /* 隱藏旗標：以 hidden 屬性控制結果顯示/隱藏，重新測驗時收合 */
+    .quiz__result[hidden] {
+      display: none;
+    }
+
+    /* 結果標頭：圖片與名稱／難度並排，窄螢幕自動換行 */
+    .quiz__result-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .quiz__result-media .img-slot {
+      width: 120px;
+      height: 120px;
+    }
+
+    .quiz__result-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .quiz__result-heading {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .quiz__result-eyebrow {
+      margin: 0 0 var(--space-1);
+      font-size: 0.95rem;
+      /* 結果上緣小標為可讀文字，使用加深焦糖棕以達 ≥ 4.5:1（Req 19.4） */
+      color: var(--color-caramel-text);
+    }
+
+    .quiz__result-name {
+      margin: 0 0 var(--space-2);
+      color: var(--color-brown);
+    }
+
+    .quiz__result-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      margin: 0;
+      color: var(--color-brown);
+    }
+
+    .quiz__result-meta span {
+      display: inline-block;
+    }
+
+    /* 結果區段：推薦原因／所需材料清單標題與內容 */
+    .quiz__result-section {
+      margin: 0 0 var(--space-4);
+    }
+
+    .quiz__result-section-title {
+      margin: 0 0 var(--space-2);
+      color: var(--color-brown);
+    }
+
+    .quiz__result-list {
+      margin: 0;
+      padding-left: var(--space-5);
+      color: var(--color-brown);
+    }
+
+    .quiz__result-list li {
+      margin-bottom: var(--space-1);
+      overflow-wrap: anywhere;
+    }
+
+    /* 結果操作按鈕列：「看看作品介紹」與「重新測驗」，窄螢幕自動換行 */
+    .quiz__result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+
+    /* ---- Reduced Motion：啟用時停用所有非必要動態效果（Req 17.6）---- */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 固定導覽列：五個區塊錨點連結（Intro / Tools / Stitches / Projects / Quiz）。
+       錨點 href 供無 JS 時仍可跳轉；JS 就緒後由 smoothScrollModule 攔截點擊平滑捲動（任務 5.2）。 -->
+  <header>
+    <nav class="navbar container" aria-label="主要導覽">
+      <ul class="navbar__list">
+        <li><a class="nav-link" href="#intro">Intro</a></li>
+        <li><a class="nav-link" href="#tools">Tools</a></li>
+        <li><a class="nav-link" href="#stitches">Stitches</a></li>
+        <li><a class="nav-link" href="#projects">Projects</a></li>
+        <li><a class="nav-link" href="#quiz">Quiz</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 單一 main：六個區塊容器，內容由後續任務依資料渲染填入 -->
+  <main>
+    <!-- Hero 首頁區塊：品牌名（頁面唯一 h1，Req 19.1）、英文副標、中文介紹與 CTA。
+         載入時依 prefers-reduced-motion 決定是否播放一次淡入（Req 5.7, 5.8）。 -->
+    <section id="hero" class="hero">
+      <div class="container hero__inner">
+        <h1 class="hero__brand">Crochet Corner</h1>
+        <p class="hero__subtitle">Start your crochet journey.</p>
+        <p class="hero__intro">從一團毛線開始，探索鉤織的世界。</p>
+        <button type="button" id="hero-cta" class="btn hero__cta">開始探索</button>
+      </div>
+    </section>
+    <!-- Intro 認識鉤織區塊：以靜態 HTML 段落呈現 2–3 段介紹（Req 6.1–6.5）。
+         內容固定、無互動、無圖片，載入即完整顯示（3 秒內，Req 6.5）；
+         鉤織（Crochet）與編織（Knitting）術語首次出現同列中英文（Req 3.2）。 -->
+    <section id="intro" class="intro">
+      <div class="container intro__inner">
+        <h2 class="intro__title">認識鉤織（What is Crochet?）</h2>
+        <p class="intro__text">鉤織（Crochet）是一種以單支鉤針，將毛線一針一針勾出線圈並相互套結，逐漸構成織片或立體形狀的手作技藝。它最大的特徵，是全程只靠鉤針前端的勾狀設計把線鉤出成形，不需要複雜器具，就能做出平面與立體的各種作品。</p>
+        <p class="intro__text">它和一般編織（Knitting）最明顯的差別在於工具與成形方式。鉤織使用一支鉤針，編織則使用兩支棒針；鉤織一次只完成一個針目、隨鉤隨定型，編織則要讓整排線圈同時掛在針上才能逐行推進，因此鉤織的織片相對更容易掌握。</p>
+        <p class="intro__text">正因為一次只處理一個針目，就算鉤錯也容易拆開重來，鉤織特別適合新手入門。你可以從簡單的小作品開始，像是一朵小花或一顆小草莓，花一點時間就能完成，一邊練習基本針法，一邊累積完成作品的成就感。</p>
+      </div>
+    </section>
+    <section id="tools"></section>
+    <section id="stitches"></section>
+    <section id="projects"></section>
+    <section id="quiz"></section>
+  </main>
+
+  <!-- 頁尾收尾資訊：三段固定文字，靜態 HTML 呈現（Req 16.1–16.3） -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__line">Made with yarn and a little creativity.</p>
+      <p class="footer__line footer__line--brand">Crochet Corner © 2026</p>
+      <p class="footer__line">Happy crocheting!</p>
+    </div>
+  </footer>
+
+  <!-- 共用 Modal 容器（Stitch_Modal / Project_Modal 掛載於此） -->
+  <div id="modal-root"></div>
+
+  <!-- 輕量提示（toast）容器（錯誤/狀態訊息掛載於此） -->
+  <div id="toast-root"></div>
+
+  <!-- 全站 JavaScript：單一 IIFE，避免全域污染，僅使用受控 DOM API（不動態執行字串程式碼） -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ===== 資料層（Data Layer）=====
+      // 各區塊內容集中定義為凍結（Object.freeze）的 JS 資料物件，由渲染函式讀取產生 DOM。
+      // 凍結確保資料不可變（Req 20.1）；圖片一律使用 assets/ 相對路徑，離線可運作（Req 1.5, 2.1）。
+
+      // toolsData：工具區塊資料（4 筆：毛線 / 鉤針 / 剪刀 / 記號扣）。
+      // 每筆含唯一 id、中英文名稱、assets/ 相對圖片路徑、載入失敗佔位 emoji、
+      // 1–125 字 alt、20–100 字繁中介紹，以及至少一則新手提示（Req 7.1, 7.2, 3.2, 3.4）。
+      var toolsData = Object.freeze([
+        Object.freeze({
+          id: 'yarn',
+          nameZh: '毛線',
+          nameEn: 'Yarn',
+          image: 'assets/yarn.png',
+          fallbackEmoji: '🧶',
+          alt: '一團捲好的鉤織用毛線',
+          intro: '毛線是鉤織的主角，粗細與材質會影響成品的手感與大小。新手建議從中等粗細、淺色且不易分岔的棉線或壓克力線開始，較容易看清針目。',
+          tips: Object.freeze([
+            '選擇淺色毛線，鉤的時候更容易看清楚每一個針目。',
+            '線材標籤上會標示建議鉤針號數，照著挑選最省力。'
+          ])
+        }),
+        Object.freeze({
+          id: 'hook',
+          nameZh: '鉤針',
+          nameEn: 'Crochet Hook',
+          image: 'assets/hook.png',
+          fallbackEmoji: '🪝',
+          alt: '一支金屬鉤織用鉤針',
+          intro: '鉤針是把毛線鉤出針目的工具，前端的勾狀設計方便勾住線材。號數越大代表針越粗，需與毛線粗細相互搭配，才能鉤出鬆緊適中的成品。',
+          tips: Object.freeze([
+            '新手可先用 4–5mm 的鉤針搭配中等粗細毛線練習。',
+            '握法沒有標準答案，鉛筆握法或湯匙握法，順手最重要。'
+          ])
+        }),
+        Object.freeze({
+          id: 'scissors',
+          nameZh: '剪刀',
+          nameEn: 'Scissors',
+          image: 'assets/scissors.png',
+          fallbackEmoji: '✂️',
+          alt: '一把小型手工藝用剪刀',
+          intro: '剪刀用來剪斷毛線與修剪收尾的線頭。建議準備一把刀刃小巧、尖端銳利的手工藝剪刀，剪起線來俐落，也方便處理細節部位。',
+          tips: Object.freeze([
+            '收尾留約 10 公分線頭再剪，方便藏線更牢固。'
+          ])
+        }),
+        Object.freeze({
+          id: 'marker',
+          nameZh: '記號扣',
+          nameEn: 'Stitch Markers',
+          image: 'assets/marker.png',
+          fallbackEmoji: '🖇️',
+          alt: '一組彩色的鉤織記號扣',
+          intro: '記號扣用來標示每行起點或關鍵針目，環狀鉤織時特別好用。只要在起針處扣上一個，就能清楚知道一圈從哪裡開始，避免針數越鉤越亂。',
+          tips: Object.freeze([
+            '環狀鉤織時在每圈起點扣上記號扣，就不容易算錯針數。'
+          ])
+        })
+      ]);
+
+      // stitchesData：針法區塊資料（6 筆：鎖針 / 短針 / 長針 / 起立針 / 引拔針 / 中長針）。
+      // 每筆含唯一 id、中英文名稱、難度（簡單/中等/困難）、用途、新手提示、
+      // 至少三個依序步驟，以及至少一則常見錯誤（Req 8.1–8.6, 9.2, 3.2, 3.4）。
+      var stitchesData = Object.freeze([
+        Object.freeze({
+          id: 'chain',
+          nameZh: '鎖針',
+          nameEn: 'Chain Stitch',
+          difficulty: '簡單',
+          purpose: '鎖針是鉤織的起點，用來打底起針，也常作為行與行之間的轉換針，是幾乎所有作品的第一步。',
+          tip: '保持每一針的鬆緊度一致，鉤出來的起針鏈才會平整好看，之後挑針也更輕鬆。',
+          steps: Object.freeze([
+            '先在鉤針上打一個活結，將線掛好。',
+            '用鉤針勾住線，從活結的線圈中拉出，完成第一個鎖針。',
+            '重複「勾線、拉出」的動作，鉤出所需數量的鎖針，形成起針鏈。'
+          ]),
+          commonMistakes: Object.freeze([
+            '鉤得太緊導致下一行難以挑針，練習時刻意放鬆手勁即可改善。'
+          ])
+        }),
+        Object.freeze({
+          id: 'turning',
+          nameZh: '起立針',
+          nameEn: 'Turning Chain',
+          difficulty: '簡單',
+          purpose: '起立針是每一排開頭先鉤的幾個鎖針，用來把鉤針升到與該排針法相符的高度，是行與行之間的銜接操作，讓織片兩側平整不內縮。',
+          tip: '起立針要鉤幾針並非固定，會隨下一排的針法與作品而不同；依教學說明或針法高度決定，不要每排都當成一樣。',
+          steps: Object.freeze([
+            '在每一排開頭、正式鉤本排針法之前，先鉤出若干個鎖針作為起立針。',
+            '起立針的數量依下一排針法而定：短針通常 1 針、中長針約 2 針、長針約 3 針，具體針數請以教學說明為準。',
+            '鉤完起立針後將織片翻面（或轉向），再從這個高度開始鉤本排的第一針，讓排與排平順銜接。'
+          ]),
+          commonMistakes: Object.freeze([
+            '把起立針當成固定高度的單一針法：它是銜接下一排高度的操作，針數會隨針法改變，不要每排都鉤固定針數。',
+            '起立針鉤太緊會讓排邊向內拉、織片兩側不平，稍微放鬆即可改善。'
+          ])
+        }),
+        Object.freeze({
+          id: 'slip',
+          nameZh: '引拔針',
+          nameEn: 'Slip Stitch',
+          difficulty: '簡單',
+          purpose: '引拔針幾乎不增加高度，常用來收尾、接合成圈、移動針位或裝飾排邊，是讓織片收束或連接的實用針法。',
+          tip: '引拔針容易鉤得太緊，尤其是接合成圈時；手勁放鬆一點，之後才好按針與拉線。',
+          steps: Object.freeze([
+            '將鉤針插入指定的針目中（要接合成圈時，就插入起針鏈的第一針）。',
+            '鉤針勾線（繞線一圈）。',
+            '一次將線拉過指定針目與鉤針上原有的那個線圈，完成一個引拔針，鉤針上只留下一個線圈。'
+          ]),
+          commonMistakes: Object.freeze([
+            '誤把線分成兩次拉過（那是短針）；引拔針是「一次」將線拉過針目與鉤針上的線圈。',
+            '鉤得太緊導致收尾或成圈處僵硬，試著放鬆手勁即可。'
+          ])
+        }),
+        Object.freeze({
+          id: 'single',
+          nameZh: '短針',
+          nameEn: 'Single Crochet',
+          difficulty: '中等',
+          purpose: '短針針目緊密紮實，是鉤織玩偶與實用小物最常用的基本針法，能鉤出扎實不透光的織片。',
+          tip: '每一行結束前先數一次針數，避免不小心加針或減針，織片邊緣才會整齊。',
+          steps: Object.freeze([
+            '將鉤針插入前一行的針目中。',
+            '勾線後拉出，此時鉤針上會有兩個線圈。',
+            '再次勾線，一次穿過鉤針上的兩個線圈，完成一個短針。'
+          ]),
+          commonMistakes: Object.freeze([
+            '忘記在每行起點標記記號扣，導致針數越鉤越亂，建議全程使用記號扣。'
+          ])
+        }),
+        Object.freeze({
+          id: 'half',
+          nameZh: '中長針',
+          nameEn: 'Half Double Crochet',
+          difficulty: '中等',
+          purpose: '中長針的高度介於短針與長針之間，組織紮實又帶點彈性，常用於帽子、包包與衣物等需要適度厚度的作品。',
+          tip: '最後一步是「一次」拉過鉤針上的三個線圈，這正是中長針與長針最大的區別。',
+          steps: Object.freeze([
+            '先在鉤針上繞線一圈，再將鉤針插入前一排的針目中。',
+            '鉤針勾線後拉出一個線圈，此時鉤針上共有三個線圈（原本的線圈、繞的線、新拉出的線圈）。',
+            '鉤針再勾一次線，一次拉過鉤針上的三個線圈，完成一個中長針。'
+          ]),
+          commonMistakes: Object.freeze([
+            '把最後一步分成兩次拉過（那會變成長針）；中長針是一次拉過三個線圈。',
+            '開始忘記先繞線，沒有三個線圈就無法形成中長針，動手前記得先繞線一圈。'
+          ])
+        }),
+        Object.freeze({
+          id: 'double',
+          nameZh: '長針',
+          nameEn: 'Double Crochet',
+          difficulty: '困難',
+          purpose: '長針針目較高、延展性佳，能快速增加織片高度，常用於圍巾、毯子等需要蓬鬆通透質感的作品。',
+          tip: '起針時記得先鉤立起針（通常為三個鎖針）當作第一針的高度，織片兩側才會平整。',
+          steps: Object.freeze([
+            '先在鉤針上繞線一圈，再將鉤針插入前一行的針目中。',
+            '勾線後拉出，此時鉤針上有三個線圈。',
+            '勾線一次穿過前兩個線圈，再勾線一次穿過剩下的兩個線圈，完成一個長針。'
+          ]),
+          commonMistakes: Object.freeze([
+            '忘記一開始的繞線，鉤出來會變成短針，動手前務必先繞線一圈。'
+          ])
+        })
+      ]);
+
+      // projectsData：作品區塊資料（4 筆：小花 / 小草莓 / 小袋子 / 小熊）。
+      // 每筆含唯一 id、中文名稱、難度 N/5、Easy/Medium 分類、預估時間（含可選下限分鐘 timeMin）、
+      // 所需材料、簡短製作方向、新手注意事項、喜好對應主題（cute/useful/doll）、
+      // assets/ 相對圖片路徑、載入失敗佔位 emoji 與圖片 alt（Req 10.1, 10.3, 10.4, 11.2, 20.1）。
+      // 固定值（difficulty / category / theme / timeText）依 design.md 四作品固定值表。
+      var projectsData = Object.freeze([
+        Object.freeze({
+          id: 'flower',
+          nameZh: '小花',
+          difficulty: 1,
+          category: 'Easy',
+          timeText: '30–60 分鐘',
+          timeMin: 30,
+          materials: Object.freeze([
+            '淺色中等粗細毛線少量',
+            '搭配線材號數的鉤針一支',
+            '剪刀與縫針，用來收尾藏線'
+          ]),
+          direction: '以鎖針起針並圍成小圈，環狀鉤出數片花瓣後收口，最後整理花形並藏好線頭。',
+          notes: Object.freeze([
+            '花瓣針數保持一致，整朵小花才會對稱好看。',
+            '收尾時留長一點線頭，方便把花朵縫到其他作品上。'
+          ]),
+          kind: 'charm',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          theme: 'cute',
+          image: 'assets/flower.png',
+          fallbackEmoji: '🌸',
+          alt: '一朵鉤織完成的粉色小花'
+        }),
+        Object.freeze({
+          id: 'strawberry',
+          nameZh: '小草莓',
+          difficulty: 2,
+          category: 'Easy',
+          timeText: '1–2 小時',
+          timeMin: 60,
+          materials: Object.freeze([
+            '紅色與綠色中等粗細毛線各少量',
+            '搭配線材號數的鉤針一支',
+            '少量填充棉',
+            '剪刀與縫針'
+          ]),
+          direction: '用短針以紅色線鉤出草莓的立體圓身並塞入填充棉，再以綠色線鉤出葉片，最後縫合組裝。',
+          notes: Object.freeze([
+            '短針要鉤得緊實，填充棉才不會從針目縫隙露出來。',
+            '塞棉花時分次少量塞入，形狀會更圓潤飽滿。'
+          ]),
+          kind: 'charm',
+          stitches: Object.freeze(['鎖針', '短針']),
+          theme: 'cute',
+          image: 'assets/strawberry.png',
+          fallbackEmoji: '🍓',
+          alt: '一顆附有綠色葉片的鉤織小草莓'
+        }),
+        Object.freeze({
+          id: 'bag',
+          nameZh: '小袋子',
+          difficulty: 3,
+          category: 'Medium',
+          timeText: '2–4 小時',
+          timeMin: 120,
+          materials: Object.freeze([
+            '中等粗細毛線一至兩球',
+            '搭配線材號數的鉤針一支',
+            '記號扣，標示每行起點',
+            '剪刀與縫針'
+          ]),
+          direction: '從袋底開始環狀鉤起，往上以短針鉤出袋身，接著鉤出提把或穿繩口，最後收尾並藏線。',
+          notes: Object.freeze([
+            '全程使用記號扣標示起點，袋身的針數才不會越鉤越亂。',
+            '提把要鉤得紮實一些，裝東西時才不易變形鬆垮。'
+          ]),
+          kind: 'home',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          theme: 'useful',
+          image: 'assets/bag.png',
+          fallbackEmoji: '👜',
+          alt: '一個附有提把的鉤織小袋子'
+        }),
+        Object.freeze({
+          id: 'bear',
+          nameZh: '小熊',
+          difficulty: 3,
+          category: 'Medium',
+          timeText: '3–6 小時',
+          timeMin: 180,
+          materials: Object.freeze([
+            '棕色或米色中等粗細毛線一至兩球',
+            '搭配線材號數的鉤針一支',
+            '填充棉',
+            '安全眼睛或深色繡線',
+            '記號扣、剪刀與縫針'
+          ]),
+          direction: '以短針分別環狀鉤出頭、身體與四肢並塞入填充棉，再將各部位縫合組裝，最後縫上五官。',
+          notes: Object.freeze([
+            '各部位塞棉後再縫合，小熊才會立體不塌陷。',
+            '縫合前先用記號扣固定位置，確認比例滿意再下針。'
+          ]),
+          kind: 'doll',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          theme: 'doll',
+          image: 'assets/bear.png',
+          fallbackEmoji: '🧸',
+          alt: '一隻鉤織完成的立體小熊玩偶'
+        }),
+        Object.freeze({
+          id: 'heart',
+          nameZh: '愛心吊飾',
+          difficulty: 1,
+          category: 'Easy',
+          kind: 'charm',
+          timeText: '20–40 分鐘',
+          timeMin: 20,
+          intro: '愛心吊飾是絕對新手很好的第一個成品，只用最基本的鎖針與短針，環狀鉤出小小的愛心形狀，很快就能完成一個，很有成就感。',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          materials: Object.freeze([
+            '紅色或粉色中等粗細毛線少量',
+            '搭配線材號數的鉤針一支',
+            '鑰匙圈或吊飾繩',
+            '剪刀與縫針'
+          ]),
+          direction: '以鎖針起針並圍成小圈，用短針分段鉤出兩個圓弧與一個尖角，形成愛心輪廓，最後收尾並接上吊飾繩。',
+          notes: Object.freeze([
+            '兩側圓弧的針數要對稱，愛心形狀才會工整。',
+            '收尾線頭留長一點，方便牢牢接上吊飾繩或鑰匙圈。'
+          ]),
+          theme: 'cute',
+          image: 'assets/heart.png',
+          fallbackEmoji: '💗',
+          alt: '一個鉤織完成的粉紅色愛心吊飾'
+        }),
+        Object.freeze({
+          id: 'bow',
+          nameZh: '蝴蝶結髮飾',
+          difficulty: 1,
+          category: 'Easy',
+          kind: 'wear',
+          timeText: '30–60 分鐘',
+          timeMin: 30,
+          intro: '蝴蝶結髮飾是平面的小作品，用短針鉤出一片長方形織片，中間束起就成了蝴蝶結，很適合新手練習鉤整齊的方形織片。',
+          stitches: Object.freeze(['鎖針', '短針']),
+          materials: Object.freeze([
+            '喜歡顏色的中等粗細毛線少量',
+            '搭配線材號數的鉤針一支',
+            '髮夾或髮圈',
+            '剪刀與縫針'
+          ]),
+          direction: '以短針來回鉤出一片長方形織片，於中央用線纏繞束緊成蝴蝶結，再縫到髮夾或髮圈上。',
+          notes: Object.freeze([
+            '每一行針數保持一致，長方形才不會變成梯形。',
+            '中央纏繞的線拉緊一點，蝴蝶結才會立體不鬆散。'
+          ]),
+          theme: 'cute',
+          image: 'assets/bow.png',
+          fallbackEmoji: '🎀',
+          alt: '一個鉤織完成的蝴蝶結髮飾'
+        }),
+        Object.freeze({
+          id: 'coaster',
+          nameZh: '杯墊',
+          difficulty: 1,
+          category: 'Easy',
+          kind: 'home',
+          timeText: '30–60 分鐘',
+          timeMin: 30,
+          intro: '杯墊是練習環狀加針的好作品，從中心一圈圈往外鉤成一個平整的圓，既實用又能練好基本功，完成後馬上能用。',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          materials: Object.freeze([
+            '棉質中等粗細毛線一球（吸水較好）',
+            '搭配線材號數的鉤針一支',
+            '記號扣，標示每圈起點',
+            '剪刀與縫針'
+          ]),
+          direction: '從中心環狀起針，每一圈平均加針並以短針往外擴大，鉤到想要的大小後以引拔針收圈、藏線。',
+          notes: Object.freeze([
+            '每圈平均加針，杯墊才會平整不捲邊或波浪。',
+            '全程使用記號扣標示起點，才不會算錯一圈的針數。'
+          ]),
+          theme: 'useful',
+          image: 'assets/coaster.png',
+          fallbackEmoji: '🟤',
+          alt: '一個鉤織完成的圓形杯墊'
+        }),
+        Object.freeze({
+          id: 'cherry',
+          nameZh: '櫻桃鑰匙圈',
+          difficulty: 2,
+          category: 'Easy',
+          kind: 'charm',
+          timeText: '1–2 小時',
+          timeMin: 60,
+          intro: '櫻桃鑰匙圈由兩顆塞棉的小球加上綠色葉梗組成，練習環狀短針與塞棉收口，立體又可愛，是很受歡迎的小吊飾。',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          materials: Object.freeze([
+            '紅色與綠色中等粗細毛線各少量',
+            '搭配線材號數的鉤針一支',
+            '少量填充棉',
+            '鑰匙圈五金',
+            '記號扣、剪刀與縫針'
+          ]),
+          direction: '以短針環狀各鉤出兩顆紅色小球並塞入填充棉收口，再以綠色線鉤出葉片與梗，組合後接上鑰匙圈。',
+          notes: Object.freeze([
+            '短針要鉤得緊實，填充棉才不會從縫隙露出。',
+            '兩顆櫻桃大小盡量一致，成品看起來更協調。'
+          ]),
+          theme: 'cute',
+          image: 'assets/cherry.png',
+          fallbackEmoji: '🍒',
+          alt: '一個附有雙顆櫻桃的鉤織鑰匙圈'
+        }),
+        Object.freeze({
+          id: 'scrunchie',
+          nameZh: '鉤織髮圈',
+          difficulty: 2,
+          category: 'Easy',
+          kind: 'wear',
+          timeText: '45–90 分鐘',
+          timeMin: 45,
+          intro: '鉤織髮圈是把毛線一針針包覆在現成的鬆緊髮圈上，用中長針鉤出蓬鬆有波浪的質感，實用又好搭配，適合想做穿搭小物的新手。',
+          stitches: Object.freeze(['鎖針', '中長針', '引拔針']),
+          materials: Object.freeze([
+            '柔軟中等粗細毛線少量',
+            '搭配線材號數的鉤針一支',
+            '現成的鬆緊髮圈一個',
+            '剪刀與縫針'
+          ]),
+          direction: '將線以短針起頭固定在髮圈上，沿著髮圈一圈以中長針密密鉤出蓬度，最後與起點以引拔針接合並藏線。',
+          notes: Object.freeze([
+            '針目要鉤得密一點，才能完全蓋住裡面的髮圈。',
+            '一圈的針數足夠多，髮圈才會蓬鬆有波浪感。'
+          ]),
+          theme: 'useful',
+          image: 'assets/scrunchie.png',
+          fallbackEmoji: '💮',
+          alt: '一個以毛線包覆鉤成的蓬鬆髮圈'
+        }),
+        Object.freeze({
+          id: 'whale',
+          nameZh: '小鯨魚娃娃',
+          difficulty: 3,
+          category: 'Medium',
+          kind: 'doll',
+          timeText: '2–4 小時',
+          timeMin: 120,
+          intro: '小鯨魚娃娃是立體玩偶的入門款，身體由環狀短針鉤成橢圓並塞棉，再加上尾巴與小小的噴水，造型簡單圓潤，很適合想挑戰玩偶的新手。',
+          stitches: Object.freeze(['鎖針', '短針', '引拔針']),
+          materials: Object.freeze([
+            '藍色或灰藍色中等粗細毛線一球',
+            '搭配線材號數的鉤針一支',
+            '填充棉',
+            '安全眼睛或深色繡線',
+            '記號扣、剪刀與縫針'
+          ]),
+          direction: '以短針環狀鉤出橢圓形身體並適度塞棉，收口後鉤出尾鰭與小噴水造型縫合，最後縫上眼睛與嘴巴。',
+          notes: Object.freeze([
+            '塞棉分次少量塞入，鯨魚身體才會圓潤不結塊。',
+            '收口前先確認塞棉量，塞太滿會從針目縫隙露出。'
+          ]),
+          theme: 'doll',
+          image: 'assets/whale.png',
+          fallbackEmoji: '🐳',
+          alt: '一隻鉤織完成的立體小鯨魚娃娃'
+        })
+      ]);
+
+      // quizData：測驗區塊資料（3 題：鉤織經驗 / 可投入時間 / 喜好作品類型）。
+      // 每題含唯一 id（experience / time / theme）、題目文字，以及一組選項；
+      // 每個選項含選項代號 code（供推薦引擎對應語意值）與顯示標籤 label。
+      // 代號定義依 design.md「選項代號定義」表：
+      // E0/E1（經驗）、T0/T1/T2（時間）、H_cute/H_useful/H_doll（喜好）（Req 13.1, 20.1）。
+      var quizData = Object.freeze({
+        questions: Object.freeze([
+          Object.freeze({
+            id: 'experience',
+            title: '你目前的鉤織經驗大概是？',
+            options: Object.freeze([
+              Object.freeze({ code: 'E0', label: '完全沒經驗' }),
+              Object.freeze({ code: 'E1', label: '試過一點' })
+            ])
+          }),
+          Object.freeze({
+            id: 'time',
+            title: '這次大約可以投入多少時間？',
+            options: Object.freeze([
+              Object.freeze({ code: 'T0', label: '30 分鐘至 1 小時' }),
+              Object.freeze({ code: 'T1', label: '1 至 2 小時' }),
+              Object.freeze({ code: 'T2', label: '幾小時也沒關係' })
+            ])
+          }),
+          Object.freeze({
+            id: 'theme',
+            title: '你比較喜歡哪一種作品類型？',
+            options: Object.freeze([
+              Object.freeze({ code: 'H_cute', label: '可愛裝飾' }),
+              Object.freeze({ code: 'H_useful', label: '實用小物' }),
+              Object.freeze({ code: 'H_doll', label: '立體玩偶' })
+            ])
+          })
+        ])
+      });
+
+      // prefersReducedMotion：偵測使用者是否要求減少動態效果（Req 5.8, 17.6）。
+      // 以 window.matchMedia 查詢；舊環境無 matchMedia 時保守視為「不減少」。
+      function prefersReducedMotion() {
+        return typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+
+      // modalModule：共用彈出式視窗模組，供 Stitch_Modal 與 Project_Modal 使用（Req 9、11）。
+      // 行為涵蓋：開啟/關閉、遮罩點擊關閉、Escape 關閉、焦點 trap（Tab/Shift+Tab 於 Modal 內循環）、
+      // 開啟時移焦至第一個可聚焦元素、關閉時焦點返回原觸發按鈕、關閉按鈕含可辨識標示。
+      // 掛載於 #modal-root；僅使用受控 DOM API（createElement/textContent），不動態執行字串程式碼（Req 1.9）。
+      var modalModule = (function createModalModule() {
+        // 可聚焦元素選擇器：用於 focus trap 計算與開啟時定位第一個可聚焦元素。
+        var FOCUSABLE_SELECTOR = [
+          'a[href]',
+          'button:not([disabled])',
+          'input:not([disabled])',
+          'select:not([disabled])',
+          'textarea:not([disabled])',
+          '[tabindex]:not([tabindex="-1"])'
+        ].join(',');
+
+        // state：記錄目前開啟中的 Modal 相關參照，供關閉時清理與焦點返回使用。
+        var state = {
+          overlay: null,       // 當前遮罩元素
+          dialog: null,        // 當前 Modal 對話框元素
+          triggerButton: null, // 觸發開啟的按鈕（關閉後焦點返回此處）
+          keydownHandler: null // 綁定於 document 的鍵盤處理器（Escape / Tab trap）
+        };
+
+        // getFocusableElements：取得 Modal 內目前所有可聚焦元素（依 DOM 順序）。
+        function getFocusableElements(container) {
+          if (!container) {
+            return [];
+          }
+          var nodeList = container.querySelectorAll(FOCUSABLE_SELECTOR);
+          // 僅保留實際可見（具版面尺寸）的元素，避免把隱藏控制項納入循環。
+          return Array.prototype.filter.call(nodeList, function (element) {
+            return element.offsetWidth > 0 ||
+              element.offsetHeight > 0 ||
+              element.getClientRects().length > 0;
+          });
+        }
+
+        // handleKeydown：處理開啟狀態下的鍵盤事件。
+        // - Escape：關閉 Modal（Req 9.6, 11.7）。
+        // - Tab / Shift+Tab：於 Modal 內可聚焦元素間循環，不讓焦點移出 Modal（Req 9.7, 11.8, 19.7）。
+        // 以 try/catch 包覆：鍵盤事件處理例外不應中斷頁面其餘功能、不產生 console error（Req 20.5, 20.6）。
+        function handleKeydown(event) {
+          try {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+              event.preventDefault();
+              close();
+              return;
+            }
+
+            if (event.key !== 'Tab') {
+              return;
+            }
+
+            var focusable = getFocusableElements(state.dialog);
+            if (focusable.length === 0) {
+              // 無可聚焦元素時，將焦點保留在對話框本身，避免跳出 Modal。
+              event.preventDefault();
+              if (state.dialog) {
+                state.dialog.focus();
+              }
+              return;
+            }
+
+            var firstElement = focusable[0];
+            var lastElement = focusable[focusable.length - 1];
+            var activeElement = document.activeElement;
+
+            if (event.shiftKey) {
+              // Shift+Tab 於第一個元素（或焦點已在 Modal 外）時，循環至最後一個元素。
+              if (activeElement === firstElement || !state.dialog.contains(activeElement)) {
+                event.preventDefault();
+                lastElement.focus();
+              }
+            } else {
+              // Tab 於最後一個元素（或焦點已在 Modal 外）時，循環回第一個元素。
+              if (activeElement === lastElement || !state.dialog.contains(activeElement)) {
+                event.preventDefault();
+                firstElement.focus();
+              }
+            }
+          } catch (err) {
+            // 焦點循環/關閉例外被攔截，Modal 其餘互動與頁面功能維持可用（Req 20.5, 20.6）。
+          }
+        }
+
+        // handleOverlayClick：點擊遮罩（對話框以外的區域）時關閉 Modal（Req 9.5, 11.6）。
+        // 以 try/catch 包覆，遮罩點擊例外不應中斷頁面其餘功能、不產生 console error（Req 20.5, 20.6）。
+        function handleOverlayClick(event) {
+          try {
+            if (event.target === state.overlay) {
+              close();
+            }
+          } catch (err) {
+            // 遮罩關閉例外被攔截，頁面其餘功能維持可用（Req 20.5, 20.6）。
+          }
+        }
+
+        // isOpen：回報目前是否有開啟中的 Modal。
+        function isOpen() {
+          return state.overlay !== null;
+        }
+
+        // open：開啟共用 Modal。
+        // 參數：
+        //   triggerButton — 觸發開啟的按鈕；關閉後焦點返回此處（Req 9.8, 11.9, 19.6）。
+        //   content — 要注入 Modal 內容區的字串（文字）或 DOM 節點；受控插入，不解析為 HTML。
+        //   options — 可選設定：labelText（關閉按鈕的無障礙標示，預設「關閉」）、
+        //             ariaLabel（對話框的 aria-label）。
+        // 若已有開啟中的 Modal，會先關閉再開啟新的，確保同時僅一個 Modal。
+        function open(triggerButton, content, options) {
+          var modalRoot = document.getElementById('modal-root');
+          if (!modalRoot) {
+            return null;
+          }
+
+          // 確保同時僅一個 Modal 開啟。
+          if (isOpen()) {
+            close();
+          }
+
+          var settings = options || {};
+
+          // 遮罩層：點擊此層（對話框外）即關閉。
+          var overlay = document.createElement('div');
+          overlay.className = 'modal-overlay';
+
+          // 對話框：具 dialog 語意與 modal 標示，供輔助技術辨識（Req 19.1, 19.2）。
+          var dialog = document.createElement('div');
+          dialog.className = 'modal';
+          dialog.setAttribute('role', 'dialog');
+          dialog.setAttribute('aria-modal', 'true');
+          dialog.setAttribute('tabindex', '-1');
+          if (settings.ariaLabel) {
+            dialog.setAttribute('aria-label', settings.ariaLabel);
+          }
+
+          // 標頭與關閉按鈕：帶可辨識關閉標示（✕ 圖示 + 螢幕閱讀器文字）（Req 9.3, 11.4, 19.2）。
+          var header = document.createElement('div');
+          header.className = 'modal__header';
+
+          var closeButton = document.createElement('button');
+          closeButton.type = 'button';
+          closeButton.className = 'modal__close';
+          var closeLabel = settings.labelText || '關閉';
+          closeButton.setAttribute('aria-label', closeLabel);
+          closeButton.setAttribute('title', closeLabel);
+
+          // 視覺上的 ✕ 圖示（以 aria-hidden 隱藏，避免與 aria-label 重複朗讀）。
+          var closeIcon = document.createElement('span');
+          closeIcon.setAttribute('aria-hidden', 'true');
+          closeIcon.textContent = '✕';
+          closeButton.appendChild(closeIcon);
+          // 以 try/catch 包覆關閉點擊：關閉例外不應中斷頁面其餘功能、不產生 console error（Req 20.5, 20.6）。
+          closeButton.addEventListener('click', function () {
+            try {
+              close();
+            } catch (err) {
+              // 關閉例外被攔截，頁面其餘功能維持可用（Req 20.5, 20.6）。
+            }
+          });
+          header.appendChild(closeButton);
+
+          // 內容容器：集中承載注入的教學／作品內容。
+          var contentWrapper = document.createElement('div');
+          contentWrapper.className = 'modal__content';
+          appendContent(contentWrapper, content);
+
+          dialog.appendChild(header);
+          dialog.appendChild(contentWrapper);
+          overlay.appendChild(dialog);
+
+          overlay.addEventListener('click', handleOverlayClick);
+
+          modalRoot.appendChild(overlay);
+          if (document.body) {
+            document.body.classList.add('modal-open');
+          }
+
+          // 記錄狀態並綁定鍵盤處理器。
+          state.overlay = overlay;
+          state.dialog = dialog;
+          state.triggerButton = triggerButton || null;
+          state.keydownHandler = handleKeydown;
+          document.addEventListener('keydown', state.keydownHandler);
+
+          // 開啟時將焦點移入 Modal 內的第一個可聚焦元素；
+          // 若無其他可聚焦元素，退回聚焦對話框本身（Req 9.7, 11.8）。
+          var focusable = getFocusableElements(dialog);
+          if (focusable.length > 0) {
+            focusable[0].focus();
+          } else {
+            dialog.focus();
+          }
+
+          return overlay;
+        }
+
+        // appendContent：將內容以受控方式插入容器。
+        // 支援字串（以 textContent 寫入，避免 HTML 注入）或 DOM 節點（直接 append）。
+        function appendContent(container, content) {
+          if (content === null || typeof content === 'undefined') {
+            return;
+          }
+          if (typeof content === 'string') {
+            container.textContent = content;
+            return;
+          }
+          if (content && typeof content.nodeType === 'number') {
+            container.appendChild(content);
+          }
+        }
+
+        // close：關閉目前開啟的 Modal。
+        // 移除遮罩與事件監聽、解除背景捲動鎖，並將焦點返回原觸發按鈕（Req 9.4, 9.8, 11.5, 11.9, 19.6）。
+        function close() {
+          if (!isOpen()) {
+            return;
+          }
+
+          if (state.keydownHandler) {
+            document.removeEventListener('keydown', state.keydownHandler);
+          }
+          if (state.overlay) {
+            state.overlay.removeEventListener('click', handleOverlayClick);
+            if (state.overlay.parentNode) {
+              state.overlay.parentNode.removeChild(state.overlay);
+            }
+          }
+          if (document.body) {
+            document.body.classList.remove('modal-open');
+          }
+
+          var triggerButton = state.triggerButton;
+
+          // 清空狀態。
+          state.overlay = null;
+          state.dialog = null;
+          state.triggerButton = null;
+          state.keydownHandler = null;
+
+          // 焦點返回觸發按鈕（若仍在文件中且可聚焦）。
+          if (triggerButton &&
+            typeof triggerButton.focus === 'function' &&
+            document.contains(triggerButton)) {
+            triggerButton.focus();
+          }
+        }
+
+        return {
+          open: open,
+          close: close,
+          isOpen: isOpen
+        };
+      })();
+
+      // ===== 圖片 fallback 模組（imageFallbackModule）=====
+      // 對應 Req 2 與 design.md「離線自包含策略 — 圖片載入與 fallback」、Error Handling「圖片缺失」。
+      // 由於 assets/ 可能不存在任何檔案（Req 2.2），本模組掃描所有指向 assets/ 的 <img>，
+      // 為每張圖綁定 onerror 事件並設定 3 秒逾時檢查（Req 2.3）。載入失敗時：
+      //   1. 以內嵌 SVG + emoji 佔位呈現替代視覺（Req 2.3）；
+      //   2. 隱藏原生破圖圖示（Req 2.3）；
+      //   3. 佔位沿用原圖預留的版面尺寸，避免版面位移（Req 2.3）；
+      //   4. 佔位沿用原圖 alt 作為等效語意資訊（Req 2.4）。
+      // 同時校正 alt：有意義圖片確保 1–125 字 alt；裝飾圖（data-decorative）設為空 alt（Req 2.5）。
+      // 可抽離的佔位決策與 alt 正規化拆成純函式，便於單元/屬性測試（Property 9）。
+      var ALT_MAX_LENGTH = 125;              // alt 文字長度上限（Req 2.5）
+      var IMAGE_FALLBACK_TIMEOUT_MS = 3000;  // 載入逾時門檻 3 秒（Req 2.3）
+      var DEFAULT_FALLBACK_EMOJI = '🧶';      // 無指定 fallbackEmoji 時的通用佔位符
+
+      // normalizeAlt：依 Req 2.5 正規化 alt 文字。
+      // - 裝飾圖（isDecorative 為真）一律回傳空字串（空 alt）。
+      // - 有意義圖片：去除前後空白；為空時以備援描述補足，確保至少 1 字；
+      //   超過 125 字則截斷至上限，維持 1–125 字區間。
+      // 為純函式（僅依輸入字串與旗標），可獨立測試（Property 9 的「保語意」部分）。
+      function normalizeAlt(rawAlt, isDecorative, fallbackDescription) {
+        if (isDecorative) {
+          return '';
+        }
+        var text = typeof rawAlt === 'string' ? rawAlt.trim() : '';
+        if (text === '') {
+          var backup = typeof fallbackDescription === 'string'
+            ? fallbackDescription.trim()
+            : '';
+          text = backup !== '' ? backup : '圖片';
+        }
+        if (text.length > ALT_MAX_LENGTH) {
+          text = text.slice(0, ALT_MAX_LENGTH);
+        }
+        return text;
+      }
+
+      // resolveFallbackEmoji：決定佔位 emoji。
+      // 優先採用 <img data-fallback-emoji> 指定值，否則退回通用佔位符。純函式，便於測試。
+      function resolveFallbackEmoji(emojiAttr) {
+        var emoji = typeof emojiAttr === 'string' ? emojiAttr.trim() : '';
+        return emoji !== '' ? emoji : DEFAULT_FALLBACK_EMOJI;
+      }
+
+      // isAssetsImage：判斷圖片是否為指向 assets/ 的相對路徑圖片（Req 2.1）。
+      // 僅處理相對 assets/ 路徑，排除空值與外部網域（本站不應有外部圖片）。
+      // 以原始屬性字串判斷（而非解析後的絕對 URL），純函式便於測試。
+      function isAssetsImage(srcAttr) {
+        if (typeof srcAttr !== 'string') {
+          return false;
+        }
+        var src = srcAttr.trim();
+        return src.indexOf('assets/') === 0 || src.indexOf('./assets/') === 0;
+      }
+
+      // buildFallbackElement：建立佔位 DOM 元素（內嵌 SVG 底框 + emoji 字符）。
+      // 以受控 DOM API 建立，不使用 innerHTML 字串拼接（Req 1.9、避免 XSS）。
+      // altText 寫入佔位的 role="img" / aria-label，使佔位保留等效語意（Req 2.4）。
+      function buildFallbackElement(altText, emoji) {
+        var wrapper = document.createElement('span');
+        wrapper.className = 'img-fallback';
+        // 佔位本身承載語意：以 img 角色 + aria-label 提供與原圖等效的替代文字（Req 2.4）
+        wrapper.setAttribute('role', 'img');
+        wrapper.setAttribute('aria-label', altText);
+
+        var svgNs = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(svgNs, 'svg');
+        svg.setAttribute('viewBox', '0 0 100 100');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('focusable', 'false');
+        var rect = document.createElementNS(svgNs, 'rect');
+        rect.setAttribute('x', '2');
+        rect.setAttribute('y', '2');
+        rect.setAttribute('width', '96');
+        rect.setAttribute('height', '96');
+        rect.setAttribute('rx', '12');
+        rect.setAttribute('fill', 'none');
+        rect.setAttribute('stroke', 'currentColor');
+        rect.setAttribute('stroke-width', '3');
+        rect.setAttribute('stroke-dasharray', '6 6');
+        rect.setAttribute('opacity', '0.5');
+        svg.appendChild(rect);
+
+        // emoji 以純文字字符呈現（textContent，避免注入），置於 SVG 底框之上
+        var emojiSpan = document.createElement('span');
+        emojiSpan.className = 'img-fallback__emoji';
+        emojiSpan.setAttribute('aria-hidden', 'true');
+        emojiSpan.textContent = emoji;
+
+        wrapper.appendChild(svg);
+        wrapper.appendChild(emojiSpan);
+        return wrapper;
+      }
+
+      // reserveImageDimensions：於套用 fallback 前，將原圖目前的版面尺寸鎖定在容器上，
+      // 使佔位沿用相同寬高、不產生版面位移（Req 2.3）。
+      // 優先採用量得的 getBoundingClientRect 尺寸，其次 width/height 屬性。
+      function reserveImageDimensions(img, slot) {
+        var width = 0;
+        var height = 0;
+        var rect = typeof img.getBoundingClientRect === 'function'
+          ? img.getBoundingClientRect()
+          : null;
+        if (rect && rect.width > 0 && rect.height > 0) {
+          width = rect.width;
+          height = rect.height;
+        } else {
+          var attrW = parseInt(img.getAttribute('width'), 10);
+          var attrH = parseInt(img.getAttribute('height'), 10);
+          if (!isNaN(attrW) && attrW > 0) {
+            width = attrW;
+          }
+          if (!isNaN(attrH) && attrH > 0) {
+            height = attrH;
+          }
+        }
+        if (width > 0) {
+          slot.style.width = width + 'px';
+        }
+        if (height > 0) {
+          slot.style.height = height + 'px';
+        }
+      }
+
+      // triggerImageFallback：對單一 <img> 套用 fallback（破圖隱藏 + 佔位 + 保形 + 保 alt）。
+      // 具冪等性：onerror 與逾時可能同時觸發，透過 data-fallback-applied 旗標只套用一次。
+      function triggerImageFallback(img) {
+        if (!img || img.getAttribute('data-fallback-applied') === 'true') {
+          return;
+        }
+        img.setAttribute('data-fallback-applied', 'true');
+
+        var isDecorative = img.getAttribute('data-decorative') === 'true';
+        var altText = normalizeAlt(
+          img.getAttribute('alt'),
+          isDecorative,
+          img.getAttribute('data-alt-backup')
+        );
+        var emoji = resolveFallbackEmoji(img.getAttribute('data-fallback-emoji'));
+
+        // 以 .img-slot 容器包住原圖（若尚未包裹），供佔位沿用版面尺寸
+        var slot = img.parentNode;
+        if (!slot || !slot.classList || !slot.classList.contains('img-slot')) {
+          var newSlot = document.createElement('span');
+          newSlot.className = 'img-slot';
+          if (img.parentNode) {
+            img.parentNode.insertBefore(newSlot, img);
+          }
+          newSlot.appendChild(img);
+          slot = newSlot;
+        }
+
+        // 先鎖定尺寸，再隱藏原圖並插入佔位，確保版面尺寸前後一致（Req 2.3）
+        reserveImageDimensions(img, slot);
+        img.classList.add('img-failed');
+        img.setAttribute('aria-hidden', 'true');
+
+        var fallback = buildFallbackElement(altText, emoji);
+        slot.appendChild(fallback);
+      }
+
+      // observeImage：為單一 <img> 綁定 onerror 與 3 秒逾時檢查（Req 2.3）。
+      // - 綁定前先校正 alt（含裝飾圖空 alt、長度 1–125；Req 2.5），成功載入亦生效。
+      // - error 事件 → 套用佔位；load 事件但 naturalWidth 為 0 → 套用佔位。
+      // - 已完成載入但無有效影像 → 立即佔位；否則設 3 秒逾時，逾時未成功即佔位。
+      function observeImage(img) {
+        var isDecorative = img.getAttribute('data-decorative') === 'true';
+        img.setAttribute(
+          'alt',
+          normalizeAlt(img.getAttribute('alt'), isDecorative, img.getAttribute('data-alt-backup'))
+        );
+
+        var timeoutId = null;
+        var clearTimer = function () {
+          if (timeoutId !== null) {
+            window.clearTimeout(timeoutId);
+            timeoutId = null;
+          }
+        };
+
+        img.addEventListener('error', function () {
+          clearTimer();
+          triggerImageFallback(img);
+        });
+
+        img.addEventListener('load', function () {
+          clearTimer();
+          // naturalWidth 為 0 代表雖觸發 load 但無有效影像資料，視為失敗
+          if (!img.naturalWidth) {
+            triggerImageFallback(img);
+          }
+        });
+
+        // 已完成載入但無有效影像（例如 src 指向不存在的 assets/ 檔案）→ 立即佔位
+        if (img.complete && !img.naturalWidth) {
+          triggerImageFallback(img);
+          return;
+        }
+
+        // 尚未完成載入：設定 3 秒逾時，逾時未成功即套用佔位（Req 2.3）
+        if (!img.complete) {
+          timeoutId = window.setTimeout(function () {
+            timeoutId = null;
+            if (!img.naturalWidth) {
+              triggerImageFallback(img);
+            }
+          }, IMAGE_FALLBACK_TIMEOUT_MS);
+        }
+      }
+
+      // applyImageFallback：掃描指定範圍內所有指向 assets/ 的 <img>，逐一綁定 fallback 機制。
+      // root 省略時掃描整份 document。回傳實際納入監看的圖片數量，便於測試驗證。
+      // 以 try/catch 包覆單張處理，單張失敗不影響其餘圖片（Req 20.6）。
+      function applyImageFallback(root) {
+        var scope = root || document;
+        var images = scope.querySelectorAll('img');
+        var observedCount = 0;
+        for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
+          var img = images[imageIndex];
+          if (!isAssetsImage(img.getAttribute('src'))) {
+            continue;
+          }
+          try {
+            observeImage(img);
+            observedCount++;
+          } catch (err) {
+            // 單張圖片處理失敗不應中斷其餘圖片（Req 20.6）
+          }
+        }
+        return observedCount;
+      }
+
+      // imageFallbackModule：對外公開介面（供 init 與後續渲染任務在插入新 <img> 後再次呼叫），
+      // 另公開純函式供單元/屬性測試（Property 9）直接驗證，不需觸發真實網路載入。
+      var imageFallbackModule = {
+        applyImageFallback: applyImageFallback,
+        normalizeAlt: normalizeAlt,
+        resolveFallbackEmoji: resolveFallbackEmoji,
+        isAssetsImage: isAssetsImage,
+        buildFallbackElement: buildFallbackElement,
+        triggerImageFallback: triggerImageFallback
+      };
+
+      // ===== 全站輕量提示（toast）元件（任務 17；Req 4.6, 5.6, 11.10, 13.4, 20.5, 20.6）=====
+      // 這是全站唯一（canonical）的 toast 實作，供所有錯誤情境統一提示：
+      //   導覽/CTA 目標不可達（Req 4.6, 5.6）、作品內容不可取得（Req 11.10）、
+      //   測驗未完成即送出（Req 13.4），以及事件處理器攔截到例外時的通知。
+      // 設計要點（對應 design.md「Error Handling 全表、toast 統一提示」）：
+      //   - 掛載於固定的 #toast-root 容器，以受控 DOM API 建立（createElement/textContent），
+      //     不使用 innerHTML 字串拼接、不使用 alert() 阻斷操作（Req 20.5, 1.9）。
+      //   - 每則提示為獨立節點並附加 role="status" + aria-live="polite"，供輔助技術朗讀而不打斷操作。
+      //   - 支援堆疊：多則提示依序堆疊於容器內（#toast-root 以 flex column 排列），各自計時移除。
+      //   - 顯示 TOAST_VISIBLE_MS 後自動移除對應節點，避免提示無限堆積。
+      var TOAST_VISIBLE_MS = 4000; // 提示顯示時間（毫秒）
+      function showToast(message) {
+        // showToast 常由事件處理器的 catch 區塊呼叫；以 try/catch 自我保護，
+        // 確保「提示本身」若失敗也絕不冒泡成未攔截例外或 console error（Req 20.5, 20.6）。
+        try {
+          var toastRoot = document.getElementById('toast-root');
+          if (!toastRoot || typeof message !== 'string' || message === '') {
+            return null;
+          }
+          var toast = document.createElement('div');
+          toast.className = 'toast';
+          // role="status" + aria-live=polite：輔助技術會讀出訊息，但不阻斷目前操作
+          toast.setAttribute('role', 'status');
+          toast.setAttribute('aria-live', 'polite');
+          toast.textContent = message;
+          toastRoot.appendChild(toast);
+
+          // 數秒後自動移除，避免提示堆積（容器支援多則堆疊）
+          window.setTimeout(function () {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, TOAST_VISIBLE_MS);
+
+          return toast;
+        } catch (err) {
+          // 提示建立失敗不應影響任何其他功能（Req 20.5, 20.6）
+          return null;
+        }
+      }
+
+      // ===== 平滑捲動模組（smoothScrollModule）=====
+      // 對應 Req 4.3–4.6、5.5、5.6 與 design.md「Components Navbar / smoothScrollModule」、
+      // 「Error Handling 導覽/CTA 目標區塊不存在」。
+      // 公開 scrollToSection(id)：
+      //   - 目標存在 → 平滑捲動至該區塊，並保留不小於 Navbar 高度的頂端間距（Req 4.3, 4.4）；
+      //     啟用 reduced-motion 時改為即時定位（100ms 內，無過場，Req 4.5）。
+      //   - 目標不存在 → 不改變捲動位置、觸發錯誤 toast，並回傳不可達旗標（Req 4.6, 5.6）。
+      // 回傳 { scrolled:boolean, unreachable:boolean }，使目標解析邏輯純粹且可單元/屬性測試（Property 11）。
+      var smoothScrollModule = (function createSmoothScrollModule() {
+        // getNavbarHeight：取得 Navbar 目前高度（像素），作為捲動後頂端保留間距（Req 4.4）。
+        // 優先量測實際 <header> 高度，量不到時退回 CSS 變數 --navbar-height，再退回預設值。
+        function getNavbarHeight() {
+          var header = document.querySelector('header');
+          if (header && typeof header.getBoundingClientRect === 'function') {
+            var rect = header.getBoundingClientRect();
+            if (rect && rect.height > 0) {
+              return rect.height;
+            }
+          }
+          var cssValue = 0;
+          if (typeof window.getComputedStyle === 'function' &&
+            document.documentElement) {
+            var raw = window.getComputedStyle(document.documentElement)
+              .getPropertyValue('--navbar-height');
+            cssValue = parseInt(raw, 10);
+          }
+          return !isNaN(cssValue) && cssValue > 0 ? cssValue : 56;
+        }
+
+        // resolveTarget：純粹的目標解析邏輯（Property 11 的核心）。
+        // 依 id 於文件中尋找對應區塊元素；找不到回傳 null。不產生任何副作用（不捲動）。
+        function resolveTarget(id) {
+          if (typeof id !== 'string' || id === '') {
+            return null;
+          }
+          // 去除可能的前導 '#'，容許呼叫端傳入 'intro' 或 '#intro'
+          var normalizedId = id.charAt(0) === '#' ? id.slice(1) : id;
+          if (normalizedId === '') {
+            return null;
+          }
+          return document.getElementById(normalizedId);
+        }
+
+        // scrollToSection：捲動至指定區塊；回傳 { scrolled, unreachable }。
+        // 目標不存在時維持捲動位置、觸發 toast、回傳 unreachable=true（Req 4.6, 5.6）。
+        function scrollToSection(id) {
+          var target = resolveTarget(id);
+          if (!target) {
+            // 目標不可達：不改變捲動位置，顯示錯誤提示（Req 4.6, 5.6）
+            showToast('找不到該區塊，無法前往。');
+            return { scrolled: false, unreachable: true };
+          }
+
+          var reduceMotion = prefersReducedMotion();
+          var navbarHeight = getNavbarHeight();
+
+          // 以 window.scrollTo 搭配計算後的位置，確保頂端保留 Navbar 高度間距（Req 4.4），
+          // 不受 scrollIntoView 無法扣除吸頂高度的限制。
+          var rect = typeof target.getBoundingClientRect === 'function'
+            ? target.getBoundingClientRect()
+            : null;
+          var currentScroll = typeof window.pageYOffset === 'number'
+            ? window.pageYOffset
+            : (document.documentElement ? document.documentElement.scrollTop : 0);
+          var targetTop = rect
+            ? rect.top + currentScroll - navbarHeight
+            : currentScroll;
+          if (targetTop < 0) {
+            targetTop = 0;
+          }
+
+          if (typeof window.scrollTo === 'function') {
+            try {
+              // reduced-motion：即時定位（auto，無過場，Req 4.5）；否則平滑捲動（Req 4.3）
+              window.scrollTo({
+                top: targetTop,
+                behavior: reduceMotion ? 'auto' : 'smooth'
+              });
+            } catch (err) {
+              // 舊環境不支援物件參數時退回兩引數形式（即時定位）
+              window.scrollTo(0, targetTop);
+            }
+          } else if (typeof target.scrollIntoView === 'function') {
+            target.scrollIntoView({
+              behavior: reduceMotion ? 'auto' : 'smooth',
+              block: 'start'
+            });
+          }
+
+          return { scrolled: true, unreachable: false };
+        }
+
+        return {
+          scrollToSection: scrollToSection,
+          resolveTarget: resolveTarget
+        };
+      })();
+
+      // bindNavbar：攔截 Navbar 錨點連結點擊，改以 smoothScrollModule 平滑捲動（Req 4.3）。
+      // preventDefault 阻止瀏覽器預設的即時跳轉；目標不存在時由 scrollToSection 顯示 toast（Req 4.6）。
+      // 以 try/catch 包覆，單一連結處理失敗不影響其餘導覽功能（Req 20.6）。
+      function bindNavbar() {
+        var nav = document.querySelector('header nav');
+        if (!nav) {
+          return;
+        }
+        var links = nav.querySelectorAll('a[href^="#"]');
+        for (var linkIndex = 0; linkIndex < links.length; linkIndex++) {
+          (function bindOne(link) {
+            link.addEventListener('click', function (event) {
+              try {
+                var href = link.getAttribute('href') || '';
+                var id = href.charAt(0) === '#' ? href.slice(1) : href;
+                event.preventDefault();
+                // 目標不可達時，scrollToSection 內部已觸發「找不到該區塊」toast（Req 4.6, 5.6）。
+                smoothScrollModule.scrollToSection(id);
+              } catch (err) {
+                // 導覽點擊例外被攔截，維持其餘導覽與頁面功能可用、不產生 console error（Req 20.5, 20.6）；
+                // 以 toast 統一提示使用者本次導覽未成功（Req 4.6）。
+                showToast('找不到該區塊，無法前往。');
+              }
+            });
+          })(links[linkIndex]);
+        }
+      }
+
+      // initHero：設定 Hero 區塊的淡入呈現與 CTA 行為（Req 5.5–5.8）。
+      // - reduced-motion 停用：加上 .hero--animatable（起始 opacity:0），
+      //   於下一個繪製影格切換 .hero--visible 觸發一次 opacity 0→1 淡入（500ms）。
+      // - reduced-motion 啟用：不套用任何轉場，直接以 opacity 1 呈現。
+      // - CTA：點擊平滑捲動至 #intro；此處先接上內建 fallback，
+      //   任務 5.2 的 smoothScrollModule 完成後會覆寫/延伸此行為。
+      function initHero() {
+        var hero = document.getElementById('hero');
+        var cta = document.getElementById('hero-cta');
+        if (!hero) {
+          return;
+        }
+
+        if (prefersReducedMotion()) {
+          // 啟用減少動態：直接可見、不套用轉場（Req 5.8）
+          hero.style.opacity = '1';
+        } else {
+          // 停用減少動態：播放一次淡入（Req 5.7）
+          hero.classList.add('hero--animatable');
+          // 以 requestAnimationFrame 確保起始 opacity:0 已套用後再切換，動畫才會觸發
+          var reveal = function () {
+            hero.classList.add('hero--visible');
+          };
+          if (typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(function () {
+              window.requestAnimationFrame(reveal);
+            });
+          } else {
+            reveal();
+          }
+        }
+
+        // CTA 綁定：優先使用 smoothScrollModule（任務 5.2 提供），
+        // 尚未就緒時退回原生捲動至 #intro，確保按鈕始終有實際功能（Req 5.5, 20.4）。
+        if (cta) {
+          cta.addEventListener('click', function () {
+            try {
+              if (window.smoothScrollModule &&
+                typeof window.smoothScrollModule.scrollToSection === 'function') {
+                window.smoothScrollModule.scrollToSection('intro');
+                return;
+              }
+              var intro = document.getElementById('intro');
+              if (intro && typeof intro.scrollIntoView === 'function') {
+                intro.scrollIntoView({
+                  behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+                  block: 'start'
+                });
+              }
+            } catch (err) {
+              // CTA 捲動例外被攔截，維持頁面其餘功能可用、不產生 console error（Req 20.5, 20.6）；
+              // 以 toast 統一提示本次前往未成功（Req 5.6）。
+              showToast('找不到該區塊，無法前往。');
+            }
+          });
+        }
+      }
+
+      // ===== Tools 區塊渲染（renderTools）與可展開卡片（toolCardToggle）=====
+      // 對應 Req 7 與 design.md「Components — Tools_Section / Tool_Card」。
+      // 由 toolsData 產生 4 張同時可見的 Tool_Card（Req 7.1），每張含圖片/圖示、
+      // 中文名、英文名、20–100 字介紹與至少一則新手提示（Req 7.2）。
+      // 以受控 DOM API（createElement / textContent）建立，不使用 innerHTML（Req 1.9）。
+
+      // toolCardToggle：切換單一 Tool_Card 的展開/收合狀態。
+      // 同步切換卡片 .is-expanded class（驅動 CSS 於 500ms 內展開/收合，Req 7.5, 7.6）
+      // 與切換按鈕的 aria-expanded 屬性（供輔助技術回報狀態）。
+      // 以 class + aria-expanded 的點擊切換實作，不依賴 hover，觸控裝置可用（Req 7.7）。
+      function toolCardToggle(card, toggleButton) {
+        var willExpand = !card.classList.contains('is-expanded');
+        card.classList.toggle('is-expanded', willExpand);
+        if (toggleButton) {
+          toggleButton.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
+          toggleButton.textContent = willExpand ? '收合說明' : '查看更多';
+        }
+      }
+
+      // buildToolImage：建立 Tool_Card 的圖片（以 .img-slot 包裹，供 imageFallbackModule
+      // 在載入失敗時沿用版面尺寸插入佔位，Req 7.3, 2.3）。
+      // 設定 data-fallback-emoji 指定佔位 emoji、data-alt-backup 作為 alt 備援（符合 fallback 模組約定）。
+      function buildToolImage(tool) {
+        var slot = document.createElement('span');
+        slot.className = 'img-slot';
+
+        var img = document.createElement('img');
+        img.setAttribute('src', tool.image);
+        img.setAttribute('alt', tool.alt);
+        img.setAttribute('width', '96');
+        img.setAttribute('height', '96');
+        // 載入失敗時佔位 emoji 與 alt 備援由 imageFallbackModule 讀取（約定以 data-* 屬性傳遞）
+        img.setAttribute('data-fallback-emoji', tool.fallbackEmoji);
+        img.setAttribute('data-alt-backup', tool.nameZh + '（' + tool.nameEn + '）');
+
+        slot.appendChild(img);
+        return slot;
+      }
+
+      // buildToolCard：由單筆 toolsData 建立一張 Tool_Card DOM 節點。
+      // 整卡可點擊展開；另提供可聚焦的切換按鈕，確保鍵盤與輔助技術皆可操作（Req 7.5, 19.2）。
+      // 缺圖時由 fallback 佔位、文字欄位照常顯示，不中斷其餘卡片（Req 7.3）。
+      function buildToolCard(tool) {
+        var card = document.createElement('article');
+        card.className = 'card tool-card';
+        card.setAttribute('data-tool-id', tool.id);
+
+        // 圖片/圖示欄位（Req 7.2）
+        var media = document.createElement('div');
+        media.className = 'tool-card__media';
+        media.appendChild(buildToolImage(tool));
+
+        // 名稱欄位：中文名為主、英文名為輔（Req 7.2, 3.2）
+        var name = document.createElement('h3');
+        name.className = 'tool-card__name';
+        name.textContent = tool.nameZh;
+        var nameEn = document.createElement('span');
+        nameEn.className = 'tool-card__name-en';
+        nameEn.textContent = tool.nameEn;
+        name.appendChild(nameEn);
+
+        // 20–100 字繁中介紹（Req 7.2）
+        var intro = document.createElement('p');
+        intro.className = 'tool-card__intro';
+        intro.textContent = tool.intro;
+
+        // 展開切換按鈕：aria-expanded 反映狀態（Req 7.5, 7.6, 7.7, 19.2）
+        var toggleButton = document.createElement('button');
+        toggleButton.type = 'button';
+        toggleButton.className = 'btn tool-card__toggle';
+        toggleButton.setAttribute('aria-expanded', 'false');
+        toggleButton.textContent = '查看更多';
+
+        // 詳細說明容器：含至少一則新手提示（Req 7.2），收合狀態下由 CSS 隱藏
+        var detail = document.createElement('div');
+        detail.className = 'tool-card__detail';
+        var detailId = 'tool-detail-' + tool.id;
+        detail.id = detailId;
+        toggleButton.setAttribute('aria-controls', detailId);
+
+        var tipsTitle = document.createElement('p');
+        tipsTitle.className = 'tool-card__detail-title';
+        tipsTitle.textContent = '新手提示';
+        detail.appendChild(tipsTitle);
+
+        var tips = document.createElement('ul');
+        tips.className = 'tool-card__tips';
+        var tipItems = Array.isArray(tool.tips) ? tool.tips : [];
+        for (var tipIndex = 0; tipIndex < tipItems.length; tipIndex++) {
+          var tipItem = document.createElement('li');
+          tipItem.textContent = tipItems[tipIndex];
+          tips.appendChild(tipItem);
+        }
+        detail.appendChild(tips);
+
+        card.appendChild(media);
+        card.appendChild(name);
+        card.appendChild(intro);
+        card.appendChild(toggleButton);
+        card.appendChild(detail);
+
+        // 切換按鈕點擊：僅按在「查看更多」按鈕範圍才展開/收合，整卡其餘區域不觸發。
+        toggleButton.addEventListener('click', function (event) {
+          try {
+            toolCardToggle(card, toggleButton);
+          } catch (err) {
+            // 單張卡片切換失敗不應中斷其餘卡片（Req 20.6）
+          }
+        });
+
+        return card;
+      }
+
+      // renderTools：將 toolsData 渲染為 Tools 區塊內容（標頭 + 四張 Tool_Card 格線）。
+      // 四張卡片以共用 .grid 同時可見（Req 7.1）；渲染完成後對新插入的 <img>
+      // 呼叫 imageFallbackModule.applyImageFallback，接上缺圖佔位機制（Req 7.3, 2.3）。
+      function renderTools() {
+        var section = document.getElementById('tools');
+        if (!section) {
+          return;
+        }
+
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        // 區塊標頭：主標題與副標題（中英並列術語，Req 3.2）
+        var header = document.createElement('div');
+        header.className = 'section__header';
+        var title = document.createElement('h2');
+        title.className = 'section__title';
+        title.textContent = '新手必備工具（Tools for Beginners）';
+        var subtitle = document.createElement('p');
+        subtitle.className = 'section__subtitle';
+        subtitle.textContent = '準備好這幾樣基本工具，就能開始你的第一個鉤織作品。';
+        header.appendChild(title);
+        header.appendChild(subtitle);
+
+        // 卡片格線：四張 Tool_Card 同時可見（Req 7.1）
+        var grid = document.createElement('div');
+        grid.className = 'grid grid--wide';
+        for (var toolIndex = 0; toolIndex < toolsData.length; toolIndex++) {
+          grid.appendChild(buildToolCard(toolsData[toolIndex]));
+        }
+
+        container.appendChild(header);
+        container.appendChild(grid);
+
+        // 重設區塊內容後掛入，避免重複渲染殘留
+        section.textContent = '';
+        section.appendChild(container);
+
+        // 新插入的 <img> 需接上缺圖佔位機制（Req 7.3, 2.3）；模組缺席時以 guard 保護。
+        if (window.imageFallbackModule &&
+          typeof window.imageFallbackModule.applyImageFallback === 'function') {
+          window.imageFallbackModule.applyImageFallback(section);
+        }
+      }
+
+      // ===== Stitches 區塊渲染（renderStitches）=====
+      // 對應 Req 8 與 design.md「Components — Stitches_Section / Stitch_Card」、
+      // 「Error Handling — 卡片欄位缺資料」。
+      // 由 stitchesData 產生恰三張 Stitch_Card（鎖針 / 短針 / 長針，Req 8.1），每張含
+      // 中文名、英文名、難度（簡單/中等/困難）、用途、新手提示與「查看教學」按鈕（Req 8.2–8.7）。
+      // 以受控 DOM API（createElement / textContent）建立，不使用 innerHTML（Req 1.9）。
+
+      // placeholderText：缺資料佔位的純函式（Property 10 / Req 8.8）。
+      // 將 null / undefined / 空字串（或純空白字串）正規化為可讀佔位「資料暫缺」，
+      // 其餘有值欄位去除前後空白後原樣回傳；確保渲染輸出不外洩 undefined / null / 空白欄位。
+      var MISSING_FIELD_PLACEHOLDER = '資料暫缺';
+      function placeholderText(value) {
+        if (typeof value === 'string') {
+          var trimmed = value.trim();
+          return trimmed === '' ? MISSING_FIELD_PLACEHOLDER : trimmed;
+        }
+        if (value === null || typeof value === 'undefined') {
+          return MISSING_FIELD_PLACEHOLDER;
+        }
+        // 非字串但有值（如數字）轉為字串呈現，仍避免外洩原始空值。
+        return String(value);
+      }
+
+      // isNonEmptyList：判定陣列欄位是否至少含一個非空字串項目，供教學內容完整性檢查使用。
+      function isNonEmptyList(list) {
+        if (!Array.isArray(list)) {
+          return false;
+        }
+        for (var itemIndex = 0; itemIndex < list.length; itemIndex++) {
+          if (typeof list[itemIndex] === 'string' && list[itemIndex].trim() !== '') {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // hasText：判定文字欄位是否為非空字串（去除前後空白後仍有內容）。
+      function hasText(value) {
+        return typeof value === 'string' && value.trim() !== '';
+      }
+
+      // appendStitchModalSection：於教學內容容器中建立一個區段（標題 + 清單）。
+      // items 以受控 DOM（ol/ul + li + textContent）插入，不使用 innerHTML（Req 1.9）。
+      // ordered 為 true 時以 <ol> 呈現編號步驟，否則以 <ul> 呈現。
+      function appendStitchModalSection(container, titleText, items, ordered) {
+        var section = document.createElement('section');
+        section.className = 'stitch-modal__section';
+
+        var heading = document.createElement('h4');
+        heading.className = 'stitch-modal__section-title';
+        heading.textContent = titleText;
+        section.appendChild(heading);
+
+        var list = document.createElement(ordered ? 'ol' : 'ul');
+        list.className = 'stitch-modal__list';
+        for (var listIndex = 0; listIndex < items.length; listIndex++) {
+          if (typeof items[listIndex] === 'string' && items[listIndex].trim() !== '') {
+            var listItem = document.createElement('li');
+            listItem.textContent = items[listIndex].trim();
+            list.appendChild(listItem);
+          }
+        }
+        section.appendChild(list);
+        container.appendChild(section);
+      }
+
+      // buildStitchModalContent：由單筆 stitchesData 建立「查看教學」Modal 的教學內容 DOM 節點。
+      // 內容依 design.md「Components — Stitch_Modal」注入：針法名稱、用途、所需材料、
+      // ≥3 編號步驟、≥1 常見錯誤（Req 9.2）。全程以受控 DOM API（createElement / textContent /
+      // ol/ul/li）建立，不使用 innerHTML（Req 1.9）。
+      // 教學內容缺漏或不完整時（如步驟缺失或少於三步、無常見錯誤、無材料、缺用途），
+      // 於內容中注入「內容無法載入」訊息（Req 9.9）；關閉按鈕由共用 Modal 保留，使用者仍可關閉。
+      function buildStitchModalContent(stitch) {
+        var data = stitch || {};
+        var fragment = document.createElement('div');
+        fragment.className = 'stitch-modal__body';
+
+        // 標題：中文名為主、英文名為輔（Req 3.2, 3.3）
+        var title = document.createElement('h3');
+        title.className = 'stitch-modal__title';
+        title.textContent = placeholderText(data.nameZh) + ' 教學';
+        if (hasText(data.nameEn)) {
+          var titleEn = document.createElement('span');
+          titleEn.className = 'stitch-modal__title-en';
+          titleEn.textContent = data.nameEn.trim();
+          title.appendChild(titleEn);
+        }
+        fragment.appendChild(title);
+
+        // 教學內容完整性檢查（Req 9.9）：用途、材料（≥1）、步驟（≥3）、常見錯誤（≥1）皆須齊備。
+        var steps = Array.isArray(data.steps)
+          ? data.steps.filter(function (step) {
+              return typeof step === 'string' && step.trim() !== '';
+            })
+          : [];
+        var isComplete = hasText(data.purpose) &&
+          steps.length >= 3 &&
+          isNonEmptyList(data.commonMistakes);
+
+        if (!isComplete) {
+          // 內容缺漏：注入錯誤訊息，仍回傳可掛入 Modal 的節點（關閉按鈕由 Modal 保留）。
+          var errorMessage = document.createElement('p');
+          errorMessage.className = 'stitch-modal__error';
+          errorMessage.setAttribute('role', 'alert');
+          errorMessage.textContent = '內容無法載入，請稍後再試。';
+          fragment.appendChild(errorMessage);
+          return fragment;
+        }
+
+        // 用途（Req 9.2）
+        var purposeSection = document.createElement('section');
+        purposeSection.className = 'stitch-modal__section';
+        var purposeHeading = document.createElement('h4');
+        purposeHeading.className = 'stitch-modal__section-title';
+        purposeHeading.textContent = '用途';
+        var purposeText = document.createElement('p');
+        purposeText.className = 'stitch-modal__text';
+        purposeText.textContent = data.purpose.trim();
+        purposeSection.appendChild(purposeHeading);
+        purposeSection.appendChild(purposeText);
+        fragment.appendChild(purposeSection);
+
+        // 步驟（Req 9.2）：≥3 編號步驟，以有序清單呈現
+        appendStitchModalSection(fragment, '步驟', steps, true);
+        // 常見錯誤（Req 9.2）：≥1 項，無序清單
+        appendStitchModalSection(fragment, '常見錯誤', data.commonMistakes, false);
+
+        return fragment;
+      }
+
+      // buildStitchCard：由單筆 stitchesData 建立一張 Stitch_Card DOM 節點。
+      // 每個文字欄位皆經 placeholderText 正規化，缺欄位顯示「資料暫缺」且保留其餘欄位（Req 8.8）。
+      // 「查看教學」按鈕以 data-stitch-id 標示對應針法，點擊時以 buildStitchModalContent
+      // 建立教學內容並呼叫 window.modalModule.open() 開啟（1 秒內，Req 9.1, 9.2）。
+      function buildStitchCard(stitch) {
+        var data = stitch || {};
+        var card = document.createElement('article');
+        card.className = 'card stitch-card';
+        card.setAttribute('data-stitch-id', placeholderText(data.id));
+
+        // 名稱欄位：中文名為主、英文名為輔（Req 8.2, 8.3, 3.2, 3.3）
+        var name = document.createElement('h3');
+        name.className = 'stitch-card__name';
+        name.textContent = placeholderText(data.nameZh);
+        var nameEn = document.createElement('span');
+        nameEn.className = 'stitch-card__name-en';
+        nameEn.textContent = placeholderText(data.nameEn);
+        name.appendChild(nameEn);
+
+        // 難度標示：簡單 / 中等 / 困難（Req 8.4）；缺值以「資料暫缺」佔位
+        var difficulty = document.createElement('span');
+        difficulty.className = 'stitch-card__difficulty';
+        difficulty.textContent = '難度：' + placeholderText(data.difficulty);
+
+        // 用途說明欄位（Req 8.5）
+        var purposeField = document.createElement('div');
+        purposeField.className = 'stitch-card__field';
+        var purposeLabel = document.createElement('p');
+        purposeLabel.className = 'stitch-card__field-label';
+        purposeLabel.textContent = '用途';
+        var purposeText = document.createElement('p');
+        purposeText.className = 'stitch-card__text';
+        purposeText.textContent = placeholderText(data.purpose);
+        purposeField.appendChild(purposeLabel);
+        purposeField.appendChild(purposeText);
+
+        // 新手提示欄位（Req 8.6）
+        var tipField = document.createElement('div');
+        tipField.className = 'stitch-card__field';
+        var tipLabel = document.createElement('p');
+        tipLabel.className = 'stitch-card__field-label';
+        tipLabel.textContent = '新手提示';
+        var tipText = document.createElement('p');
+        tipText.className = 'stitch-card__text';
+        tipText.textContent = placeholderText(data.tip);
+        tipField.appendChild(tipLabel);
+        tipField.appendChild(tipText);
+
+        // 「查看教學」按鈕（Req 8.7）：以 data-stitch-id 標示針法。
+        // 點擊時建立該針法教學內容並呼叫共用 modalModule.open() 注入（Req 9.1, 9.2）；
+        // 教學內容缺漏時 buildStitchModalContent 會改注入「內容無法載入」訊息，
+        // 關閉按鈕由共用 Modal 保留（Req 9.9）。處理器以 try/catch 包覆，攔截例外、
+        // 維持其餘功能可用、不產生 console error（Req 20.6）。
+        var actionButton = document.createElement('button');
+        actionButton.type = 'button';
+        actionButton.className = 'btn stitch-card__action';
+        actionButton.textContent = '查看教學';
+        actionButton.setAttribute('data-stitch-id', placeholderText(data.id));
+        actionButton.setAttribute(
+          'aria-label',
+          '查看' + placeholderText(data.nameZh) + '教學'
+        );
+        actionButton.addEventListener('click', function (event) {
+          try {
+            event.preventDefault();
+            if (!window.modalModule || typeof window.modalModule.open !== 'function') {
+              // Modal 模組不可用時，不留下無回饋的點擊；以 toast 統一提示（Req 9.9 風格一致）。
+              showToast('內容無法載入，請稍後再試。');
+              return;
+            }
+            var content = buildStitchModalContent(data);
+            window.modalModule.open(actionButton, content, {
+              ariaLabel: placeholderText(data.nameZh) + ' 教學',
+              labelText: '關閉教學'
+            });
+          } catch (error) {
+            // 攔截例外，維持其餘互動可用、不產生 console error（Req 20.5, 20.6）；
+            // 以 toast 統一提示教學內容本次無法開啟。
+            showToast('內容無法載入，請稍後再試。');
+          }
+        });
+
+        card.appendChild(name);
+        card.appendChild(difficulty);
+        card.appendChild(purposeField);
+        card.appendChild(tipField);
+        card.appendChild(actionButton);
+
+        return card;
+      }
+
+      // renderStitches：將 stitchesData 渲染為 Stitches 區塊內容（標頭 + 三張 Stitch_Card 格線）。
+      // 三張卡片依序對應鎖針 / 短針 / 長針並以共用 .grid 呈現（Req 8.1）；
+      // 重設區塊內容後掛入，避免重複渲染殘留。
+      function renderStitches() {
+        var section = document.getElementById('stitches');
+        if (!section) {
+          return;
+        }
+
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        // 區塊標頭：主標題與副標題（中英並列術語，Req 3.2）
+        var header = document.createElement('div');
+        header.className = 'section__header';
+        var title = document.createElement('h2');
+        title.className = 'section__title';
+        title.textContent = '基本針法（Basic Stitches）';
+        var subtitle = document.createElement('p');
+        subtitle.className = 'section__subtitle';
+        subtitle.textContent = '先認識這三種基礎針法，就能看懂大部分新手作品的做法。';
+        header.appendChild(title);
+        header.appendChild(subtitle);
+
+        // 卡片格線：三張 Stitch_Card 依資料順序同時可見（Req 8.1）
+        var grid = document.createElement('div');
+        grid.className = 'grid';
+        var items = Array.isArray(stitchesData) ? stitchesData : [];
+        for (var stitchIndex = 0; stitchIndex < items.length; stitchIndex++) {
+          grid.appendChild(buildStitchCard(items[stitchIndex]));
+        }
+
+        container.appendChild(header);
+        container.appendChild(grid);
+
+        // 重設區塊內容後掛入，避免重複渲染殘留
+        section.textContent = '';
+        section.appendChild(container);
+      }
+
+      // ===== Projects 區塊渲染（renderProjects）=====
+      // 對應 Req 10 與 design.md「Components — Projects_Section / Project_Card」。
+      // 由 projectsData 產生 4 張同時可見的 Project_Card（Req 10.1）：
+      // 作品名稱、「難度 N/5」+ Easy/Medium 分類、預估時間（timeText），以及「查看作品」按鈕（Req 10.3, 10.4, 10.5）。
+      // 區塊顯示副標題「從簡單的小作品開始，慢慢培養手感。」（Req 10.2）。
+      // 以受控 DOM API（createElement / textContent）建立，不使用 innerHTML（Req 1.9）。
+      // 「查看作品」按鈕僅標記 data-project-id 作為識別；開啟 Project_Modal 的點擊綁定於任務 10.2 接上。
+
+      // buildProjectImage：建立 Project_Card 的圖片（以 .img-slot 包裹，供 imageFallbackModule
+      // 在載入失敗時沿用版面尺寸插入佔位，Req 2.3）。
+      // 設定 data-fallback-emoji 指定佔位 emoji、data-alt-backup 作為 alt 備援（符合 fallback 模組約定）。
+      function buildProjectImage(project) {
+        var slot = document.createElement('span');
+        slot.className = 'img-slot';
+
+        var img = document.createElement('img');
+        img.setAttribute('src', project.image);
+        img.setAttribute('alt', project.alt);
+        img.setAttribute('width', '120');
+        img.setAttribute('height', '120');
+        // 載入失敗時佔位 emoji 與 alt 備援由 imageFallbackModule 讀取（約定以 data-* 屬性傳遞）
+        img.setAttribute('data-fallback-emoji', project.fallbackEmoji);
+        img.setAttribute('data-alt-backup', project.nameZh);
+
+        slot.appendChild(img);
+        return slot;
+      }
+
+      // buildProjectCard：由單筆 projectsData 建立一張 Project_Card DOM 節點。
+      // 顯示作品圖片、名稱、「難度 N/5」+ Easy/Medium 分類標籤、預估時間，與「查看作品」按鈕。
+      // 「查看作品」按鈕標記 data-project-id 供任務 10.2 綁定開啟對應 Project_Modal。
+      function buildProjectCard(project) {
+        var card = document.createElement('article');
+        card.className = 'card project-card';
+        card.setAttribute('data-project-id', project.id);
+
+        // 作品圖片欄位（缺圖時由 imageFallbackModule 佔位，Req 2.3）
+        var media = document.createElement('div');
+        media.className = 'project-card__media';
+        media.appendChild(buildProjectImage(project));
+
+        // 作品名稱（Req 10.3）
+        var name = document.createElement('h3');
+        name.className = 'project-card__name';
+        name.textContent = project.nameZh;
+
+        // 詮釋資料：難度（含 Easy/Medium 分類）與預估時間
+        var meta = document.createElement('div');
+        meta.className = 'project-card__meta';
+
+        // 難度以「難度 N/5」格式呈現，並標註 Easy/Medium 分類（Req 10.3）
+        var difficulty = document.createElement('p');
+        difficulty.className = 'project-card__difficulty';
+        difficulty.textContent = '難度 ' + project.difficulty + '/5';
+        var category = document.createElement('span');
+        category.className = 'project-card__category';
+        category.textContent = project.category;
+        difficulty.appendChild(category);
+
+        // 預估時間（timeText；Req 10.4）
+        var time = document.createElement('p');
+        time.className = 'project-card__time';
+        time.textContent = '預估時間：' + project.timeText;
+
+        meta.appendChild(difficulty);
+        meta.appendChild(time);
+
+        // 「查看作品」按鈕（Req 10.5）：以 data-project-id 標示對應作品。
+        // 點擊時依 id 解析作品、建立詳細內容並呼叫共用 modalModule.open() 開啟（1 秒內，Req 11.1, 11.2）；
+        // 僅注入該作品內容，不含其他三件作品（Req 11.2）。作品資料不可取得時不開空白 Modal，
+        // 改以 toast 顯示「內容無法載入」（Req 11.10）。處理器以 try/catch 包覆，攔截例外、
+        // 維持其餘功能可用、不產生 console error（Req 20.6）。
+        var viewButton = document.createElement('button');
+        viewButton.type = 'button';
+        viewButton.className = 'btn project-card__view';
+        viewButton.setAttribute('data-project-id', project.id);
+        viewButton.textContent = '查看作品';
+        viewButton.setAttribute('aria-label', '查看' + placeholderText(project.nameZh) + '作品詳細');
+        viewButton.addEventListener('click', function (event) {
+          try {
+            event.preventDefault();
+            // 依按鈕上的 data-project-id 解析作品，確保只開啟被點擊的那一件（Req 11.2）
+            var resolved = resolveProjectById(viewButton.getAttribute('data-project-id'));
+            // 作品資料不可取得：不開空白 Modal，改以錯誤 toast 提示（Req 11.10）
+            if (!resolved) {
+              showToast('內容無法載入，請稍後再試。');
+              return;
+            }
+            if (!window.modalModule || typeof window.modalModule.open !== 'function') {
+              showToast('內容無法載入，請稍後再試。');
+              return;
+            }
+            var content = buildProjectModalContent(resolved);
+            window.modalModule.open(viewButton, content, {
+              ariaLabel: placeholderText(resolved.nameZh) + ' 作品詳細',
+              labelText: '關閉作品詳細'
+            });
+          } catch (error) {
+            // 攔截例外，避免中斷其餘互動；不輸出 console error（Req 20.6）。
+          }
+        });
+
+        card.appendChild(media);
+        card.appendChild(name);
+        card.appendChild(meta);
+        card.appendChild(viewButton);
+
+        return card;
+      }
+
+      // resolveProjectById：依 id 於 projectsData 中解析對應作品項目（Req 11.2）。
+      // 找不到（id 為空、型別錯誤或無對應作品）回傳 null，供呼叫端判斷是否顯示錯誤 toast（Req 11.10）。
+      // 純查找、無副作用，確保「查看作品」只開啟被點擊的那一件作品。
+      function resolveProjectById(id) {
+        if (typeof id !== 'string' || id.trim() === '') {
+          return null;
+        }
+        var targetId = id.trim();
+        var items = Array.isArray(projectsData) ? projectsData : [];
+        for (var projectIndex = 0; projectIndex < items.length; projectIndex++) {
+          if (items[projectIndex] && items[projectIndex].id === targetId) {
+            return items[projectIndex];
+          }
+        }
+        return null;
+      }
+
+      // buildProjectModalContent：由單筆 projectsData 建立「查看作品」Project_Modal 的詳細內容 DOM 節點。
+      // 依 design.md「Components — Project_Modal」注入：作品名稱、難度（「難度 N/5」+ Easy/Medium 分類）、
+      // 預估時間（並於時間處註明實際時間會因個人熟練度、材料與做法而異，Req 11.3）、所需材料、
+      // 簡短製作方向與新手注意事項（Req 11.2）。全程以受控 DOM API（createElement / textContent /
+      // ul/li）建立，不使用 innerHTML（Req 1.9）；缺值欄位以 placeholderText 佔位，避免外洩空值。
+      // 本函式僅注入傳入作品的內容，呼叫端已先以 resolveProjectById 確保作品可取得（不可取得時改走
+      // 錯誤 toast，不開空白 Modal，Req 11.10）。
+      function buildProjectModalContent(project) {
+        var data = project || {};
+        var fragment = document.createElement('div');
+        fragment.className = 'project-modal__body';
+
+        // 標題：作品名稱（Req 11.2）
+        var title = document.createElement('h3');
+        title.className = 'project-modal__title';
+        title.textContent = placeholderText(data.nameZh);
+        fragment.appendChild(title);
+
+        // 難度：以「難度 N/5」格式呈現，並標註 Easy/Medium 分類（Req 11.2）
+        var difficulty = document.createElement('p');
+        difficulty.className = 'project-modal__difficulty';
+        difficulty.textContent = '難度 ' + placeholderText(data.difficulty) + '/5';
+        if (hasText(data.category)) {
+          var category = document.createElement('span');
+          category.className = 'project-modal__category';
+          category.textContent = data.category.trim();
+          difficulty.appendChild(category);
+        }
+        fragment.appendChild(difficulty);
+
+        // 預估時間（Req 11.2）＋ 時間因人而異的說明（Req 11.3）
+        var timeSection = document.createElement('section');
+        timeSection.className = 'project-modal__section';
+        var timeHeading = document.createElement('h4');
+        timeHeading.className = 'project-modal__section-title';
+        timeHeading.textContent = '預估時間';
+        var timeText = document.createElement('p');
+        timeText.className = 'project-modal__text';
+        timeText.textContent = placeholderText(data.timeText);
+        var timeNote = document.createElement('p');
+        timeNote.className = 'project-modal__time-note';
+        // 註明實際製作時間會因個人熟練度、材料與做法而異（Req 11.3）
+        timeNote.textContent = '實際製作時間會因個人熟練度、使用的材料與做法而有所不同，僅供參考。';
+        timeSection.appendChild(timeHeading);
+        timeSection.appendChild(timeText);
+        timeSection.appendChild(timeNote);
+        fragment.appendChild(timeSection);
+
+        // 所需材料（Req 11.2）：無序清單；缺資料時以佔位呈現，不外洩空值
+        appendProjectModalSection(fragment, '所需材料', data.materials);
+
+        // 會用到的針法：呈現該作品用到的基本針法（無資料時以佔位呈現）
+        appendProjectModalSection(fragment, '會用到的針法', data.stitches);
+
+        // 簡短製作方向（Req 11.2）
+        var directionSection = document.createElement('section');
+        directionSection.className = 'project-modal__section';
+        var directionHeading = document.createElement('h4');
+        directionHeading.className = 'project-modal__section-title';
+        directionHeading.textContent = '製作方向';
+        var directionText = document.createElement('p');
+        directionText.className = 'project-modal__text';
+        directionText.textContent = placeholderText(data.direction);
+        directionSection.appendChild(directionHeading);
+        directionSection.appendChild(directionText);
+        fragment.appendChild(directionSection);
+
+        // 新手注意事項（Req 11.2）：無序清單
+        appendProjectModalSection(fragment, '注意事項', data.notes);
+
+        return fragment;
+      }
+
+      // appendProjectModalSection：於作品詳細內容容器中建立一個清單區段（標題 + <ul>）。
+      // items 以受控 DOM（ul + li + textContent）插入，不使用 innerHTML（Req 1.9）。
+      // 清單無任何有效項目時，以單一「資料暫缺」項呈現，避免外洩空清單或空值。
+      function appendProjectModalSection(container, titleText, items) {
+        var section = document.createElement('section');
+        section.className = 'project-modal__section';
+
+        var heading = document.createElement('h4');
+        heading.className = 'project-modal__section-title';
+        heading.textContent = titleText;
+        section.appendChild(heading);
+
+        var list = document.createElement('ul');
+        list.className = 'project-modal__list';
+        var appended = 0;
+        if (Array.isArray(items)) {
+          for (var listIndex = 0; listIndex < items.length; listIndex++) {
+            if (typeof items[listIndex] === 'string' && items[listIndex].trim() !== '') {
+              var listItem = document.createElement('li');
+              listItem.textContent = items[listIndex].trim();
+              list.appendChild(listItem);
+              appended++;
+            }
+          }
+        }
+        // 無任何有效項目：以佔位項呈現，避免空清單外洩（與卡片缺資料佔位一致）
+        if (appended === 0) {
+          var placeholderItem = document.createElement('li');
+          placeholderItem.textContent = MISSING_FIELD_PLACEHOLDER;
+          list.appendChild(placeholderItem);
+        }
+        section.appendChild(list);
+        container.appendChild(section);
+      }
+
+      // renderProjects：將 projectsData 渲染為 Projects 區塊內容（標頭 + 副標題 + 四張 Project_Card 格線）。
+      // 四張卡片以共用 .grid 同時可見（Req 10.1）；渲染完成後對新插入的 <img>
+      // 呼叫 imageFallbackModule.applyImageFallback，接上缺圖佔位機制（Req 2.3）。
+      function renderProjects() {
+        var section = document.getElementById('projects');
+        if (!section) {
+          return;
+        }
+
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        // 區塊標頭：主標題與副標題（中英並列術語，Req 3.1；副標題文字固定，Req 10.2）
+        var header = document.createElement('div');
+        header.className = 'section__header';
+        var title = document.createElement('h2');
+        title.className = 'section__title';
+        title.textContent = '新手作品推薦（Beginner Projects）';
+        var subtitle = document.createElement('p');
+        subtitle.className = 'section__subtitle';
+        subtitle.textContent = '從簡單的小作品開始，慢慢培養手感。';
+        // 作品計數：顯示「共 N 件作品」；套用篩選後追加「篩選後 M 件」。
+        // aria-live=polite 使輔助技術在數量變動時播報（無障礙）。
+        var count = document.createElement('p');
+        count.className = 'project-count';
+        count.setAttribute('aria-live', 'polite');
+        header.appendChild(title);
+        header.appendChild(subtitle);
+        header.appendChild(count);
+
+        // 卡片格線：四張 Project_Card 同時可見（Req 10.1）
+        var grid = document.createElement('div');
+        grid.className = 'grid grid--wide';
+        var items = Array.isArray(projectsData) ? projectsData : [];
+        for (var projectIndex = 0; projectIndex < items.length; projectIndex++) {
+          grid.appendChild(buildProjectCard(items[projectIndex]));
+        }
+
+        container.appendChild(header);
+        container.appendChild(grid);
+
+        // 重設區塊內容後掛入，避免重複渲染殘留
+        section.textContent = '';
+        section.appendChild(container);
+
+        // 新插入的 <img> 需接上缺圖佔位機制（Req 2.3）；模組缺席時以 guard 保護。
+        if (window.imageFallbackModule &&
+          typeof window.imageFallbackModule.applyImageFallback === 'function') {
+          window.imageFallbackModule.applyImageFallback(section);
+        }
+
+        // Project_Card 建立後接上難度篩選（Req 12）：初始 All 選取、顯示全部四張（Req 12.5）。
+        projectFilterModule.init(section);
+      }
+
+      // ===== Projects 難度篩選（filterProjects 純函式 + projectFilterModule）=====
+      // 對應 Req 12 與 design.md「Components — Filter_Control、projectFilterModule」。
+      // filterProjects 為純函式，支援 Property 6（作品篩選數量與成員正確）；
+      // projectFilterModule 以小型狀態機管理 All/Easy/Medium 三鈕的唯一選取，支援 Property 7（篩選選取狀態唯一）。
+
+      // 合法篩選模式：All（全部）、Easy（難度分類 Easy）、Medium（難度分類 Medium）。
+      // ===== Projects 雙維篩選（難度 + 類型）=====
+      // 對應 Req 12：難度篩選（全部/入門/初階/進階入門）與類型篩選（全部/吊飾/居家用品/穿搭配件/娃娃）。
+      // 兩組篩選可同時使用（AND 組合）；切換僅調整卡片 display（不重新渲染、不重載）。
+
+      // 難度篩選選項：value 為難度數字或 'all'；label 為顯示文字。
+      var DIFFICULTY_FILTERS = Object.freeze([
+        Object.freeze({ value: 'all', label: '全部' }),
+        Object.freeze({ value: 1, label: '入門' }),
+        Object.freeze({ value: 2, label: '初階' }),
+        Object.freeze({ value: 3, label: '進階入門' })
+      ]);
+
+      // 類型篩選選項：value 為作品 kind 或 'all'；label 為顯示文字。
+      var KIND_FILTERS = Object.freeze([
+        Object.freeze({ value: 'all', label: '全部' }),
+        Object.freeze({ value: 'charm', label: '吊飾' }),
+        Object.freeze({ value: 'home', label: '居家用品' }),
+        Object.freeze({ value: 'wear', label: '穿搭配件' }),
+        Object.freeze({ value: 'doll', label: '娃娃' })
+      ]);
+
+      // filterProjects：純函式。給定作品資料與篩選狀態（difficulty + kind），回傳符合兩條件的子集。
+      // difficulty 為 'all' 或數字；kind 為 'all' 或作品 kind。兩條件以 AND 組合（Req 12.4）。
+      // 不改動輸入、無副作用，恒為 projectsData 的子集。
+      function filterProjects(projectsList, state) {
+        var items = Array.isArray(projectsList) ? projectsList : [];
+        var diff = state && typeof state.difficulty !== 'undefined' ? state.difficulty : 'all';
+        var kind = state && typeof state.kind !== 'undefined' ? state.kind : 'all';
+        var subset = [];
+        for (var filterIndex = 0; filterIndex < items.length; filterIndex++) {
+          var item = items[filterIndex];
+          if (!item) {
+            continue;
+          }
+          var diffOk = (diff === 'all') || (item.difficulty === diff);
+          var kindOk = (kind === 'all') || (item.kind === kind);
+          if (diffOk && kindOk) {
+            subset.push(item);
+          }
+        }
+        return subset;
+      }
+
+      // projectFilterModule：管理難度與類型兩組 Filter_Control 與作品卡片的顯示/隱藏切換（Req 12）。
+      // 以 state = { difficulty, kind } 為狀態；每組恒有一鈕為選取（唱一性）。
+      var projectFilterModule = (function () {
+        var state = { difficulty: 'all', kind: 'all' };
+        var diffButtons = [];   // { value, button }
+        var kindButtons = [];   // { value, button }
+
+        // applyFilters：依目前 state 更新兩組按鈕選取狀態與卡片顯示/隱藏。
+        function applyFilters(section) {
+          for (var di = 0; di < diffButtons.length; di++) {
+            var dSel = (diffButtons[di].value === state.difficulty);
+            diffButtons[di].button.classList.toggle('is-selected', dSel);
+            diffButtons[di].button.setAttribute('aria-pressed', dSel ? 'true' : 'false');
+          }
+          for (var ki = 0; ki < kindButtons.length; ki++) {
+            var kSel = (kindButtons[ki].value === state.kind);
+            kindButtons[ki].button.classList.toggle('is-selected', kSel);
+            kindButtons[ki].button.setAttribute('aria-pressed', kSel ? 'true' : 'false');
+          }
+          var visible = filterProjects(projectsData, state);
+          var visibleIds = {};
+          for (var vi = 0; vi < visible.length; vi++) {
+            if (visible[vi]) {
+              visibleIds[visible[vi].id] = true;
+            }
+          }
+          var cards = section.querySelectorAll('.project-card');
+          var shownCount = 0;
+          for (var ci = 0; ci < cards.length; ci++) {
+            var cardId = cards[ci].getAttribute('data-project-id');
+            var show = !!visibleIds[cardId];
+            cards[ci].style.display = show ? '' : 'none';
+            if (show) {
+              shownCount++;
+            }
+          }
+          // 無符合条件的作品時顯示提示文字
+          var empty = section.querySelector('.filter-empty');
+          if (empty) {
+            empty.style.display = (shownCount === 0) ? '' : 'none';
+          }
+          // 更新作品計數：未篩選（全部顯示）時僅「共 N 件」；有篩選時追加「篩選後 M 件」。
+          var countEl = section.querySelector('.project-count');
+          if (countEl) {
+            var total = (Array.isArray(projectsData) ? projectsData : []).length;
+            var filtering = (state.difficulty !== 'all') || (state.kind !== 'all');
+            countEl.textContent = filtering
+              ? ('共 ' + total + ' 件作品，篩選後 ' + shownCount + ' 件')
+              : ('共 ' + total + ' 件作品');
+          }
+        }
+
+        // buildGroup：建立一組帶標題的篩選按鈕列（單選，aria-pressed）。
+        // dimension 為 'difficulty' 或 'kind'；options 為選項陣列；store 為按鈕登記陣列。
+        function buildGroup(labelText, dimension, options, store, section) {
+          var wrap = document.createElement('div');
+          wrap.className = 'filter-row';
+
+          var label = document.createElement('span');
+          label.className = 'filter-row__label';
+          label.textContent = labelText;
+          wrap.appendChild(label);
+
+          var group = document.createElement('div');
+          group.className = 'filter-control';
+          group.setAttribute('role', 'group');
+          group.setAttribute('aria-label', labelText);
+
+          for (var oi = 0; oi < options.length; oi++) {
+            var opt = options[oi];
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn--secondary filter-control__button';
+            button.setAttribute('aria-pressed', 'false');
+            button.textContent = opt.label;
+            (function (dim, val) {
+              button.addEventListener('click', function (event) {
+                try {
+                  event.preventDefault();
+                  state[dim] = val;
+                  applyFilters(section);
+                } catch (error) {
+                  // 攒截例外，維持其餘功能可用（Req 20.6）
+                }
+              });
+            })(dimension, opt.value);
+            store.push({ value: opt.value, button: button });
+            group.appendChild(button);
+          }
+          wrap.appendChild(group);
+          return wrap;
+        }
+
+        // init：於 renderProjects 完成（卡片已存在）後呼叫；將兩組 Filter_Control 插入格線上方，
+        // 並套用初始狀態（難度=全部、類型=全部，顯示全部作品）。
+        function init(section) {
+          if (!section) {
+            return;
+          }
+          var container = section.querySelector('.container');
+          var grid = section.querySelector('.grid');
+          if (!container || !grid) {
+            return;
+          }
+          state = { difficulty: 'all', kind: 'all' };
+          diffButtons = [];
+          kindButtons = [];
+
+          var panel = document.createElement('div');
+          panel.className = 'filter-panel';
+          panel.appendChild(buildGroup('難度', 'difficulty', DIFFICULTY_FILTERS, diffButtons, section));
+          panel.appendChild(buildGroup('類型', 'kind', KIND_FILTERS, kindButtons, section));
+          container.insertBefore(panel, grid);
+
+          // 無符合結果的提示（預設隱藏）
+          var empty = document.createElement('p');
+          empty.className = 'filter-empty';
+          empty.textContent = '目前沒有符合條件的作品，請調整篩選條件。';
+          empty.style.display = 'none';
+          container.insertBefore(empty, grid.nextSibling);
+
+          applyFilters(section);
+        }
+
+        return {
+          init: init,
+          filterProjects: filterProjects,
+          getState: function () { return { difficulty: state.difficulty, kind: state.kind }; },
+          getSelectedMode: function () { return state.difficulty; }
+        };
+      })();
+
+      // ===== Quiz 區塊渲染（renderQuiz）與作答暫存狀態 =====
+      // 對應 Req 13（作答流程）、18.8（選項換行）、19.3（控制項與標籤一對一）、3.1（中英術語）
+      // 與 design.md「Components — Quiz_Section、暫存於記憶體」。
+      // 由 quizData 依序渲染三題（經驗 / 時間 / 喜好），每題一組同 name 的 radio 確保單選（Req 13.2），
+      // 每個選項對應一對一 <label>（Req 19.3），並顯示「Show My Result」送出按鈕（Req 13.3）。
+      // 作答僅暫存於下方記憶體變數 quizAnswers，不寫入 localStorage/sessionStorage，重整即清除（Req 13.6, 13.7）。
+      // 推薦引擎（recommendProject）與結果畫面分別於任務 14、15 接上；本任務僅實作作答 UI 與記憶體暫存，
+      // 送出按鈕先接上安全的讀取記憶體狀態之佔位處理，任務 15 再將「送出 → 結果」串接。
+
+      // quizAnswers：測驗作答的記憶體暫存（鍵為題目 id，值為選項 code）。
+      // 僅存於目前執行環境的記憶體；不使用任何持久化儲存，頁面重整或離開即自然清除（Req 13.6, 13.7）。
+      var quizAnswers = {};
+
+      // setQuizAnswer：記錄單題作答至記憶體狀態，並同步選項列的選取視覺回饋。
+      // 由各選項 radio 的 change 事件呼叫；僅更新記憶體變數，不觸發任何持久化。
+      function setQuizAnswer(questionId, optionCode, optionsContainer) {
+        quizAnswers[questionId] = optionCode;
+        if (!optionsContainer) {
+          return;
+        }
+        // 同步同題各選項列的選取樣式（被選中者加上 .is-selected，其餘移除）
+        var labels = optionsContainer.querySelectorAll('.quiz__option');
+        for (var labelIndex = 0; labelIndex < labels.length; labelIndex++) {
+          var radio = labels[labelIndex].querySelector('input[type="radio"]');
+          var isSelected = !!radio && radio.value === optionCode;
+          labels[labelIndex].classList.toggle('is-selected', isSelected);
+        }
+      }
+
+      // getQuizAnswers：回傳目前記憶體作答的淺層複本，供送出流程（任務 15）讀取，
+      // 避免外部直接改動內部狀態。
+      function getQuizAnswers() {
+        var copy = {};
+        for (var key in quizAnswers) {
+          if (Object.prototype.hasOwnProperty.call(quizAnswers, key)) {
+            copy[key] = quizAnswers[key];
+          }
+        }
+        return copy;
+      }
+
+      // ===== 測驗推薦引擎（Quiz_Engine）純函式 =====
+      // 對應 Req 14（可解釋、確定性、全覆蓋推薦）、13.4 / 14.6（未完成不產生推薦）
+      // 與 design.md「測驗推薦引擎詳細設計、完整 18 組合對照表、推薦結果物件」。
+      //
+      // recommendProject(answers) 為純函式：相同輸入恆得相同輸出、無隨機、無副作用、不觸碰 DOM。
+      // answers 為物件，鍵為題目 id（experience / time / theme），值為選項 code
+      //   （experience: E0/E1；time: T0/T1/T2；theme: H_cute/H_useful/H_doll）。
+      // 回傳推薦結果物件 { status, project, reasons[], downgraded, message }。
+      // 本函式僅實作推薦演算法（任務 14.1）；結果畫面 UI 串接於任務 15。
+
+      // 選項 code → 語意值對照（依 design.md「語意值對應」表）。
+      // 任一對照表缺少對應鍵即視為該題未作答（回傳 null），交由不完整判斷處理。
+      var QUIZ_EXP_LEVEL = Object.freeze({ E0: 0, E1: 1 });              // 經驗 expLevel
+      var QUIZ_TIME_LEVEL = Object.freeze({ T0: 0, T1: 1, T2: 2 });      // 時間 timeLevel
+      var QUIZ_PREF_THEME = Object.freeze({                             // 喜好 prefTheme
+        H_cute: 'cute',
+        H_useful: 'useful',
+        H_doll: 'doll'
+      });
+
+      // 喜好 → 顯示用中文標籤（供可解釋原因文字使用，Req 14.3）。
+      var QUIZ_THEME_LABEL = Object.freeze({
+        cute: '可愛裝飾',
+        useful: '實用小物',
+        doll: '立體玩偶'
+      });
+
+      // 喜好理想作品偏好序（依 design.md「步驟二：由喜好對應理想作品」）：
+      // cute → 小草莓(2)，門檻不足時退而求其次小花(1)（兩者皆為 cute 系列、同屬喜好相符，非降階）；
+      // useful → 小袋子(3)；doll → 小熊(3)。以作品 id 的偏好序陣列表示，
+      // 依序挑選第一個難度 ≤ maxDiff 者；若皆超過門檻才進入跨類降階（僅 useful/doll 會發生）。
+      var QUIZ_IDEAL_BY_THEME = Object.freeze({
+        cute: Object.freeze(['cherry', 'strawberry', 'heart', 'flower', 'bow']),
+        useful: Object.freeze(['bag', 'scrunchie', 'coaster']),
+        doll: Object.freeze(['bear', 'whale'])
+      });
+
+      // 降階時同難度的 tie-break 順序（依 design.md 選取規則）：
+      // cute 系列（小花/小草莓）> useful（小袋子）> doll（小熊）。數值越小越優先。
+      var QUIZ_THEME_TIEBREAK = Object.freeze({
+        cute: 0,
+        useful: 1,
+        doll: 2
+      });
+
+      // 作品 id → 其 theme，供降階挑選時計算 tie-break 權重（與 projectsData 的 theme 一致）。
+      var QUIZ_PROJECT_THEME = Object.freeze({
+        flower: 'cute',
+        strawberry: 'cute',
+        bag: 'useful',
+        bear: 'doll',
+        heart: 'cute',
+        bow: 'cute',
+        coaster: 'useful',
+        cherry: 'cute',
+        scrunchie: 'useful',
+        whale: 'doll'
+      });
+
+      // 降階說明文字：當喜好理想作品難度超過門檻、改以難易度為優先時加入原因（Req 14.5）。
+      var QUIZ_DOWNGRADE_REASON = '因經驗或可投入時間限制而優先考量難易度';
+
+      // capToDifficulty：由 capScore（= expLevel + timeLevel，範圍 0–3）推出最高可支持難度門檻。
+      // 對照 design.md「步驟一」表：0→1、1→2、2→3、3→3；門檻隨經驗＋時間單調遞增，
+      // 確保完全新手不會被推薦超出能力的作品（Req 14.5）。純函式，無副作用。
+      function capToDifficulty(capScore) {
+        if (capScore <= 0) {
+          return 1;
+        }
+        if (capScore === 1) {
+          return 2;
+        }
+        // capScore 為 2 或 3（上限）皆對應難度門檻 3
+        return 3;
+      }
+
+      // resolveProjectForRecommendation：依作品 id 於 projectsData 取回完整作品物件（純查找）。
+      // 與結果畫面共用同一份資料，確保推薦的作品欄位（名稱/難度/材料…）一致。找不到回傳 null。
+      function resolveProjectForRecommendation(projectId) {
+        var items = Array.isArray(projectsData) ? projectsData : [];
+        for (var lookupIndex = 0; lookupIndex < items.length; lookupIndex++) {
+          if (items[lookupIndex] && items[lookupIndex].id === projectId) {
+            return items[lookupIndex];
+          }
+        }
+        return null;
+      }
+
+      // recommendProject：測驗推薦引擎主函式（純函式、確定性、無隨機、全覆蓋 18 組合）。
+      // 流程（對應 design.md「推薦流程圖」）：
+      //   1. 驗證三題皆已作答且 code 合法；任一缺漏 → 回傳 incomplete 狀態＋需完成三題提示、不產生作品（Req 13.4, 14.6）。
+      //   2. capScore = expLevel + timeLevel；maxDiff = capToDifficulty(capScore)（Req 14.5）。
+      //   3. 取喜好理想作品；若其難度 ≤ maxDiff → 直接推薦（喜好相符，Req 14.3）。
+      //   4. 否則降階：於難度 ≤ maxDiff 的作品池中，選「難度最高」者；同難度依 cute>useful>doll tie-break；
+      //      並在原因加入降階說明（Req 14.5）。
+      // 回傳 { status, project, reasons[], downgraded, message }（Req 14.1–14.4、design「推薦結果物件」）。
+      function recommendProject(answers) {
+        var safeAnswers = (answers && typeof answers === 'object') ? answers : {};
+
+        // 讀取三題作答 code 並對應語意值；任一題未作答或 code 非法則標記為缺漏
+        var expCode = safeAnswers.experience;
+        var timeCode = safeAnswers.time;
+        var themeCode = safeAnswers.theme;
+
+        var expLevel = Object.prototype.hasOwnProperty.call(QUIZ_EXP_LEVEL, expCode)
+          ? QUIZ_EXP_LEVEL[expCode] : null;
+        var timeLevel = Object.prototype.hasOwnProperty.call(QUIZ_TIME_LEVEL, timeCode)
+          ? QUIZ_TIME_LEVEL[timeCode] : null;
+        var prefTheme = Object.prototype.hasOwnProperty.call(QUIZ_PREF_THEME, themeCode)
+          ? QUIZ_PREF_THEME[themeCode] : null;
+
+        // 步驟一：不完整作答（三題中至少一題未選或非法）→ 不產生作品，回傳 incomplete＋提示（Req 13.4, 14.6）
+        if (expLevel === null || timeLevel === null || prefTheme === null) {
+          return {
+            status: 'incomplete',
+            project: null,
+            reasons: [],
+            downgraded: false,
+            message: '請先完成全部三道題目（經驗、時間、喜好），才能為你推薦適合的作品。'
+          };
+        }
+
+        // 作答摘要文字（供可解釋原因，Req 14.3）：對應三題作答內容
+        var expLabel = (expLevel === 0) ? '完全沒經驗' : '試過一點';
+        var timeLabel = (timeLevel === 0)
+          ? '可投入 30 分鐘至 1 小時'
+          : (timeLevel === 1 ? '可投入 1 至 2 小時' : '幾小時也沒關係');
+        var themeLabel = QUIZ_THEME_LABEL[prefTheme];
+
+        var reasons = [
+          '鉤織經驗：' + expLabel,
+          '可投入時間：' + timeLabel,
+          '偏好類型：' + themeLabel
+        ];
+
+        // 步驟二：由經驗＋時間推出難度門檻 maxDiff（Req 14.5）
+        var capScore = expLevel + timeLevel;
+        var maxDiff = capToDifficulty(capScore);
+
+        // 步驟三：依喜好偏好序取第一個難度 ≤ maxDiff 的理想作品（視為喜好相符、非降階）。
+        // cute 具 [小草莓(2), 小花(1)] 偏好序，在 maxDiff≥1 時恆能命中其一，故 cute 永不跨類降階；
+        // useful/doll 僅一個理想作品（難度 3），門檻不足時才進入下方跨類降階分支。
+        var idealPreference = QUIZ_IDEAL_BY_THEME[prefTheme] || [];
+        var selectedId = null;
+        var downgraded = false;
+
+        for (var preferenceIndex = 0; preferenceIndex < idealPreference.length; preferenceIndex++) {
+          var idealProject = resolveProjectForRecommendation(idealPreference[preferenceIndex]);
+          if (idealProject && typeof idealProject.difficulty === 'number' &&
+            idealProject.difficulty <= maxDiff) {
+            selectedId = idealPreference[preferenceIndex]; // 理想作品在門檻內 → 直接推薦（喜好相符）
+            break;
+          }
+        }
+
+        if (selectedId === null) {
+          // 喜好難度超過門檻 → 降階：於池中選「難度最高且 ≤ maxDiff」者，
+          // 同難度依 cute>useful>doll tie-break（Req 14.5）
+          downgraded = true;
+          var pool = Array.isArray(projectsData) ? projectsData : [];
+          var best = null;
+          for (var poolIndex = 0; poolIndex < pool.length; poolIndex++) {
+            var candidate = pool[poolIndex];
+            if (!candidate || typeof candidate.difficulty !== 'number') {
+              continue;
+            }
+            if (candidate.difficulty > maxDiff) {
+              continue; // 超過門檻者排除，確保推薦難度 ≤ maxDiff（Property 3）
+            }
+            if (best === null) {
+              best = candidate;
+              continue;
+            }
+            // 先比難度（取較高），難度相同再以 theme tie-break（取權重較小者優先）
+            if (candidate.difficulty > best.difficulty) {
+              best = candidate;
+            } else if (candidate.difficulty === best.difficulty) {
+              var candRank = QUIZ_THEME_TIEBREAK[QUIZ_PROJECT_THEME[candidate.id]];
+              var bestRank = QUIZ_THEME_TIEBREAK[QUIZ_PROJECT_THEME[best.id]];
+              if (typeof candRank === 'number' && typeof bestRank === 'number' &&
+                candRank < bestRank) {
+                best = candidate;
+              }
+            }
+          }
+          selectedId = best ? best.id : null;
+          reasons.push(QUIZ_DOWNGRADE_REASON);
+        }
+
+        var project = resolveProjectForRecommendation(selectedId);
+
+        // 防禦：理論上池中必有作品（maxDiff≥1 時至少小花在池內），若意外解析失敗回傳 error
+        if (!project) {
+          return {
+            status: 'error',
+            project: null,
+            reasons: reasons,
+            downgraded: downgraded,
+            message: '目前無法為你產生推薦，請重新作答後再試一次。'
+          };
+        }
+
+        return {
+          status: 'ok',
+          project: project,
+          reasons: reasons,
+          downgraded: downgraded,
+          message: ''
+        };
+      }
+
+      // buildQuizQuestion：由單題資料建立一個 <fieldset> 題組。
+      // 以 <legend> 作為題目標題（語意上為選項群組標籤）；同題所有 radio 共用相同 name
+      // 確保至多單選（Req 13.2）；每個選項以 <label> 包住對應 radio，形成一對一關聯（Req 19.3）。
+      // 以 radio 的 id/for 無法包裹文字時改採「label 包住 input + 文字」的包覆式關聯，兩者皆成立。
+      function buildQuizQuestion(question, questionIndex) {
+        var fieldset = document.createElement('fieldset');
+        fieldset.className = 'quiz__question';
+
+        var legend = document.createElement('legend');
+        legend.className = 'quiz__question-title';
+        legend.textContent = question.title;
+        fieldset.appendChild(legend);
+
+        // 同題 radio 的共用 name：以題目 id 命名，確保瀏覽器將其視為同一單選群組（Req 13.2）
+        var groupName = 'quiz-' + question.id;
+
+        var optionsContainer = document.createElement('div');
+        optionsContainer.className = 'quiz__options';
+
+        var options = Array.isArray(question.options) ? question.options : [];
+        for (var optionIndex = 0; optionIndex < options.length; optionIndex++) {
+          var option = options[optionIndex];
+          // 每個選項以 <label> 包住 radio 與文字，形成一對一標籤關聯（Req 19.3）
+          var label = document.createElement('label');
+          label.className = 'quiz__option';
+          // 另設 id/for 以強化顯式關聯：radio 具唯一 id，label 的 for 指向之
+          var radioId = groupName + '-' + option.code;
+
+          var radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.className = 'quiz__radio';
+          radio.name = groupName;              // 同 name 確保單選（Req 13.2）
+          radio.id = radioId;
+          radio.value = option.code;
+          label.setAttribute('for', radioId);
+
+          var text = document.createElement('span');
+          text.className = 'quiz__option-text';
+          text.textContent = option.label;     // 受控文字注入，長文字由 CSS 換行（Req 18.8）
+
+          label.appendChild(radio);
+          label.appendChild(text);
+
+          // 作答僅更新記憶體狀態與選取視覺，不做任何持久化（Req 13.6, 13.7）
+          (function bindOne(qId, optCode, container) {
+            radio.addEventListener('change', function () {
+              try {
+                setQuizAnswer(qId, optCode, container);
+              } catch (err) {
+                // 單一作答例外不應中斷其餘互動（Req 20.6）
+              }
+            });
+          })(question.id, option.code, optionsContainer);
+
+          optionsContainer.appendChild(label);
+        }
+
+        fieldset.appendChild(optionsContainer);
+        return fieldset;
+      }
+
+      // getUnansweredQuestionTitles：回傳目前尚未作答之題目標題陣列（依 quizData 題序）。
+      // 供未完成送出時的 toast 提示，明確指出哪些題目尚未作答（Req 13.4, 19.8）。
+      function getUnansweredQuestionTitles(answers) {
+        var titles = [];
+        var questions = (quizData && Array.isArray(quizData.questions))
+          ? quizData.questions
+          : [];
+        for (var questionIndex = 0; questionIndex < questions.length; questionIndex++) {
+          var question = questions[questionIndex];
+          var code = answers ? answers[question.id] : undefined;
+          if (typeof code !== 'string' || code === '') {
+            titles.push(question.title);
+          }
+        }
+        return titles;
+      }
+
+      // resetQuiz：清除所有作答、回到第一題（使所有選項呈未選取狀態）並隱藏結果（Req 15.7）。
+      // 由結果畫面「重新測驗」按鈕觸發；僅操作記憶體狀態與既有表單 DOM，不重建整個區塊。
+      // form 為測驗表單節點、resultContainer 為結果畫面容器節點（兩者於 renderQuiz 建立）。
+      function resetQuiz(form, resultContainer) {
+        // 清除記憶體作答（不觸碰任何持久化儲存，Req 13.6, 13.7）
+        quizAnswers = {};
+
+        if (form) {
+          // 取消所有 radio 勾選、移除選取樣式，使所有選項回到未選取狀態（Req 15.7）
+          var radios = form.querySelectorAll('input[type="radio"]');
+          for (var radioIndex = 0; radioIndex < radios.length; radioIndex++) {
+            radios[radioIndex].checked = false;
+          }
+          var options = form.querySelectorAll('.quiz__option');
+          for (var optionIndex = 0; optionIndex < options.length; optionIndex++) {
+            options[optionIndex].classList.remove('is-selected');
+          }
+          // 重新顯示表單並將焦點移回第一題第一個選項（回到第一題，Req 15.7）
+          form.hidden = false;
+          var firstRadio = form.querySelector('input[type="radio"]');
+          if (firstRadio && typeof firstRadio.focus === 'function') {
+            firstRadio.focus();
+          }
+        }
+
+        // 隱藏並清空目前結果畫面（Req 15.7）
+        if (resultContainer) {
+          resultContainer.hidden = true;
+          resultContainer.textContent = '';
+        }
+      }
+
+      // buildQuizResultMedia：建立結果畫面的作品圖片（以 .img-slot 包裹），沿用全站 fallback 約定。
+      // 設定 data-fallback-emoji / data-alt-backup 供 imageFallbackModule 於載入失敗時佔位、保形保語意
+      //（Req 2.3, 2.4）；缺圖欄位以備援資料呈現，不外洩空值（Req 15.3）。
+      function buildQuizResultMedia(project) {
+        var media = document.createElement('div');
+        media.className = 'quiz__result-media';
+
+        var slot = document.createElement('span');
+        slot.className = 'img-slot';
+
+        var img = document.createElement('img');
+        img.setAttribute('src', hasText(project.image) ? project.image : '');
+        img.setAttribute('alt', hasText(project.alt) ? project.alt : placeholderText(project.nameZh));
+        img.setAttribute('width', '120');
+        img.setAttribute('height', '120');
+        img.setAttribute('data-fallback-emoji', hasText(project.fallbackEmoji) ? project.fallbackEmoji : '🧶');
+        img.setAttribute('data-alt-backup', placeholderText(project.nameZh));
+
+        slot.appendChild(img);
+        media.appendChild(slot);
+        return media;
+      }
+
+      // appendQuizResultList：於結果容器中建立一個清單區段（標題 + <ul>），以受控 DOM 插入。
+      // items 為字串陣列；無任何有效項目時以單一「資料暫缺」佔位呈現，避免外洩空清單或空值（Req 15.3）。
+      function appendQuizResultList(container, titleText, items) {
+        var section = document.createElement('section');
+        section.className = 'quiz__result-section';
+
+        var heading = document.createElement('h4');
+        heading.className = 'quiz__result-section-title';
+        heading.textContent = titleText;
+        section.appendChild(heading);
+
+        var list = document.createElement('ul');
+        list.className = 'quiz__result-list';
+        var appended = 0;
+        if (Array.isArray(items)) {
+          for (var resultIndex = 0; resultIndex < items.length; resultIndex++) {
+            if (typeof items[resultIndex] === 'string' && items[resultIndex].trim() !== '') {
+              var resultItem = document.createElement('li');
+              resultItem.textContent = items[resultIndex].trim();
+              list.appendChild(resultItem);
+              appended++;
+            }
+          }
+        }
+        if (appended === 0) {
+          var placeholderItem = document.createElement('li');
+          placeholderItem.textContent = MISSING_FIELD_PLACEHOLDER;
+          list.appendChild(placeholderItem);
+        }
+        section.appendChild(list);
+        container.appendChild(section);
+      }
+
+      // renderQuizResult：於測驗區塊呈現 Quiz_Result 推薦結果畫面（Req 15.1, 15.3–15.7）。
+      // 依推薦結果物件渲染：作品名稱、圖片、推薦原因、難度（「難度 N/5」+ Easy/Medium）、
+      // 預估時間與所需材料；任一缺漏欄位以 placeholderText／佔位項呈現，不顯示空白或未定義（Req 15.3）。
+      // 另附「看看作品介紹」（1 秒內開對應 Project_Modal，Req 15.5）與「重新測驗」（清空重來，Req 15.7）兩鈕。
+      // 全程以受控 DOM API（createElement / textContent）建立，不使用 innerHTML（Req 1.9）。
+      // 以同步渲染確保結果於 2 秒內顯示（Req 15.1）。
+      function renderQuizResult(result, form, resultContainer) {
+        if (!resultContainer) {
+          return;
+        }
+        var project = (result && result.project) ? result.project : {};
+
+        // 清空並顯示結果容器
+        resultContainer.textContent = '';
+        resultContainer.hidden = false;
+
+        // 標頭：圖片 + 推薦名稱與難度/時間詮釋資料
+        var header = document.createElement('div');
+        header.className = 'quiz__result-header';
+        header.appendChild(buildQuizResultMedia(project));
+
+        var heading = document.createElement('div');
+        heading.className = 'quiz__result-heading';
+
+        var eyebrow = document.createElement('p');
+        eyebrow.className = 'quiz__result-eyebrow';
+        eyebrow.textContent = '為你推薦的入門作品';
+        heading.appendChild(eyebrow);
+
+        var name = document.createElement('h3');
+        name.className = 'quiz__result-name';
+        name.textContent = placeholderText(project.nameZh);
+        heading.appendChild(name);
+
+        // 詮釋資料：難度（「難度 N/5」+ Easy/Medium 分類）與預估時間（Req 15.1）
+        var meta = document.createElement('p');
+        meta.className = 'quiz__result-meta';
+
+        var difficulty = document.createElement('span');
+        var difficultyText = '難度 ' + placeholderText(project.difficulty) + '/5';
+        if (hasText(project.category)) {
+          difficultyText += '（' + project.category + '）';
+        }
+        difficulty.textContent = difficultyText;
+        meta.appendChild(difficulty);
+
+        var time = document.createElement('span');
+        time.textContent = '預估時間：' + placeholderText(project.timeText);
+        meta.appendChild(time);
+
+        heading.appendChild(meta);
+        header.appendChild(heading);
+        resultContainer.appendChild(header);
+
+        // 推薦原因（reasons[]；Req 15.1）：缺漏時以佔位呈現
+        var reasons = (result && Array.isArray(result.reasons)) ? result.reasons : [];
+        appendQuizResultList(resultContainer, '推薦原因', reasons);
+
+        // 所需材料（materials[]；Req 15.1）：缺漏時以佔位呈現
+        appendQuizResultList(resultContainer, '所需材料', project.materials);
+
+        // 操作按鈕列：「看看作品介紹」與「重新測驗」（Req 15.4, 15.6）
+        var actions = document.createElement('div');
+        actions.className = 'quiz__result-actions';
+
+        // 「看看作品介紹」：1 秒內開啟被推薦作品對應的 Project_Modal（Req 15.5）。
+        // 以 buildProjectModalContent 建立內容並呼叫共用 modalModule.open()；
+        // 作品不可取得或模組缺席時改以錯誤 toast，不開空白 Modal（與 Req 11.10 一致）。
+        var introButton = document.createElement('button');
+        introButton.type = 'button';
+        introButton.className = 'btn quiz__result-intro';
+        introButton.textContent = '看看作品介紹';
+        introButton.setAttribute('aria-label', '看看' + placeholderText(project.nameZh) + '作品介紹');
+        introButton.addEventListener('click', function () {
+          try {
+            var resolved = resolveProjectById(project && project.id);
+            if (!resolved ||
+              !window.modalModule || typeof window.modalModule.open !== 'function') {
+              showToast('內容無法載入，請稍後再試。');
+              return;
+            }
+            var content = buildProjectModalContent(resolved);
+            window.modalModule.open(introButton, content, {
+              ariaLabel: placeholderText(resolved.nameZh) + ' 作品詳細',
+              labelText: '關閉作品詳細'
+            });
+          } catch (error) {
+            // 攔截例外，維持其餘功能可用、不產生 console error（Req 20.5, 20.6）；
+            // 以 toast 統一提示作品介紹本次無法開啟（與 Req 11.10 一致）。
+            showToast('內容無法載入，請稍後再試。');
+          }
+        });
+        actions.appendChild(introButton);
+
+        // 「重新測驗」：清空作答、回第一題、選項全未選、隱藏結果（Req 15.7）
+        var restartButton = document.createElement('button');
+        restartButton.type = 'button';
+        restartButton.className = 'btn btn--secondary quiz__result-restart';
+        restartButton.textContent = '重新測驗';
+        restartButton.addEventListener('click', function () {
+          try {
+            resetQuiz(form, resultContainer);
+          } catch (error) {
+            // 攔截例外，維持其餘功能可用、不產生 console error（Req 20.5, 20.6）；
+            // 以 toast 統一提示本次重設未完成，使用者仍可重新作答（Req 15.2）。
+            showToast('目前無法重設測驗，請重新整理頁面後再試一次。');
+          }
+        });
+        actions.appendChild(restartButton);
+
+        resultContainer.appendChild(actions);
+      }
+
+      // handleQuizSubmit：「Show My Result」送出處理（Req 13.4, 15.1, 15.2, 19.8）。
+      // 以目前記憶體作答呼叫純函式 recommendProject：
+      //   - incomplete：toast 提示尚有題目未作答（指出哪幾題）、保留作答、不產生結果（Req 13.4, 15.2, 19.8）。
+      //   - error / 無作品：toast 提示無法產生推薦，維持測驗可重新作答（Req 15.2）。
+      //   - ok：以 renderQuizResult 同步渲染結果畫面（2 秒內顯示，Req 15.1）。
+      // 以 try/catch 包覆，攔截例外、維持其餘功能可用、不產生 console error（Req 20.6）。
+      function handleQuizSubmit(form, resultContainer) {
+        try {
+          var answers = getQuizAnswers();
+          var recommend = (typeof window.recommendProject === 'function')
+            ? window.recommendProject
+            : recommendProject;
+          var result = recommend(answers);
+
+          // 未完成作答：提示尚有題目未作答、保留作答、不產生結果（Req 13.4, 15.2, 19.8）
+          if (!result || result.status === 'incomplete') {
+            var unanswered = getUnansweredQuestionTitles(answers);
+            var message = unanswered.length > 0
+              ? '尚有題目未作答：' + unanswered.join('、')
+              : ((result && result.message) || '請先完成全部三道題目再送出。');
+            showToast(message);
+            return;
+          }
+
+          // 無法產生推薦（error 或無作品）：提示並維持可重新作答（Req 15.2）
+          if (result.status !== 'ok' || !result.project) {
+            showToast(result.message || '目前無法為你產生推薦，請重新作答後再試一次。');
+            return;
+          }
+
+          // 成功：同步渲染結果畫面（2 秒內顯示，Req 15.1）
+          renderQuizResult(result, form, resultContainer);
+        } catch (err) {
+          // 送出例外不應中斷頁面其餘功能（Req 20.6）
+          showToast('目前無法為你產生推薦，請重新作答後再試一次。');
+        }
+      }
+
+      // renderQuiz：將 quizData 渲染為 Quiz 區塊內容（標頭 + 三題題組 + 送出按鈕）。
+      // 三題依序呈現（Req 13.1）；每題一組同 name radio（Req 13.2）、每選項一對一 label（Req 19.3）；
+      // 顯示「Show My Result」送出按鈕（Req 13.3）。作答僅存記憶體、不持久化（Req 13.6, 13.7）。
+      function renderQuiz() {
+        var section = document.getElementById('quiz');
+        if (!section) {
+          return;
+        }
+
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        // 區塊標頭：主標題（中英並列術語，Req 3.1）
+        var headerWrap = document.createElement('div');
+        headerWrap.className = 'section__header';
+        var title = document.createElement('h2');
+        title.className = 'section__title';
+        title.textContent = '來看看你適合什麼鉤織小物吧！（Which project should you try?）';
+        headerWrap.appendChild(title);
+
+        // 測驗表單：承載三題題組與送出按鈕
+        var form = document.createElement('form');
+        form.className = 'quiz__form';
+        form.setAttribute('novalidate', 'novalidate');
+
+        // 重設記憶體作答，確保每次渲染從未作答狀態開始（Req 13.6, 13.7）
+        quizAnswers = {};
+
+        var questions = (quizData && Array.isArray(quizData.questions))
+          ? quizData.questions
+          : [];
+        for (var questionIndex = 0; questionIndex < questions.length; questionIndex++) {
+          form.appendChild(buildQuizQuestion(questions[questionIndex], questionIndex));
+        }
+
+        // 送出按鈕列：「Show My Result」（Req 13.3）；click 由 handleQuizSubmit 處理
+        var actions = document.createElement('div');
+        actions.className = 'quiz__actions';
+        var submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.className = 'btn quiz__submit';
+        submitButton.textContent = 'Show My Result';
+        actions.appendChild(submitButton);
+        form.appendChild(actions);
+
+        // 結果畫面容器：預設隱藏，送出產生推薦後由 renderQuizResult 填入並顯示（Req 15.1, 15.7）。
+        // 置於表單下方、同屬測驗區塊；以 role="status" 讓結果內容更新可被輔助技術讀取。
+        var resultContainer = document.createElement('div');
+        resultContainer.className = 'card quiz__result';
+        resultContainer.setAttribute('role', 'status');
+        resultContainer.hidden = true;
+
+        // 以表單 submit 事件統一處理（涵蓋滑鼠點擊與鍵盤 Enter），並阻止頁面重載（Req 13.7）。
+        // 將表單與結果容器一併交給 handleQuizSubmit，供結果渲染與「重新測驗」操作（任務 15）。
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          handleQuizSubmit(form, resultContainer);
+        });
+
+        container.appendChild(headerWrap);
+        container.appendChild(form);
+        container.appendChild(resultContainer);
+
+        // 重設區塊內容後掛入，避免重複渲染殘留
+        section.textContent = '';
+        section.appendChild(container);
+      }
+
+      // init：應用程式進入點，於 DOM 就緒後執行各渲染與事件綁定（後續任務填入）
+      function init() {
+        // 共用 Modal 模組對外公開，供針法教學（任務 9.2）與作品詳細（任務 10.2）呼叫 open()。
+        window.modalModule = modalModule;
+        // 圖片 fallback 模組對外公開，供後續渲染任務（Tools / Projects）在插入新 <img> 後再次呼叫。
+        window.imageFallbackModule = imageFallbackModule;
+        // 平滑捲動模組對外公開：供 Navbar 點擊與 Hero CTA（initHero）呼叫 scrollToSection（任務 5.2）。
+        window.smoothScrollModule = smoothScrollModule;
+        // 測驗推薦引擎對外公開（純函式）：供結果畫面串接（任務 15）與屬性測試（Property 1–5）呼叫（任務 14.1）。
+        window.recommendProject = recommendProject;
+        window.capToDifficulty = capToDifficulty;
+        // Navbar 錨點點擊 → 平滑捲動（任務 5.2，須於公開 smoothScrollModule 後綁定）
+        bindNavbar();
+        // Hero 淡入與 CTA 綁定（任務 4）；CTA 會優先使用上方公開的 smoothScrollModule
+        initHero();
+        // Tools 區塊渲染：由 toolsData 產生四張可展開的 Tool_Card（任務 7）。
+        // 置於全站 applyImageFallback 之前，使新插入的工具圖片一併納入缺圖佔位掃描。
+        renderTools();
+        // Stitches 區塊渲染：由 stitchesData 產生三張 Stitch_Card（任務 9.1）。
+        // 卡片無圖片，不需納入圖片 fallback 掃描；「查看教學」接上 Modal 於任務 9.2。
+        renderStitches();
+        // Projects 區塊渲染：由 projectsData 產生四張 Project_Card（任務 10.1）。
+        // 置於全站 applyImageFallback 之前，使新插入的作品圖片一併納入缺圖佔位掃描；
+        // renderProjects 內部於卡片建立後接上「查看作品」Project_Modal（任務 10.2）
+        // 與 All/Easy/Medium 難度篩選（任務 10.3，projectFilterModule.init）。
+        renderProjects();
+        // Quiz 區塊渲染：由 quizData 產生三題作答 UI 與「Show My Result」送出按鈕（任務 13）。
+        // 作答僅暫存於記憶體，不持久化（Req 13.6, 13.7）；送出 → 推薦 → 結果於任務 14、15 接上。
+        renderQuiz();
+        // 圖片 fallback：掃描所有 assets/ 圖片並綁定 onerror + 3 秒逾時（任務 11）。
+        // 後續渲染任務動態插入 <img> 後，應於插入完成再呼叫 imageFallbackModule.applyImageFallback(新容器)。
+        applyImageFallback(document);
+        // 其餘區塊渲染、事件綁定將於後續任務接上。
+      }
+
+      // 於 DOM 內容載入完成後啟動應用程式
+      document.addEventListener('DOMContentLoaded', init);
+    })();
+  </script>
+</body>
+</html>
