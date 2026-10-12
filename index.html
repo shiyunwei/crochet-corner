@@ -2243,17 +2243,59 @@
           triggerImageFallback(img);
         });
 
+        // confirmFailureThenFallback：在判定失敗前先確認，避免「載入成功但尚未 decode」
+        // 的瞬間 naturalWidth===0 被誤判為失敗（間歇性被 emoji 取代、重整後正常的根源）。
+        // 優先以原生 img.decode() 區分「真的壞掉」與「還沒 decode 完」；
+        // decode 成功→ 不做任何事；decode 失敗→ 才套用佔位。
+        // 不支援 decode() 的舊瀏覽器環境：以雙重 rAF 再次確認 naturalWidth，而非立即判定。
+        var fallbackConfirmed = false;
+        function confirmFailureThenFallback() {
+          if (fallbackConfirmed || img.getAttribute('data-fallback-applied') === 'true') {
+            return;
+          }
+          fallbackConfirmed = true;
+          if (typeof img.decode === 'function') {
+            img.decode().then(function () {
+              // decode 成功：圖片其實正常，不套用佔位；重置旗標供日後真正出錯時再試
+              fallbackConfirmed = false;
+            }).catch(function () {
+              // decode 失敗：確實無法解碼（檔案損壞/不存在）→ 套用佔位
+              triggerImageFallback(img);
+            });
+          } else if (typeof window.requestAnimationFrame === 'function') {
+            // 舊環境：退回雙重 rAF 再確認，給瀏覽器一點時間完成 decode
+            window.requestAnimationFrame(function () {
+              window.requestAnimationFrame(function () {
+                if (!img.naturalWidth) {
+                  triggerImageFallback(img);
+                } else {
+                  fallbackConfirmed = false;
+                }
+              });
+            });
+          } else {
+            // 最後退路：無 decode 也無 rAF，直接依 naturalWidth 判定
+            if (!img.naturalWidth) {
+              triggerImageFallback(img);
+            } else {
+              fallbackConfirmed = false;
+            }
+          }
+        }
+
         img.addEventListener('load', function () {
           clearTimer();
-          // naturalWidth 為 0 代表雖觸發 load 但無有效影像資料，視為失敗
+          // load 觸發但 naturalWidth 為 0：可能是真失敗，也可能是尚未 decode；
+          // 交由 confirmFailureThenFallback 以 decode 確認後再決定，避免誤判。
           if (!img.naturalWidth) {
-            triggerImageFallback(img);
+            confirmFailureThenFallback();
           }
         });
 
-        // 已完成載入但無有效影像（例如 src 指向不存在的 assets/ 檔案）→ 立即佔位
+        // 已完成載入但當下 naturalWidth 為 0：不立即判定失敗，
+        // 先以 decode 確認（排除「成功但尚未 decode」的瞬間誤判）。
         if (img.complete && !img.naturalWidth) {
-          triggerImageFallback(img);
+          confirmFailureThenFallback();
           return;
         }
 
@@ -2261,8 +2303,9 @@
         if (!img.complete) {
           timeoutId = window.setTimeout(function () {
             timeoutId = null;
+            // 逾時仍未成功：交由 confirmFailureThenFallback 以 decode 確認後再決定，避免慢載但最終成功的圖被誤判
             if (!img.naturalWidth) {
-              triggerImageFallback(img);
+              confirmFailureThenFallback();
             }
           }, IMAGE_FALLBACK_TIMEOUT_MS);
         }
