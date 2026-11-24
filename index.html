@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crochet Corner｜鉤織小教室</title>
+  <!-- Favicon: Inline SVG data URI (No external network request) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A7%B6%3C%2Ftext%3E%3C%2Fsvg%3E">
+  
+  <style>
+    /* ===== 視覺系統與 CSS 變數（Cute & Cozy 手作風格）===== */
+    :root {
+      /* 規格核心五色（保留溫暖質樸基底） */
+      --color-cream: #FFF9F2;      /* 奶油白：主背景（帶淡淡暖柔感） */
+      --color-beige: #F8EFE8;      /* 淺米色：次背景 / 卡片底色 */
+      --color-pink: #F4CCD3;       /* 淡粉色：經典粉彩裝飾 */
+      --color-caramel: #C18B66;    /* 焦糖棕：按鈕／重點圖示 */
+      --color-brown: #59443A;      /* 深棕色：主要標題／內文文字 */
+
+      /* 暖粉色系衍生延伸權杖（增添溫柔手作雜誌感） */
+      --color-pink-soft: #FDF3F5;   /* 極淡櫻花粉：區塊底色與漸層 */
+      --color-pink-badge: #FDE8ED;  /* 柔粉標籤底色 */
+      --color-pink-border: #F5D3DA; /* 柔粉邊框 */
+      --color-pink-accent: #E29AA8; /* 玫瑰暖粉：圖示與重點裝飾 */
+      --color-pink-dark: #A6445B;   /* 深玫瑰粉：無障礙高對比文字 */
+
+      /* 無障礙高對比衍生色（WCAG AA >= 4.5:1） */
+      --color-caramel-hover: #A5724F;
+      --color-button-text: #241A12;
+      --color-caramel-text: #8A5A3C;
+      --color-border: #EEDCD0;
+      --color-white: #FFFFFF;
+
+      /* 圓角、陰影與排版尺寸 */
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 6px rgba(89, 68, 58, 0.08);
+      --shadow-md: 0 6px 16px rgba(89, 68, 58, 0.12);
+      --shadow-hover: 0 10px 24px rgba(226, 154, 168, 0.22);
+
+      --navbar-height: 64px;
+      --container-max: 1100px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    }
+
+    /* 基礎重置 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--navbar-height) + 16px);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-cream);
+      color: var(--color-brown);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 區塊標題共用樣式 */
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-brown);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .section-title span {
+      font-size: 1.15rem;
+      color: var(--color-pink-accent);
+      font-weight: 500;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--color-caramel-text);
+      font-weight: 500;
+    }
+
+    /* ===== 導覽列 (Navbar) ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--navbar-height);
+      background-color: rgba(255, 249, 240, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-pink-border);
+      display: flex;
+      align-items: center;
+    }
+
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-brown);
+    }
+
+    .brand-icon {
+      font-size: 1.4rem;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--color-brown);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .nav-link:hover {
+      background-color: var(--color-pink);
+      color: var(--color-brown);
+    }
+
+    /* ===== Hero 區塊 ===== */
+    .hero {
+      padding: 85px 0 65px;
+      background: linear-gradient(180deg, #FFF4F6 0%, #FDF0F3 55%, var(--color-cream) 100%);
+      text-align: center;
+      position: relative;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background-color: var(--color-pink-badge);
+      color: var(--color-pink-dark);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      border: 1px solid var(--color-pink-border);
+      box-shadow: 0 2px 6px rgba(226, 154, 168, 0.15);
+    }
+
+    .hero__content {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero__brand {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--color-brown);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero__subtitle {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-caramel-text);
+      margin-bottom: 16px;
+    }
+
+    .hero__intro {
+      font-size: 1.15rem;
+      color: var(--color-brown);
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: var(--radius-md);
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary {
+      background-color: var(--color-caramel);
+      color: var(--color-button-text);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-caramel-hover);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--color-caramel);
+      color: var(--color-caramel-text);
+      background-color: var(--color-white);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-beige);
+      color: var(--color-brown);
+    }
+
+    /* ===== 認識鉤織 (Intro) ===== */
+    .intro {
+      background-color: var(--color-cream);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .intro-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .intro-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .intro-card__icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background-color: var(--color-pink-badge);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      border: 1px solid var(--color-pink-border);
+    }
+
+    .intro-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(226, 154, 168, 0.22);
+      border-color: var(--color-pink-border);
+    }
+
+    .intro-card__title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--color-brown);
+    }
+
+    .intro-card__text {
+      color: var(--color-brown);
+      font-size: 0.98rem;
+    }
+
+    /* ===== 共用卡片格線 ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    /* ===== 新手工具 (Tools) ===== */
+    .tools {
+      background-color: var(--color-pink-soft);
+    }
+
+    .tool-card__img-wrap {
+      width: 100%;
+      height: 180px;
+      background-color: var(--color-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 12px;
+    }
+
+    .tool-card__img {
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .tool-card__title {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .tool-card__en {
+      font-size: 0.85rem;
+      color: var(--color-caramel-text);
+      margin-bottom: 12px;
+    }
+
+    .tool-card__intro {
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .tool-card__tips {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--color-cream);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      border-left: 3px solid var(--color-pink-accent); background: #FFF7F8;
+      display: none;
+    }
+
+    .tool-card.is-expanded .tool-card__tips {
+      display: block;
+    }
+
+    .btn-toggle-tips {
+      align-self: flex-start;
+      margin-top: auto;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-caramel-text);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-toggle-tips:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== 基本針法 (Stitches) ===== */
+    .stitches {
+      background-color: var(--color-cream);
+    }
+
+    .stitch-card {
+      padding: 24px;
+    }
+
+    .stitch-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .stitch-card__name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .stitch-card__en {
+      font-size: 0.85rem;
+      color: var(--color-caramel-text);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-easy {
+      background-color: var(--color-pink-badge);
+      color: var(--color-pink-dark);
+      border: 1px solid var(--color-pink-border);
+    }
+
+    .badge-medium {
+      background-color: #FFF2D6;
+      color: #8C5900;
+    }
+
+    .badge-hard {
+      background-color: #FFE3E6;
+      color: #A82333;
+    }
+
+    .stitch-card__desc {
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    /* ===== 入門作品 (Projects) ===== */
+    .projects {
+      background-color: var(--color-beige);
+    }
+
+    /* 雙維度篩選器 */
+    .filter-wrapper {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-pink-border);
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-label {
+      font-weight: 600;
+      color: var(--color-brown);
+      min-width: 60px;
+      font-size: 0.95rem;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-filter {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      background-color: var(--color-cream);
+      color: var(--color-brown);
+      border: 1px solid var(--color-border);
+      transition: all 0.2s;
+    }
+
+    .btn-filter:hover {
+      background-color: var(--color-pink);
+      border-color: var(--color-pink-accent);
+    }
+
+    .btn-filter.is-active {
+      background-color: var(--color-caramel);
+      color: var(--color-button-text);
+      border-color: var(--color-caramel);
+      font-weight: 700;
+    }
+
+    .projects-counter {
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--color-caramel-text);
+      margin-bottom: 20px;
+    }
+
+    .project-card__img-wrap {
+      width: 100%;
+      height: 200px;
+      background-color: var(--color-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .project-card__img {
+      transform: scale(1.05);
+    }
+
+    .project-card__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--color-caramel-text);
+    }
+
+    .project-card__title {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .project-card__time {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ===== 測驗專用樣式 (Quiz) ===== */
+    .quiz {
+      background-color: var(--color-pink-soft);
+    }
+
+    .quiz-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-pink-border);
+      border-top: 5px solid var(--color-pink);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .quiz-question {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px dashed var(--color-border);
+    }
+
+    .quiz-question:last-of-type {
+      border-bottom: none;
+      margin-bottom: 20px;
+    }
+
+    .quiz-question__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--color-brown);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .quiz-option {
+      position: relative;
+    }
+
+    .quiz-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .quiz-option label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background-color: var(--color-cream);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .quiz-option label:hover {
+      background-color: #FFF5F7;
+      border-color: var(--color-pink);
+    }
+
+    .quiz-option input[type="radio"]:checked + label {
+      background-color: #FFF0F3;
+      border-color: var(--color-pink-accent);
+      color: var(--color-brown);
+      font-weight: 700;
+      box-shadow: 0 0 0 1px var(--color-pink-accent);
+    }
+
+    .quiz-actions {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    /* 測驗結果卡片 */
+    .quiz-result {
+      display: none;
+      margin-top: 36px;
+      padding: 30px;
+      background: linear-gradient(145deg, #FFF9FA 0%, #FDEEF2 100%);
+      border-radius: var(--radius-md);
+      border: 2px solid var(--color-pink-accent);
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quiz-result.is-visible {
+      display: block;
+    }
+
+    .quiz-result__header {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .quiz-result__img {
+      width: 140px;
+      height: 140px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quiz-result__title {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .quiz-result__badge {
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .quiz-result__reason {
+      background: var(--color-white);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      border-left: 4px solid var(--color-pink-accent);
+    }
+
+    /* ===== Modal 對話框 ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(40, 28, 22, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+      padding: 20px;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      max-width: 620px;
+      width: 100%;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+      transform: scale(0.95);
+      transition: transform 0.25s;
+      overflow: hidden;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: scale(1);
+    }
+
+    .modal__header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-pink-soft);
+      border-bottom: 1px solid var(--color-pink-border);
+    }
+
+    .modal__title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .modal__close {
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--color-brown);
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .modal__close:hover {
+      background: var(--color-pink);
+    }
+
+    .modal__content {
+      padding: 24px;
+      overflow-y: auto;
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .modal-section {
+      margin-bottom: 20px;
+    }
+
+    .modal-section-title {
+      font-weight: 700;
+      color: var(--color-caramel-text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .modal-list {
+      padding-left: 20px;
+      margin-bottom: 8px;
+    }
+
+    .modal-list li {
+      margin-bottom: 4px;
+    }
+
+    /* ===== Toast 提示 ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      background: var(--color-brown);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      font-size: 0.92rem;
+      animation: toastIn 0.3s ease;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background-color: var(--color-brown);
+      color: var(--color-cream);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .footer p {
+      margin-bottom: 6px;
+    }
+
+    .footer__brand {
+      font-weight: 700;
+      color: var(--color-pink);
+    }
+
+    /* ===== RWD 響應式斷點 ===== */
+    @media (max-width: 768px) {
+      .header .nav-list {
+        gap: 8px;
+      }
+      .nav-link {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+      }
+      .hero__brand {
+        font-size: 2.1rem;
+      }
+      .quiz-result__header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .quiz-result__img {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ===== 實用工具箱 (Workshop / Toolkit) ===== */
+    .workshop {
+      background-color: var(--color-pink-soft);
+    }
+
+    .workshop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .toolkit-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-pink-border);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .toolkit-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed var(--color-pink-border);
+    }
+
+    .toolkit-card__icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--color-pink-badge);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .toolkit-card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-brown);
+    }
+
+    .toolkit-card__subtitle {
+      font-size: 0.85rem;
+      color: var(--color-caramel-text);
+    }
+
+    /* 調色盤樣式 */
+    .palette-preview {
+      display: flex;
+      height: 75px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid #fff;
+    }
+
+    .palette-color {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 6px;
+      font-size: 0.72rem;
+      font-family: monospace;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      transition: flex 0.2s;
+    }
+    .palette-color:hover {
+      flex: 1.4;
+    }
+
+    .palette-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .btn-palette {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      background: var(--color-cream);
+      border: 1px solid var(--color-pink-border);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn-palette.is-active, .btn-palette:hover {
+      background: var(--color-pink);
+      border-color: var(--color-pink-accent);
+      color: var(--color-pink-dark);
+      font-weight: 700;
+    }
+
+    /* 針法逐步演練器樣式 (Step Player in Modal) */
+    .step-player {
+      background: #FFF9FA;
+      border: 2px solid var(--color-pink-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      margin: 16px 0;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-player__badge {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-pink-dark);
+      margin-bottom: 12px;
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--color-pink-badge);
+      border-radius: 20px;
+      border: 1px solid var(--color-pink-border);
+    }
+
+    .step-player__text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-brown);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .step-player__controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+
+    /* ===== 多頁籤視圖切換 (SPA Multi-Page Views) ===== */
+    .page-view {
+      display: none;
+      animation: pageFadeIn 0.35s ease;
+      min-height: calc(100vh - var(--navbar-height) - 150px);
+    }
+
+    .page-view.is-active {
+      display: block;
+    }
+
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 導覽列按鈕樣式 */
+    .nav-link {
+      font-weight: 600;
+      color: var(--color-brown);
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      background-color: var(--color-pink-badge);
+      color: var(--color-pink-dark);
+      border-color: var(--color-pink-border);
+    }
+
+    .nav-link.is-active {
+      background-color: var(--color-caramel);
+      color: var(--color-button-text);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(193, 139, 102, 0.25);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#hero" class="brand">
+        <span class="brand-icon">🧶</span>
+        <span>Crochet Corner</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><button class="nav-link is-active" data-page="page-home">首頁導覽</button></li>
+          <li><button class="nav-link" data-page="page-learn">工具與針法</button></li>
+          <li><button class="nav-link" data-page="page-workshop">配色與換算 🎨</button></li>
+          <li><button class="nav-link" data-page="page-projects">精選作品</button></li>
+          <li><button class="nav-link" data-page="page-quiz">推薦測驗</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 頁面 1：首頁導覽 (Hero + 認識鉤織) -->
+    <div id="page-home" class="page-view is-active">
+      <!-- 01 Hero 首頁 -->
+    <section id="hero" class="hero">
+      <div class="container hero__content">
+        <div class="hero__badge">🌸 溫暖療癒的鉤織時光</div>
+        <h1 class="hero__brand">Crochet Corner｜鉤織小教室</h1>
+        <p class="hero__subtitle">Start your crochet journey.</p>
+        <p class="hero__intro">從一團溫暖的毛線開始，放慢節奏，探索鉤織的手作樂趣。</p>
+        <button type="button" class="btn btn-primary" onclick="switchPage('page-learn')">開始探索 ✨</button>
+      </div>
+    </section>
+      <!-- 02 認識鉤織 (Intro) -->
+    <section id="intro" class="section intro">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">認識鉤織 <span>What is Crochet?</span></h2>
+          <p class="section-subtitle">一把鉤針與一球毛線，隨時隨地開啟手作時光</p>
+        </div>
+        <div class="intro-grid">
+          <div class="intro-card">
+            <div class="intro-card__icon">🧶</div>
+            <h3 class="intro-card__title">鉤織是什麼？</h3>
+            <p class="intro-card__text">鉤織（Crochet）是藉由單一根前端帶鉤的鉤針，將毛線勾拉穿過線圈形成結點。只需一根針就能織出平面墊子、立體玩偶或隨身包包，變化豐富多元。</p>
+          </div>
+          <div class="intro-card">
+            <div class="intro-card__icon">✨</div>
+            <h3 class="intro-card__title">鉤織 vs 棒針編織</h3>
+            <p class="intro-card__text">棒針（Knitting）需使用雙針且整排針目同時掛在針上，漏針較難補救；鉤織一次只操作一個活動線圈，即使鉤錯，只要輕輕一拉就能退回重來，對新手更友善容錯！</p>
+          </div>
+          <div class="intro-card">
+            <div class="intro-card__icon">🌱</div>
+            <h3 class="intro-card__title">為什麼適合新手？</h3>
+            <p class="intro-card__text">不需要昂貴的大型器材，只要準備一球好辨認的毛線與一支適配鉤針，隨時隨地都能停下來。從杯墊或小花開始，短時間內就能收穫滿滿的成就感！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 頁面 2：工具與針法 (Tools + Stitches) -->
+    <div id="page-learn" class="page-view">
+      <!-- 03 新手必備工具 (Tools) -->
+    <section id="tools" class="section tools">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">新手必備工具 <span>Tools for Beginners</span></h2>
+          <p class="section-subtitle">準備好這四樣基本工具，就能輕鬆踏出第一步</p>
+        </div>
+        <div class="grid" id="tools-container"></div>
+      </div>
+    </section>
+      <!-- 04 基本針法教學 (Stitches) -->
+    <section id="stitches" class="section stitches">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">基礎針法教學 <span>Basic Stitches</span></h2>
+          <p class="section-subtitle">掌握 6 種最常見基礎針法，是完成所有作品的基石</p>
+        </div>
+        <div class="grid" id="stitches-container"></div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 頁面 3：配色與換算 (Workshop) -->
+    <div id="page-workshop" class="page-view">
+      <section id="workshop" class="section workshop">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">新手實用工具箱 <span>Crochet Toolkit</span></h2>
+          <p class="section-subtitle">專為鉤織初學者量身打造的調色盤與規格對照小工具，靈感隨手挑！</p>
+        </div>
+
+        <div class="workshop-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+          <!-- 工具 1：毛線調色盤靈感庫 -->
+          <div class="toolkit-card">
+            <div class="toolkit-card__header">
+              <div class="toolkit-card__icon">🎨</div>
+              <div>
+                <h3 class="toolkit-card__title">毛線色票靈感調色盤</h3>
+                <p class="toolkit-card__subtitle">手作作品的療癒配色方案，一鍵切換與預覽！</p>
+              </div>
+            </div>
+
+            <div class="palette-preview" id="palette-preview"></div>
+
+            <div style="margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <strong id="palette-name" style="font-size:1.05rem; color:var(--color-brown);">草莓歐蕾 🍓</strong>
+                <span id="palette-mood" style="font-size:0.85rem; color:var(--color-pink-dark); background:var(--color-pink-badge); padding:2px 8px; border-radius:10px;">甜美軟萌</span>
+              </div>
+              <p id="palette-desc" style="font-size:0.9rem; color:var(--color-brown); min-height:42px;">溫柔的草莓粉調配上濃醇奶霜與焦糖色，適合小花髮飾、草莓吊飾與可愛杯墊。</p>
+            </div>
+
+            <div class="palette-buttons" id="palette-presets-container"></div>
+
+            <div style="margin-top:auto; pt:10px;">
+              <button class="btn btn-outline" id="btn-random-palette" style="width:100%; border-color:var(--color-pink-accent); font-size:0.92rem;">✨ 隨機生成新配色靈感</button>
+            </div>
+          </div>
+
+          <!-- 工具 2：線材與鉤針號數配對查詢器 -->
+          <div class="toolkit-card">
+            <div class="toolkit-card__header">
+              <div class="toolkit-card__icon">📐</div>
+              <div>
+                <h3 class="toolkit-card__title">鉤針與線材配對計算機</h3>
+                <p class="toolkit-card__subtitle">線材粗細該選幾號針？快速對照不再買錯！</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom:16px;">
+              <label for="yarn-type-select" style="font-size:0.88rem; font-weight:600; color:var(--color-caramel-text); display:block; margin-bottom:6px;">選擇你想使用的線材種類：</label>
+              <select id="yarn-type-select" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--color-pink-border); background:#fff; font-family:inherit; color:var(--color-brown); font-size:0.95rem;">
+                <option value="lace">蕾絲線 / 超細線（Lace / 0–1 號）</option>
+                <option value="fine">細毛線 / 襪線（Fine / 2 號）</option>
+                <option value="dk" selected>中細線 / 五股牛奶棉（DK / 3–4 號，新手首選）</option>
+                <option value="worsted">中粗線 / 經典毛線（Worsted / 4 號）</option>
+                <option value="bulky">粗毛線 / 冰條線（Bulky / 5–6 號）</option>
+              </select>
+            </div>
+
+            <div style="background:#FFF9FA; border:1px solid var(--color-pink-border); border-radius:var(--radius-sm); padding:18px; margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <span style="font-size:0.88rem; color:var(--color-caramel-text);">推薦鉤針規格：</span>
+                <strong id="matcher-hook-size" style="font-size:1.15rem; color:var(--color-pink-dark);">3.0 mm ～ 3.5 mm (5/0 ~ 6/0 號)</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <span style="font-size:0.88rem; color:var(--color-caramel-text);">適合入門作品：</span>
+                <span id="matcher-best-project" style="font-size:0.92rem; font-weight:600; color:var(--color-brown);">小花、杯墊、小袋子、玩偶</span>
+              </div>
+              <div style="font-size:0.86rem; color:var(--color-brown); border-top:1px dashed var(--color-pink-border); padding-top:8px;" id="matcher-tip">
+                💡 <strong>手作心法：</strong>五股牛奶棉粗細適中、針目清楚不劈線，是新手練習手感與排針的最佳起點！
+              </div>
+            </div>
+
+            <div style="margin-top:auto;">
+              <p style="font-size:0.82rem; color:#888; text-align:center;">* 手勁偏緊的新手，建議選擇大半號至一號（如改用 4.0mm）會更容易挑針！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 頁面 4：精選作品 (Projects + Filters) -->
+    <div id="page-projects" class="page-view">
+      <!-- 05 入門作品推薦 (Projects) -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">新手作品推薦 <span>Beginner Projects</span></h2>
+          <p class="section-subtitle">從簡單的小作品開始，慢慢培養手感與成就感</p>
+        </div>
+
+        <!-- 雙維度篩選器 -->
+        <div class="filter-wrapper">
+          <div class="filter-row">
+            <span class="filter-label">難度篩選：</span>
+            <div class="filter-group" id="filter-diff-group">
+              <button class="btn-filter is-active" data-diff="all">全部難度</button>
+              <button class="btn-filter" data-diff="1">入門 (難度 1)</button>
+              <button class="btn-filter" data-diff="2">初階 (難度 2)</button>
+              <button class="btn-filter" data-diff="3">中階 (難度 3)</button>
+            </div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">作品類型：</span>
+            <div class="filter-group" id="filter-kind-group">
+              <button class="btn-filter is-active" data-kind="all">全部類型</button>
+              <button class="btn-filter" data-kind="charm">吊飾配件</button>
+              <button class="btn-filter" data-kind="home">居家日常</button>
+              <button class="btn-filter" data-kind="wear">穿搭配飾</button>
+              <button class="btn-filter" data-kind="doll">立體玩偶</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品數量提示 -->
+        <div class="projects-counter">
+          共 10 件精選作品 ｜ 目前顯示 <strong id="project-count" style="color:var(--color-caramel)">10</strong> 件
+        </div>
+
+        <div class="grid" id="projects-container"></div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 頁面 5：推薦測驗 (Quiz) -->
+    <div id="page-quiz" class="page-view">
+      <!-- 06 互動式新手測驗 (Quiz) -->
+    <section id="quiz" class="section quiz">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">來看看你適合什麼鉤織小物吧！ <span>Which project should you try?</span></h2>
+          <p class="section-subtitle">回答 3 個快速小問題，為你推薦最合適的起步專案</p>
+        </div>
+
+        <div class="quiz-card">
+          <form id="quiz-form">
+            <!-- 問題 1 -->
+            <div class="quiz-question">
+              <h3 class="quiz-question__title">Q1. 你目前的鉤織經驗大概是？</h3>
+              <div class="quiz-options">
+                <div class="quiz-option">
+                  <input type="radio" id="exp-0" name="experience" value="E0">
+                  <label for="exp-0">完全沒接觸過的新手</label>
+                </div>
+                <div class="quiz-option">
+                  <input type="radio" id="exp-1" name="experience" value="E1">
+                  <label for="exp-1">曾經稍微嘗試或摸索過</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 問題 2 -->
+            <div class="quiz-question">
+              <h3 class="quiz-question__title">Q2. 你希望花多少時間完成第一個作品？</h3>
+              <div class="quiz-options">
+                <div class="quiz-option">
+                  <input type="radio" id="time-0" name="time" value="T0">
+                  <label for="time-0">30 分鐘 ～ 1 小時內速成</label>
+                </div>
+                <div class="quiz-option">
+                  <input type="radio" id="time-1" name="time" value="T1">
+                  <label for="time-1">1 ～ 2 小時好好練習</label>
+                </div>
+                <div class="quiz-option">
+                  <input type="radio" id="time-2" name="time" value="T2">
+                  <label for="time-2">幾個小時也沒關係，想挑戰精緻作品</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 問題 3 -->
+            <div class="quiz-question">
+              <h3 class="quiz-question__title">Q3. 你最想做出哪種類型的成品？</h3>
+              <div class="quiz-options">
+                <div class="quiz-option">
+                  <input type="radio" id="pref-cute" name="theme" value="H_cute">
+                  <label for="pref-cute">可愛小吊飾 / 隨身小物</label>
+                </div>
+                <div class="quiz-option">
+                  <input type="radio" id="pref-useful" name="theme" value="H_useful">
+                  <label for="pref-useful">生活中能實際使用的好物</label>
+                </div>
+                <div class="quiz-option">
+                  <input type="radio" id="pref-doll" name="theme" value="H_doll">
+                  <label for="pref-doll">立體療癒的小玩偶娃娃</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="quiz-actions">
+              <button type="submit" class="btn btn-primary" id="btn-submit-quiz">查看我的推薦結果 🎯</button>
+            </div>
+          </form>
+
+          <!-- 測驗推薦結果卡片 -->
+          <div class="quiz-result" id="quiz-result">
+            <div class="quiz-result__header">
+              <img id="result-img" class="quiz-result__img" src="" alt="推薦作品">
+              <div>
+                <span class="badge badge-easy quiz-result__badge" id="result-badge">推薦作品</span>
+                <h3 class="quiz-result__title" id="result-title">作品名稱</h3>
+                <p style="color:var(--color-caramel-text); font-size:0.95rem;" id="result-meta">預估時間：30-60分鐘</p>
+              </div>
+            </div>
+            <div class="quiz-result__reason" id="result-reason">推薦理由載入中...</div>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+              <button class="btn btn-primary" id="btn-result-detail">查看作品詳細作法</button>
+              <button class="btn btn-outline" id="btn-quiz-reset">重新測驗 🔄</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="footer">
+    <div class="container">
+      <p>Made with yarn and a little creativity.</p>
+      <p class="footer__brand">Crochet Corner © 2026</p>
+      <p>Happy crocheting! 享受每一針的溫暖片刻</p>
+    </div>
+  </footer>
+
+  <!-- 共用 Modal -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-title">詳細資訊</h3>
+        <button class="modal__close" id="modal-close-btn" aria-label="關閉視窗">&times;</button>
+      </div>
+      <div class="modal__content" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast 提示容器 -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ===== 互動邏輯 JavaScript (原生、無外部相依) ===== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. 網站資料集 (Data Store)
+      const data = {
+  "tools": [
+    {
+      "id": "yarn",
+      "nameZh": "毛線",
+      "nameEn": "Yarn",
+      "image": "assets/yarn.png",
+      "fallbackEmoji": "🧶",
+      "alt": "一團捲好的鉤織用毛線",
+      "intro": "毛線是鉤織的主角，粗細與材質會影響成品的手感與大小。新手建議從中等粗細、淺色且不易分岔的棉線或壓克力線開始，較容易看清針目。",
+      "tips": [
+        "選擇淺色毛線，鉤的時候更容易看清楚每一個針目。",
+        "線材標籤上會標示建議鉤針號數，照著挑選最省力。"
+      ]
+    },
+    {
+      "id": "hook",
+      "nameZh": "鉤針",
+      "nameEn": "Crochet Hook",
+      "image": "assets/hook.png",
+      "fallbackEmoji": "🪝",
+      "alt": "一支金屬鉤織用鉤針",
+      "intro": "鉤針是把毛線鉤出針目的工具，前端的勾狀設計方便勾住線材。號數越大代表針越粗，需與毛線粗細相互搭配，才能鉤出鬆緊適中的成品。",
+      "tips": [
+        "新手可先用 4–5mm 的鉤針搭配中等粗細毛線練習。",
+        "握法沒有標準答案，鉛筆握法或湯匙握法，順手最重要。"
+      ]
+    },
+    {
+      "id": "scissors",
+      "nameZh": "剪刀",
+      "nameEn": "Scissors",
+      "image": "assets/scissors.png",
+      "fallbackEmoji": "✂️",
+      "alt": "一把小型手工藝用剪刀",
+      "intro": "剪刀用來剪斷毛線與修剪收尾的線頭。建議準備一把刀刃小巧、尖端銳利的手工藝剪刀，剪起線來俐落，也方便處理細節部位。",
+      "tips": [
+        "收尾留約 10 公分線頭再剪，方便藏線更牢固。"
+      ]
+    },
+    {
+      "id": "marker",
+      "nameZh": "記號扣",
+      "nameEn": "Stitch Markers",
+      "image": "assets/marker.png",
+      "fallbackEmoji": "🖇️",
+      "alt": "一組彩色的鉤織記號扣",
+      "intro": "記號扣用來標示每行起點或關鍵針目，環狀鉤織時特別好用。只要在起針處扣上一個，就能清楚知道一圈從哪裡開始，避免針數越鉤越亂。",
+      "tips": [
+        "環狀鉤織時在每圈起點扣上記號扣，就不容易算錯針數。"
+      ]
+    }
+  ],
+  "stitches": [
+    {
+      "id": "chain",
+      "nameZh": "鎖針",
+      "nameEn": "Chain Stitch",
+      "difficulty": "簡單",
+      "purpose": "鎖針是鉤織的起點，用來打底起針，也常作為行與行之間的轉換針，是幾乎所有作品的第一步。",
+      "tip": "保持每一針的鬆緊度一致，鉤出來的起針鏈才會平整好看，之後挑針也更輕鬆。",
+      "steps": [
+        "先在鉤針上打一個活結，將線掛好。",
+        "用鉤針勾住線，從活結的線圈中拉出，完成第一個鎖針。",
+        "重複「勾線、拉出」的動作，鉤出所需數量的鎖針，形成起針鏈。"
+      ],
+      "commonMistakes": [
+        "鉤得太緊導致下一行難以挑針，練習時刻意放鬆手勁即可改善。"
+      ]
+    },
+    {
+      "id": "turning",
+      "nameZh": "起立針",
+      "nameEn": "Turning Chain",
+      "difficulty": "簡單",
+      "purpose": "起立針是每一排開頭先鉤的幾個鎖針，用來把鉤針升到與該排針法相符的高度，是行與行之間的銜接操作，讓織片兩側平整不內縮。",
+      "tip": "起立針要鉤幾針並非固定，會隨下一排的針法與作品而不同；依教學說明或針法高度決定，不要每排都當成一樣。",
+      "steps": [
+        "在每一排開頭、正式鉤本排針法之前，先鉤出若干個鎖針作為起立針。",
+        "起立針的數量依下一排針法而定：短針通常 1 針、中長針約 2 針、長針約 3 針，具體針數請以教學說明為準。",
+        "鉤完起立針後將織片翻面（或轉向），再從這個高度開始鉤本排的第一針，讓排與排平順銜接。"
+      ],
+      "commonMistakes": [
+        "把起立針當成固定高度的單一針法：它是銜接下一排高度的操作，針數會隨針法改變，不要每排都鉤固定針數。",
+        "起立針鉤太緊會讓排邊向內拉、織片兩側不平，稍微放鬆即可改善。"
+      ]
+    },
+    {
+      "id": "slip",
+      "nameZh": "引拔針",
+      "nameEn": "Slip Stitch",
+      "difficulty": "簡單",
+      "purpose": "引拔針幾乎不增加高度，常用來收尾、接合成圈、移動針位或裝飾排邊，是讓織片收束或連接的實用針法。",
+      "tip": "引拔針容易鉤得太緊，尤其是接合成圈時；手勁放鬆一點，之後才好按針與拉線。",
+      "steps": [
+        "將鉤針插入指定的針目中（要接合成圈時，就插入起針鏈的第一針）。",
+        "鉤針勾線（繞線一圈）。",
+        "一次將線拉過指定針目與鉤針上原有的那個線圈，完成一個引拔針，鉤針上只留下一個線圈。"
+      ],
+      "commonMistakes": [
+        "誤把線分成兩次拉過（那是短針）；引拔針是「一次」將線拉過針目與鉤針上的線圈。",
+        "鉤得太緊導致收尾或成圈處僵硬，試著放鬆手勁即可。"
+      ]
+    },
+    {
+      "id": "single",
+      "nameZh": "短針",
+      "nameEn": "Single Crochet",
+      "difficulty": "中等",
+      "purpose": "短針針目緊密紮實，是鉤織玩偶與實用小物最常用的基本針法，能鉤出扎實不透光的織片。",
+      "tip": "每一行結束前先數一次針數，避免不小心加針或減針，織片邊緣才會整齊。",
+      "steps": [
+        "將鉤針插入前一行的針目中。",
+        "勾線後拉出，此時鉤針上會有兩個線圈。",
+        "再次勾線，一次穿過鉤針上的兩個線圈，完成一個短針。"
+      ],
+      "commonMistakes": [
+        "忘記在每行起點標記記號扣，導致針數越鉤越亂，建議全程使用記號扣。"
+      ]
+    },
+    {
+      "id": "half",
+      "nameZh": "中長針",
+      "nameEn": "Half Double Crochet",
+      "difficulty": "中等",
+      "purpose": "中長針的高度介於短針與長針之間，組織紮實又帶點彈性，常用於帽子、包包與衣物等需要適度厚度的作品。",
+      "tip": "最後一步是「一次」拉過鉤針上的三個線圈，這正是中長針與長針最大的區別。",
+      "steps": [
+        "先在鉤針上繞線一圈，再將鉤針插入前一排的針目中。",
+        "鉤針勾線後拉出一個線圈，此時鉤針上共有三個線圈（原本的線圈、繞的線、新拉出的線圈）。",
+        "鉤針再勾一次線，一次拉過鉤針上的三個線圈，完成一個中長針。"
+      ],
+      "commonMistakes": [
+        "把最後一步分成兩次拉過（那會變成長針）；中長針是一次拉過三個線圈。",
+        "開始忘記先繞線，沒有三個線圈就無法形成中長針，動手前記得先繞線一圈。"
+      ]
+    },
+    {
+      "id": "double",
+      "nameZh": "長針",
+      "nameEn": "Double Crochet",
+      "difficulty": "困難",
+      "purpose": "長針針目較高、延展性佳，能快速增加織片高度，常用於圍巾、毯子等需要蓬鬆通透質感的作品。",
+      "tip": "起針時記得先鉤立起針（通常為三個鎖針）當作第一針的高度，織片兩側才會平整。",
+      "steps": [
+        "先在鉤針上繞線一圈，再將鉤針插入前一行的針目中。",
+        "勾線後拉出，此時鉤針上有三個線圈。",
+        "勾線一次穿過前兩個線圈，再勾線一次穿過剩下的兩個線圈，完成一個長針。"
+      ],
+      "commonMistakes": [
+        "忘記一開始的繞線，鉤出來會變成短針，動手前務必先繞線一圈。"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "flower",
+      "nameZh": "小花",
+      "difficulty": 1,
+      "category": "Easy",
+      "timeText": "30–60 分鐘",
+      "timeMin": 30,
+      "materials": [
+        "淺色中等粗細毛線少量",
+        "搭配線材號數的鉤針一支",
+        "剪刀與縫針，用來收尾藏線"
+      ],
+      "direction": "以鎖針起針並圍成小圈，環狀鉤出數片花瓣後收口，最後整理花形並藏好線頭。",
+      "notes": [
+        "花瓣針數保持一致，整朵小花才會對稱好看。",
+        "收尾時留長一點線頭，方便把花朵縫到其他作品上。"
+      ],
+      "kind": "charm",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "theme": "cute",
+      "image": "assets/flower.png",
+      "fallbackEmoji": "🌸",
+      "alt": "一朵鉤織完成的粉色小花"
+    },
+    {
+      "id": "strawberry",
+      "nameZh": "小草莓",
+      "difficulty": 2,
+      "category": "Easy",
+      "timeText": "1–2 小時",
+      "timeMin": 60,
+      "materials": [
+        "紅色與綠色中等粗細毛線各少量",
+        "搭配線材號數的鉤針一支",
+        "少量填充棉",
+        "剪刀與縫針"
+      ],
+      "direction": "用短針以紅色線鉤出草莓的立體圓身並塞入填充棉，再以綠色線鉤出葉片，最後縫合組裝。",
+      "notes": [
+        "短針要鉤得緊實，填充棉才不會從針目縫隙露出來。",
+        "塞棉花時分次少量塞入，形狀會更圓潤飽滿。"
+      ],
+      "kind": "charm",
+      "stitches": [
+        "鎖針",
+        "短針"
+      ],
+      "theme": "cute",
+      "image": "assets/strawberry.png",
+      "fallbackEmoji": "🍓",
+      "alt": "一顆附有綠色葉片的鉤織小草莓"
+    },
+    {
+      "id": "bag",
+      "nameZh": "小袋子",
+      "difficulty": 3,
+      "category": "Medium",
+      "timeText": "2–4 小時",
+      "timeMin": 120,
+      "materials": [
+        "中等粗細毛線一至兩球",
+        "搭配線材號數的鉤針一支",
+        "記號扣，標示每行起點",
+        "剪刀與縫針"
+      ],
+      "direction": "從袋底開始環狀鉤起，往上以短針鉤出袋身，接著鉤出提把或穿繩口，最後收尾並藏線。",
+      "notes": [
+        "全程使用記號扣標示起點，袋身的針數才不會越鉤越亂。",
+        "提把要鉤得紮實一些，裝東西時才不易變形鬆垮。"
+      ],
+      "kind": "home",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "theme": "useful",
+      "image": "assets/bag.png",
+      "fallbackEmoji": "👜",
+      "alt": "一個附有提把的鉤織小袋子"
+    },
+    {
+      "id": "bear",
+      "nameZh": "小熊",
+      "difficulty": 3,
+      "category": "Medium",
+      "timeText": "3–6 小時",
+      "timeMin": 180,
+      "materials": [
+        "棕色或米色中等粗細毛線一至兩球",
+        "搭配線材號數的鉤針一支",
+        "填充棉",
+        "安全眼睛或深色繡線",
+        "記號扣、剪刀與縫針"
+      ],
+      "direction": "以短針分別環狀鉤出頭、身體與四肢並塞入填充棉，再將各部位縫合組裝，最後縫上五官。",
+      "notes": [
+        "各部位塞棉後再縫合，小熊才會立體不塌陷。",
+        "縫合前先用記號扣固定位置，確認比例滿意再下針。"
+      ],
+      "kind": "doll",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "theme": "doll",
+      "image": "assets/bear.png",
+      "fallbackEmoji": "🧸",
+      "alt": "一隻鉤織完成的立體小熊玩偶"
+    },
+    {
+      "id": "heart",
+      "nameZh": "愛心吊飾",
+      "difficulty": 1,
+      "category": "Easy",
+      "kind": "charm",
+      "timeText": "20–40 分鐘",
+      "timeMin": 20,
+      "intro": "愛心吊飾是絕對新手很好的第一個成品，只用最基本的鎖針與短針，環狀鉤出小小的愛心形狀，很快就能完成一個，很有成就感。",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "materials": [
+        "紅色或粉色中等粗細毛線少量",
+        "搭配線材號數的鉤針一支",
+        "鑰匙圈或吊飾繩",
+        "剪刀與縫針"
+      ],
+      "direction": "以鎖針起針並圍成小圈，用短針分段鉤出兩個圓弧與一個尖角，形成愛心輪廓，最後收尾並接上吊飾繩。",
+      "notes": [
+        "兩側圓弧的針數要對稱，愛心形狀才會工整。",
+        "收尾線頭留長一點，方便牢牢接上吊飾繩或鑰匙圈。"
+      ],
+      "theme": "cute",
+      "image": "assets/heart.png",
+      "fallbackEmoji": "💗",
+      "alt": "一個鉤織完成的粉紅色愛心吊飾"
+    },
+    {
+      "id": "bow",
+      "nameZh": "蝴蝶結髮飾",
+      "difficulty": 1,
+      "category": "Easy",
+      "kind": "wear",
+      "timeText": "30–60 分鐘",
+      "timeMin": 30,
+      "intro": "蝴蝶結髮飾是平面的小作品，用短針鉤出一片長方形織片，中間束起就成了蝴蝶結，很適合新手練習鉤整齊的方形織片。",
+      "stitches": [
+        "鎖針",
+        "短針"
+      ],
+      "materials": [
+        "喜歡顏色的中等粗細毛線少量",
+        "搭配線材號數的鉤針一支",
+        "髮夾或髮圈",
+        "剪刀與縫針"
+      ],
+      "direction": "以短針來回鉤出一片長方形織片，於中央用線纏繞束緊成蝴蝶結，再縫到髮夾或髮圈上。",
+      "notes": [
+        "每一行針數保持一致，長方形才不會變成梯形。",
+        "中央纏繞的線拉緊一點，蝴蝶結才會立體不鬆散。"
+      ],
+      "theme": "cute",
+      "image": "assets/bow.png",
+      "fallbackEmoji": "🎀",
+      "alt": "一個鉤織完成的蝴蝶結髮飾"
+    },
+    {
+      "id": "coaster",
+      "nameZh": "杯墊",
+      "difficulty": 1,
+      "category": "Easy",
+      "kind": "home",
+      "timeText": "30–60 分鐘",
+      "timeMin": 30,
+      "intro": "杯墊是練習環狀加針的好作品，從中心一圈圈往外鉤成一個平整的圓，既實用又能練好基本功，完成後馬上能用。",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "materials": [
+        "棉質中等粗細毛線一球（吸水較好）",
+        "搭配線材號數的鉤針一支",
+        "記號扣，標示每圈起點",
+        "剪刀與縫針"
+      ],
+      "direction": "從中心環狀起針，每一圈平均加針並以短針往外擴大，鉤到想要的大小後以引拔針收圈、藏線。",
+      "notes": [
+        "每圈平均加針，杯墊才會平整不捲邊或波浪。",
+        "全程使用記號扣標示起點，才不會算錯一圈的針數。"
+      ],
+      "theme": "useful",
+      "image": "assets/coaster.png",
+      "fallbackEmoji": "🟤",
+      "alt": "一個鉤織完成的圓形杯墊"
+    },
+    {
+      "id": "cherry",
+      "nameZh": "櫻桃鑰匙圈",
+      "difficulty": 2,
+      "category": "Easy",
+      "kind": "charm",
+      "timeText": "1–2 小時",
+      "timeMin": 60,
+      "intro": "櫻桃鑰匙圈由兩顆塞棉的小球加上綠色葉梗組成，練習環狀短針與塞棉收口，立體又可愛，是很受歡迎的小吊飾。",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "materials": [
+        "紅色與綠色中等粗細毛線各少量",
+        "搭配線材號數的鉤針一支",
+        "少量填充棉",
+        "鑰匙圈五金",
+        "記號扣、剪刀與縫針"
+      ],
+      "direction": "以短針環狀各鉤出兩顆紅色小球並塞入填充棉收口，再以綠色線鉤出葉片與梗，組合後接上鑰匙圈。",
+      "notes": [
+        "短針要鉤得緊實，填充棉才不會從縫隙露出。",
+        "兩顆櫻桃大小盡量一致，成品看起來更協調。"
+      ],
+      "theme": "cute",
+      "image": "assets/cherry.png",
+      "fallbackEmoji": "🍒",
+      "alt": "一個附有雙顆櫻桃的鉤織鑰匙圈"
+    },
+    {
+      "id": "scrunchie",
+      "nameZh": "鉤織髮圈",
+      "difficulty": 2,
+      "category": "Easy",
+      "kind": "wear",
+      "timeText": "45–90 分鐘",
+      "timeMin": 45,
+      "intro": "鉤織髮圈是把毛線一針針包覆在現成的鬆緊髮圈上，用中長針鉤出蓬鬆有波浪的質感，實用又好搭配，適合想做穿搭小物的新手。",
+      "stitches": [
+        "鎖針",
+        "中長針",
+        "引拔針"
+      ],
+      "materials": [
+        "柔軟中等粗細毛線少量",
+        "搭配線材號數的鉤針一支",
+        "現成的鬆緊髮圈一個",
+        "剪刀與縫針"
+      ],
+      "direction": "將線以短針起頭固定在髮圈上，沿著髮圈一圈以中長針密密鉤出蓬度，最後與起點以引拔針接合並藏線。",
+      "notes": [
+        "針目要鉤得密一點，才能完全蓋住裡面的髮圈。",
+        "一圈的針數足夠多，髮圈才會蓬鬆有波浪感。"
+      ],
+      "theme": "useful",
+      "image": "assets/scrunchie.png",
+      "fallbackEmoji": "💮",
+      "alt": "一個以毛線包覆鉤成的蓬鬆髮圈"
+    },
+    {
+      "id": "whale",
+      "nameZh": "小鯨魚娃娃",
+      "difficulty": 3,
+      "category": "Medium",
+      "kind": "doll",
+      "timeText": "2–4 小時",
+      "timeMin": 120,
+      "intro": "小鯨魚娃娃是立體玩偶的入門款，身體由環狀短針鉤成橢圓並塞棉，再加上尾巴與小小的噴水，造型簡單圓潤，很適合想挑戰玩偶的新手。",
+      "stitches": [
+        "鎖針",
+        "短針",
+        "引拔針"
+      ],
+      "materials": [
+        "藍色或灰藍色中等粗細毛線一球",
+        "搭配線材號數的鉤針一支",
+        "填充棉",
+        "安全眼睛或深色繡線",
+        "記號扣、剪刀與縫針"
+      ],
+      "direction": "以短針環狀鉤出橢圓形身體並適度塞棉，收口後鉤出尾鰭與小噴水造型縫合，最後縫上眼睛與嘴巴。",
+      "notes": [
+        "塞棉分次少量塞入，鯨魚身體才會圓潤不結塊。",
+        "收口前先確認塞棉量，塞太滿會從針目縫隙露出。"
+      ],
+      "theme": "doll",
+      "image": "assets/whale.png",
+      "fallbackEmoji": "🐳",
+      "alt": "一隻鉤織完成的立體小鯨魚娃娃"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "experience",
+        "title": "你目前的鉤織經驗大概是？",
+        "options": [
+          {
+            "code": "E0",
+            "label": "完全沒經驗"
+          },
+          {
+            "code": "E1",
+            "label": "試過一點"
+          }
+        ]
+      },
+      {
+        "id": "time",
+        "title": "這次大約可以投入多少時間？",
+        "options": [
+          {
+            "code": "T0",
+            "label": "30 分鐘至 1 小時"
+          },
+          {
+            "code": "T1",
+            "label": "1 至 2 小時"
+          },
+          {
+            "code": "T2",
+            "label": "幾小時也沒關係"
+          }
+        ]
+      },
+      {
+        "id": "theme",
+        "title": "你比較喜歡哪一種作品類型？",
+        "options": [
+          {
+            "code": "H_cute",
+            "label": "可愛裝飾"
+          },
+          {
+            "code": "H_useful",
+            "label": "實用小物"
+          },
+          {
+            "code": "H_doll",
+            "label": "立體玩偶"
+          }
+        ]
+      }
+    ]
+  }
+};
+
+      // 2. 輔助函式：Toast 提示
+      function showToast(msg) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = msg;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3200);
+      }
+
+      // 3. 圖片 fallback 處理
+      window.handleImgError = function(img, emoji) {
+        img.onerror = null;
+        const parent = img.parentElement;
+        img.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#F9F2EA;border-radius:8px;';
+        fallback.textContent = emoji || '🧶';
+        parent.appendChild(fallback);
+      };
+
+      // 4. Modal 控制模組
+      const modalOverlay = document.getElementById('modal-overlay');
+      const modalTitle = document.getElementById('modal-title');
+      const modalBody = document.getElementById('modal-body');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+      let lastFocusedElement = null;
+
+      function openModal(title, htmlContent) {
+        lastFocusedElement = document.activeElement;
+        modalTitle.textContent = title;
+        modalBody.innerHTML = htmlContent;
+        modalOverlay.classList.add('is-open');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        modalCloseBtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('is-open');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+
+      modalCloseBtn.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+
+      // 5. 渲染工具區塊 (Tools)
+      const toolsContainer = document.getElementById('tools-container');
+      toolsContainer.innerHTML = data.tools.map(tool => `
+        <div class="card tool-card" id="tool-${tool.id}">
+          <div class="tool-card__img-wrap">
+            <img class="tool-card__img" src="${tool.image}" alt="${tool.alt}" onerror="handleImgError(this, '${tool.fallbackEmoji}')">
+          </div>
+          <div class="card-body">
+            <h3 class="tool-card__title">${tool.nameZh}</h3>
+            <p class="tool-card__en">${tool.nameEn}</p>
+            <p class="tool-card__intro">${tool.intro}</p>
+            <div class="tool-card__tips">
+              <strong>💡 新手小提示：</strong>
+              <ul style="margin-top:6px; padding-left:18px;">
+                ${tool.tips.map(tip => `<li>${tip}</li>`).join('')}
+              </ul>
+            </div>
+            <button class="btn-toggle-tips" type="button" onclick="this.closest('.tool-card').classList.toggle('is-expanded'); this.textContent = this.closest('.tool-card').classList.contains('is-expanded') ? '收起提示 ▲' : '查看新手提示 ▼';">
+              查看新手提示 ▼
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // 6. 渲染針法教學 (Stitches)
+      const stitchesContainer = document.getElementById('stitches-container');
+      stitchesContainer.innerHTML = data.stitches.map(stitch => {
+        const badgeClass = stitch.difficulty === '簡單' ? 'badge-easy' : (stitch.difficulty === '中等' ? 'badge-medium' : 'badge-hard');
+        return `
+          <div class="card stitch-card">
+            <div class="stitch-card__header">
+              <div>
+                <h3 class="stitch-card__name">${stitch.nameZh}</h3>
+                <span class="stitch-card__en">${stitch.nameEn}</span>
+              </div>
+              <span class="badge ${badgeClass}">${stitch.difficulty}</span>
+            </div>
+            <p class="stitch-card__desc">${stitch.purpose}</p>
+            <button class="btn btn-outline" style="margin-top:auto;" onclick="showStitchModal('${stitch.id}')">查看完整教學 📖</button>
+          </div>
+        `;
+      }).join('');
+
+      let currentStitch = null;
+      let currentStepIdx = 0;
+
+      window.showStitchModal = function(id) {
+        const s = data.stitches.find(item => item.id === id);
+        if (!s) return;
+        currentStitch = s;
+        currentStepIdx = 0;
+
+        const html = `
+          <div class="modal-section">
+            <div class="modal-section-title">📌 針法用途</div>
+            <p>${s.purpose}</p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">💡 新手操作重點</div>
+            <p>${s.tip}</p>
+          </div>
+
+          <!-- 互動式步驟演練播放器 -->
+          <div class="step-player" id="step-player-box">
+            <div class="step-player__badge" id="step-player-badge">步驟 1 / ${s.steps.length}</div>
+            <div class="step-player__text" id="step-player-text">${s.steps[0]}</div>
+            <div class="step-player__controls">
+              <button class="btn btn-outline" id="btn-step-prev" style="padding:6px 16px; font-size:0.9rem;" disabled>◀ 上一步</button>
+              <button class="btn btn-primary" id="btn-step-next" style="padding:6px 16px; font-size:0.9rem;">下一步 ▶</button>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">📝 完整步驟清單</div>
+            <ol class="modal-list">
+              ${s.steps.map((step, i) => `<li id="stitch-step-li-${i}">${step}</li>`).join('')}
+            </ol>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">⚠️ 常見錯誤與解決</div>
+            <ul class="modal-list">
+              ${s.commonMistakes.map(m => `<li>${m}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+        openModal(`${s.nameZh}（${s.nameEn}）步驟教學`, html);
+
+        // 綁定演練播放器事件
+        const btnPrev = document.getElementById('btn-step-prev');
+        const btnNext = document.getElementById('btn-step-next');
+        const badge = document.getElementById('step-player-badge');
+        const text = document.getElementById('step-player-text');
+
+        function updateStepUI() {
+          badge.textContent = `步驟 ${currentStepIdx + 1} / ${currentStitch.steps.length}`;
+          text.textContent = currentStitch.steps[currentStepIdx];
+          btnPrev.disabled = currentStepIdx === 0;
+          btnNext.textContent = currentStepIdx === currentStitch.steps.length - 1 ? '完成演練 ✔' : '下一步 ▶';
+
+          // 視覺連動高亮完整清單
+          currentStitch.steps.forEach((_, i) => {
+            const li = document.getElementById(`stitch-step-li-${i}`);
+            if (li) {
+              li.style.color = i === currentStepIdx ? 'var(--color-pink-dark)' : 'inherit';
+              li.style.fontWeight = i === currentStepIdx ? '700' : 'normal';
+            }
+          });
+        }
+
+        btnPrev.addEventListener('click', () => {
+          if (currentStepIdx > 0) {
+            currentStepIdx--;
+            updateStepUI();
+          }
+        });
+
+        btnNext.addEventListener('click', () => {
+          if (currentStepIdx < currentStitch.steps.length - 1) {
+            currentStepIdx++;
+            updateStepUI();
+          } else {
+            showToast(`太棒了！已完成【${currentStitch.nameZh}】的完整步驟演練！`);
+          }
+        });
+
+        updateStepUI();
+      };
+
+      // 7. 渲染入門作品 (Projects) 與雙維度篩選
+      const projectsContainer = document.getElementById('projects-container');
+      const projectCountEl = document.getElementById('project-count');
+      let currentDiff = 'all';
+      let currentKind = 'all';
+
+      function renderProjects() {
+        const filtered = data.projects.filter(p => {
+          const matchDiff = currentDiff === 'all' || p.difficulty.toString() === currentDiff;
+          const matchKind = currentKind === 'all' || p.kind === currentKind;
+          return matchDiff && matchKind;
+        });
+
+        projectCountEl.textContent = filtered.length;
+
+        if (filtered.length === 0) {
+          projectsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--color-caramel-text)">沒有符合條件的作品，試試其他篩選組合吧！</div>';
+          return;
+        }
+
+        projectsContainer.innerHTML = filtered.map(p => {
+          const badgeClass = p.difficulty === 1 ? 'badge-easy' : (p.difficulty === 2 ? 'badge-medium' : 'badge-hard');
+          const diffStars = '⭐'.repeat(p.difficulty);
+          return `
+            <div class="card project-card" data-diff="${p.difficulty}" data-kind="${p.kind}">
+              <div class="project-card__img-wrap">
+                <img class="project-card__img" src="${p.image}" alt="${p.alt}" onerror="handleImgError(this, '${p.fallbackEmoji}')">
+              </div>
+              <div class="card-body">
+                <div class="project-card__meta">
+                  <span class="badge ${badgeClass}">${p.category}</span>
+                  <span>難度 ${p.difficulty}/5 ${diffStars}</span>
+                </div>
+                <h3 class="project-card__title">${p.nameZh}</h3>
+                <div class="project-card__time">⏱️ 預估：${p.timeText}</div>
+                <button class="btn btn-primary" style="margin-top:auto;" onclick="showProjectModal('${p.id}')">查看作品作法</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 篩選按鈕事件
+      document.querySelectorAll('#filter-diff-group .btn-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#filter-diff-group .btn-filter').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentDiff = btn.dataset.diff;
+          renderProjects();
+        });
+      });
+
+      document.querySelectorAll('#filter-kind-group .btn-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#filter-kind-group .btn-filter').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentKind = btn.dataset.kind;
+          renderProjects();
+        });
+      });
+
+      renderProjects();
+
+      window.showProjectModal = function(id) {
+        const p = data.projects.find(item => item.id === id);
+        if (!p) return;
+        const html = `
+          <div class="modal-section">
+            <div class="modal-section-title">⏱️ 預估時間與難度</div>
+            <p><strong>難度：</strong>${p.difficulty}/5 (${p.category}) ｜ <strong>預估時間：</strong>${p.timeText}</p>
+            <p style="font-size:0.85rem; color:#777; margin-top:4px;">* 實際製作時間因個人熟練度與速度而有所差異。</p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🧶 所需材料</div>
+            <ul class="modal-list">
+              ${p.materials.map(m => `<li>${m}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🪡 會用到的針法</div>
+            <p>${p.stitches.join('、')}</p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">📋 製作方向概要</div>
+            <p>${p.direction}</p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">💡 新手小撇步</div>
+            <ul class="modal-list">
+              ${p.notes.map(n => `<li>${n}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+        openModal(`${p.nameZh} 作法指南`, html);
+      };
+
+      // 8. 互動式測驗推薦邏輯
+      const quizForm = document.getElementById('quiz-form');
+      const quizResult = document.getElementById('quiz-result');
+      const resultTitle = document.getElementById('result-title');
+      const resultImg = document.getElementById('result-img');
+      const resultMeta = document.getElementById('result-meta');
+      const resultReason = document.getElementById('result-reason');
+      const resultBadge = document.getElementById('result-badge');
+      const btnResultDetail = document.getElementById('btn-result-detail');
+      const btnQuizReset = document.getElementById('btn-quiz-reset');
+
+      quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const exp = quizForm.experience.value;
+        const time = quizForm.time.value;
+        const theme = quizForm.theme.value;
+
+        if (!exp || !time || !theme) {
+          showToast('請回答所有 3 個問題後再送出測驗喔！');
+          return;
+        }
+
+        // 計算使用者可負荷難度 (capScore: 0~3)
+        const expScore = exp === 'E0' ? 0 : 1;
+        const timeScore = time === 'T0' ? 0 : (time === 'T1' ? 1 : 2);
+        const cap = expScore + timeScore;
+        const maxDiff = cap === 0 ? 1 : (cap === 1 ? 2 : 3);
+
+        let targetId = 'flower';
+        let reason = '';
+
+        if (theme === 'H_cute') {
+          if (maxDiff >= 2) {
+            targetId = 'strawberry';
+            reason = '你喜歡可愛飾品且有足夠的耐心，精緻的小草莓能讓你在立體起針中體驗滿滿的手作樂趣！';
+          } else {
+            targetId = 'flower';
+            reason = '作為初次嘗試或時間有限的你，小花結構簡單且成形迅速，是建立信心的最佳起步！';
+          }
+        } else if (theme === 'H_useful') {
+          if (maxDiff >= 3) {
+            targetId = 'bag';
+            reason = '你熱愛實用好物且願意投入時間練習，小袋子不僅能練習排針平整度，完成後還能隨身帶著走！';
+          } else if (maxDiff === 2) {
+            targetId = 'scrunchie';
+            reason = '這款鉤織髮圈將針法包覆於鬆緊帶上，好看又實用，1小時內就能快速完成並派上用場！';
+          } else {
+            targetId = 'coaster';
+            reason = '經典圓形杯墊能讓你熟悉規律加針與鎖針起底，日常泡茶喝咖啡每天都用得到！';
+          }
+        } else if (theme === 'H_doll') {
+          if (maxDiff >= 3) {
+            targetId = 'whale';
+            reason = '你準備好挑戰立體玩偶了！小鯨魚結構圓潤、縫合部位適中，是進入玩偶世界最適合的第一站。';
+          } else {
+            targetId = maxDiff === 2 ? 'strawberry' : 'flower';
+            reason = '立體玩偶需要較多環形起針與減針技巧，考量到你目前的時間與經驗，先從可愛立體的' + (targetId === 'strawberry' ? '小草莓' : '小花') + '開始建立手感，之後做玩偶會更順手！';
+          }
+        }
+
+        const project = data.projects.find(p => p.id === targetId);
+        if (!project) return;
+
+        resultTitle.textContent = project.nameZh;
+        resultImg.src = project.image;
+        resultImg.alt = project.alt;
+        resultImg.onerror = () => handleImgError(resultImg, project.fallbackEmoji);
+        resultMeta.textContent = `難度：${project.difficulty}/5 (${project.category}) ｜ 預估：${project.timeText}`;
+        resultReason.innerHTML = `<strong>💡 推薦理由：</strong>${reason}`;
+        resultBadge.textContent = project.category;
+
+        quizResult.classList.add('is-visible');
+        btnResultDetail.onclick = () => showProjectModal(project.id);
+        quizResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+
+      // ===== 9. 手作工具箱互動邏輯 =====
+      // (1) 毛線配色調色盤
+      const palettes = [
+        {
+          name: '草莓歐蕾 🍓',
+          mood: '甜美軟萌',
+          desc: '溫柔的草莓粉調配上濃醇奶霜與焦糖色，適合小花髮飾、草莓吊飾與可愛杯墊。',
+          colors: ['#F7C5CC', '#FCEEE8', '#DE97A4', '#C58C6B', '#5A433A']
+        },
+        {
+          name: '焦糖布丁 🍮',
+          mood: '溫暖療癒',
+          desc: '濃郁奶香搭配烘烤焦糖棕，充滿秋日咖啡館氛圍，非常適合編織小熊或實用手袋。',
+          colors: ['#FFE9CE', '#E8B684', '#C1885C', '#885838', '#3F2C24']
+        },
+        {
+          name: '抹茶白玉 🍵',
+          mood: '清新鮮活',
+          desc: '沉靜的抹茶綠配上米白與淡黃，充滿日系手作風格，鉤織葉片花草時的絕配！',
+          colors: ['#DCE7D3', '#9EB890', '#627C55', '#FAF6EB', '#CDB58E']
+        },
+        {
+          name: '薰衣草莊園 🪻',
+          mood: '浪漫優雅',
+          desc: '如夢似幻的薰衣草紫搭配霧灰粉，散發舒緩安神的手作氣息，適合製作披巾與髮圈。',
+          colors: ['#E6DEEF', '#C6B2DC', '#9C80BE', '#F9F4FA', '#5F5070']
+        },
+        {
+          name: '蔚藍海岸 🐳',
+          mood: '活潑清透',
+          desc: '深淺海洋藍與浪花白交織，是編織小鯨魚娃娃、海龜吊飾的完美色選！',
+          colors: ['#D2E7F3', '#91C0DE', '#4F8FB8', '#F5FAFE', '#335773']
+        }
+      ];
+
+      const palettePreview = document.getElementById('palette-preview');
+      const paletteNameEl = document.getElementById('palette-name');
+      const paletteMoodEl = document.getElementById('palette-mood');
+      const paletteDescEl = document.getElementById('palette-desc');
+      const palettePresetsContainer = document.getElementById('palette-presets-container');
+
+      function renderPalette(pal) {
+        paletteNameEl.textContent = pal.name;
+        paletteMoodEl.textContent = pal.mood;
+        paletteDescEl.textContent = pal.desc;
+        palettePreview.innerHTML = pal.colors.map(c => `
+          <div class="palette-color" style="background-color:${c};" title="色碼：${c}">${c}</div>
+        `).join('');
+      }
+
+      palettePresetsContainer.innerHTML = palettes.map((pal, idx) => `
+        <button class="btn-palette ${idx === 0 ? 'is-active' : ''}" type="button" data-idx="${idx}">
+          ${pal.name}
+        </button>
+      `).join('');
+
+      palettePresetsContainer.querySelectorAll('.btn-palette').forEach(btn => {
+        btn.addEventListener('click', () => {
+          palettePresetsContainer.querySelectorAll('.btn-palette').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          const idx = parseInt(btn.dataset.idx, 10);
+          renderPalette(palettes[idx]);
+        });
+      });
+
+      document.getElementById('btn-random-palette').addEventListener('click', () => {
+        const randColors = Array.from({ length: 5 }, () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'));
+        renderPalette({
+          name: '✨ 隨機靈感色票',
+          mood: '天馬行空',
+          desc: '由演算法隨機生成的配色火花，試著為你的下一個原創作品跳脫框架挑戰看看吧！',
+          colors: randColors
+        });
+        palettePresetsContainer.querySelectorAll('.btn-palette').forEach(b => b.classList.remove('is-active'));
+        showToast('已生成一組全新隨機靈感色票！');
+      });
+
+      renderPalette(palettes[0]);
+
+      // (3) 線材與鉤針號數配對查詢器
+      const yarnMatcherData = {
+        lace: {
+          hook: '1.25 mm ～ 2.0 mm (蕾絲針 0~6 號)',
+          projects: '精緻杯墊蕾絲邊、微型小花飾品、耳環',
+          tip: '線材極細考驗眼力與手勁，初學者建議先從粗線熟悉動作後再來挑戰喔！'
+        },
+        fine: {
+          hook: '2.5 mm ～ 3.0 mm (4/0 號)',
+          projects: '蕾絲桌墊、小巧玩偶、細緻手帕滾邊',
+          tip: '針目細膩柔軟，編織時放鬆指尖肌肉，避免拉得過緊導致難以插針。'
+        },
+        dk: {
+          hook: '3.0 mm ～ 3.5 mm (5/0 ~ 6/0 號)',
+          projects: '小花、小草莓、杯墊、小袋子、立體小熊 (新手萬用首選！)',
+          tip: '五股牛奶棉粗細適中、不紮手且針目極易辨識，是初學者建立信心的第一名！'
+        },
+        worsted: {
+          hook: '4.0 mm ～ 5.0 mm (7/0 ~ 8/0 號)',
+          projects: '厚實杯墊、保暖圍巾、毛線帽、手提提袋',
+          tip: '編織進度快速，能迅速看到織片成形，非常適合想在短時間看到成果的新手。'
+        },
+        bulky: {
+          hook: '6.0 mm ～ 8.0 mm (10/0 號或以上粗針)',
+          projects: '粗毛線抱枕、冰條線胖胖包、巨型療癒娃娃',
+          tip: '線條極粗且毛茸茸，注意別把縫隙當成針目，建議隨時用記號扣輔助定位。'
+        }
+      };
+
+      const yarnTypeSelect = document.getElementById('yarn-type-select');
+      const matcherHookSize = document.getElementById('matcher-hook-size');
+      const matcherBestProject = document.getElementById('matcher-best-project');
+      const matcherTip = document.getElementById('matcher-tip');
+
+      yarnTypeSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        const info = yarnMatcherData[val];
+        if (info) {
+          matcherHookSize.textContent = info.hook;
+          matcherBestProject.textContent = info.projects;
+          matcherTip.innerHTML = `💡 <strong>手作心法：</strong>${info.tip}`;
+          showToast('已為您更新鉤針配對建議！');
+        }
+      });
+
+      btnQuizReset.addEventListener('click', () => {
+        quizForm.reset();
+        quizResult.classList.remove('is-visible');
+        showToast('測驗已重設，可以重新選擇囉！');
+      });
+
+
+      // ===== 10. 頁籤分頁導覽控制 (SPA Page Router) =====
+      window.switchPage = function(pageId) {
+        document.querySelectorAll('.page-view').forEach(view => {
+          view.classList.remove('is-active');
+        });
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('is-active');
+        });
+
+        const targetView = document.getElementById(pageId);
+        const targetBtn = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+
+        if (targetView) {
+          targetView.classList.add('is-active');
+        }
+        if (targetBtn) {
+          targetBtn.classList.add('is-active');
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.replaceState(null, '', '#' + pageId.replace('page-', ''));
+      };
+
+      // 導覽按鈕點擊事件
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pageId = btn.dataset.page;
+          if (pageId) switchPage(pageId);
+        });
+      });
+
+      // 品牌 Logo 點擊回首頁
+      document.querySelector('.brand').addEventListener('click', (e) => {
+        e.preventDefault();
+        switchPage('page-home');
+      });
+
+      // 根據 URL Hash 初始化分頁
+      function initPageFromHash() {
+        const hash = location.hash.replace('#', '');
+        if (hash) {
+          const pageId = 'page-' + hash;
+          if (document.getElementById(pageId)) {
+            switchPage(pageId);
+            return;
+          }
+        }
+        switchPage('page-home');
+      }
+
+      initPageFromHash();
+      window.addEventListener('hashchange', () => {
+        const hash = location.hash.replace('#', '');
+        if (hash && document.getElementById('page-' + hash)) {
+          switchPage('page-' + hash);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
